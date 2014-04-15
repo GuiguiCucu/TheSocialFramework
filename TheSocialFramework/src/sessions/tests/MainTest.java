@@ -17,7 +17,7 @@ public class MainTest {
 		Utilisateur user1 = new Utilisateur("michel", "micheldu38");
 		
 		listUsers.add(user1);
-		
+		System.out.println(user1.getPassword());
 	}
 
 }
