@@ -3,6 +3,8 @@ package contacts;
 public class ContactTest {
 
 	public static void main(String[] args) {
+		
+		// test de l'import
 		Contacts.importer("/home/c/cutroneg/PPO/google.csv");
 		
 		for(int i=0; i<Contacts.contacts.size(); i++){
@@ -11,6 +13,9 @@ public class ContactTest {
 			System.out.println(((Personne) Contacts.contacts.get(i)).getAdresse());
 			System.out.println("\n*****************\n");
 		}
+		
+		// test de l'export
+		Contacts.exporter("/home/c/cutroneg/PPO/contacts.csv");
 	}
 
 }

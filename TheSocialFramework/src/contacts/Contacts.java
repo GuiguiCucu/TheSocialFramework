@@ -1,7 +1,10 @@
 package contacts;
 
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.io.Reader;
 import java.io.Writer;
 import java.util.ArrayList;
@@ -9,6 +12,7 @@ import java.util.List;
 
 import com.googlecode.jcsv.reader.CSVReader;
 import com.googlecode.jcsv.writer.CSVWriter;
+import com.googlecode.jcsv.writer.internal.CSVWriterBuilder;
 import com.googlecode.jcsv.reader.internal.CSVReaderBuilder;
 import com.googlecode.jcsv.reader.internal.DefaultCSVEntryParser;
 import com.googlecode.jcsv.CSVStrategy;
@@ -19,21 +23,18 @@ import com.googlecode.jcsv.CSVStrategy;
  * 
  */
 public class Contacts {
-	
+
 	static List contacts;
 
-	public Contacts() {
-		
-
-	}
+	private char separator;
 
 	/**
 	 * Permet d'importer un fichier CSV contenant les contacts issus de Gmail
 	 * 
-	 * @param nom de fichier
+	 * @param fichier
 	 */
 	public static void importer(String fichier) {
-		
+
 		contacts = new ArrayList<Personne>();
 
 		try {
@@ -48,32 +49,62 @@ public class Contacts {
 
 			for (int i = 1; i < data.size() - 1; i += 2) {
 				String nom = data.get(i)[3].replaceAll("[\u0000-\u001f]", "");
-				String prenom = data.get(i)[1].replaceAll("[\u0000-\u001f]", "");
+				String prenom = data.get(i)[1]
+						.replaceAll("[\u0000-\u001f]", "");
 				String mail = data.get(i)[28].replaceAll("[\u0000-\u001f]", "");
-				
+
 				Personne p = new Personne(nom, prenom, mail);
 				contacts.add(p);
 			}
+			
+			csvParser.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
 	}
-	
+
 	/**
 	 * Permet l'export de la liste de ocntacts dans un fichier csv
 	 * 
-	 * @param chemin absolu du fichier
+	 * @param fichier
 	 */
-	public static void exporter(String fichier){
-		try {
-			Writer writer = new FileWriter(fichier);
+	public static void exporter(String fichier) {
+		if (contacts.isEmpty()) {
+			throw new IllegalArgumentException(
+					"Il n'y a aucun contact à exporter");
+		} else {
+//			try {
+//				Writer writer = new FileWriter(fichier);
+//				String[] titres = {"Nom", "Prenom", "Mail"};
+//				
+//				
+//				
+//				
+//
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			}
+				
+//			try {
+//				
+//				Writer writer = new FileWriter(fichier);
+//				CSVWriter csvOutput = new CSVWriterBuilder(writer).entryConverter(entryConverter).build();
+//				
+//				// write out a few records
+//				csvOutput.write("1");
+//				csvOutput.write("Bruce");
+//				
+//				csvOutput.write("2");
+//				csvOutput.write("John");
+//				
+//				csvOutput.close();
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//			}
 			
-			
-			
-		}catch (Exception e){
-			e.printStackTrace();
 		}
+
 	}
 
 }
