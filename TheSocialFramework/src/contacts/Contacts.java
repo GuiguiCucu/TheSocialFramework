@@ -24,7 +24,7 @@ import com.googlecode.jcsv.CSVStrategy;
  */
 public class Contacts {
 
-	static List contacts;
+	public static List contacts;
 
 	private char separator;
 

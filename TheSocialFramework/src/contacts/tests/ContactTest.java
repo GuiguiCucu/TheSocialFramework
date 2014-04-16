@@ -1,4 +1,7 @@
-package contacts;
+package contacts.tests;
+
+import contacts.Contacts;
+import contacts.Personne;
 
 public class ContactTest {
 
