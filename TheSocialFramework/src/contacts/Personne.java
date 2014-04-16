@@ -43,5 +43,4 @@ public class Personne {
 		this.adresse = adresse;
 	}
 	
-	
 }

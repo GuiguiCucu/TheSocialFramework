@@ -24,24 +24,22 @@ import com.googlecode.jcsv.CSVStrategy;
  */
 public class Contacts {
 
-	public static List contacts;
-
-	private char separator;
+	private List contacts;
 
 	/**
 	 * Permet d'importer un fichier CSV contenant les contacts issus de Gmail
 	 * 
 	 * @param fichier
 	 */
-	public static void importer(String fichier) {
+	public void importer(String fichier) {
 
-		contacts = new ArrayList<Personne>();
+		setContacts(new ArrayList<Personne>());
 
 		try {
 			Reader reader = new FileReader(fichier);
 			CSVStrategy strategy = new CSVStrategy(',', '"', '#', true, false);
 
-			CSVReader csvParser = new CSVReaderBuilder(reader)
+			CSVReader<String[]> csvParser = new CSVReaderBuilder(reader)
 					.strategy(strategy)
 					.entryParser(new DefaultCSVEntryParser()).build();
 
@@ -53,8 +51,7 @@ public class Contacts {
 						.replaceAll("[\u0000-\u001f]", "");
 				String mail = data.get(i)[28].replaceAll("[\u0000-\u001f]", "");
 
-				Personne p = new Personne(nom, prenom, mail);
-				contacts.add(p);
+				creerPersonne(nom, prenom, mail);
 			}
 			
 			csvParser.close();
@@ -69,18 +66,18 @@ public class Contacts {
 	 * 
 	 * @param fichier
 	 */
-	public static void exporter(String fichier) {
-		if (contacts.isEmpty()) {
+	public void exporter(String fichier) {
+		if (getContacts().isEmpty()) {
 			throw new IllegalArgumentException(
 					"Il n'y a aucun contact à exporter");
 		} else {
 				
 			try {
 				
-				Writer writer = new FileWriter(fichier+".csv");
+				Writer writer = new FileWriter(fichier);
 				
 				CSVWriter<Personne> csvWriter = new CSVWriterBuilder<Personne>(writer).entryConverter(new PersonneEntryConverter()).build();
-				csvWriter.writeAll(contacts);
+				csvWriter.writeAll(getContacts());
 				
 				writer.close();
 			} catch (IOException e) {
@@ -89,6 +86,34 @@ public class Contacts {
 			
 		}
 
+	}
+
+	/**
+	 * accesseur de la liste de contacts 
+	 * @return contacts
+	 */
+	public List<Personne> getContacts() {
+		return contacts;
+	}
+
+	/**
+	 * mutateur de liste de contacts
+	 * @param contacts
+	 */
+	public void setContacts(List<Personne> contacts) {
+		this.contacts = contacts;
+	}
+	
+
+	/**
+	 * Crée une nouvelle personne et ajoute cette personne à la liste de contact
+	 * @param nom
+	 * @param prenom
+	 * @param adresse
+	 */
+	public void creerPersonne(String nom, String prenom, String adresse){
+		Personne p = new Personne(nom, prenom, adresse);
+		getContacts().add(p);
 	}
 
 }
