@@ -74,34 +74,18 @@ public class Contacts {
 			throw new IllegalArgumentException(
 					"Il n'y a aucun contact à exporter");
 		} else {
-//			try {
-//				Writer writer = new FileWriter(fichier);
-//				String[] titres = {"Nom", "Prenom", "Mail"};
-//				
-//				
-//				
-//				
-//
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//			}
 				
-//			try {
-//				
-//				Writer writer = new FileWriter(fichier);
-//				CSVWriter csvOutput = new CSVWriterBuilder(writer).entryConverter(entryConverter).build();
-//				
-//				// write out a few records
-//				csvOutput.write("1");
-//				csvOutput.write("Bruce");
-//				
-//				csvOutput.write("2");
-//				csvOutput.write("John");
-//				
-//				csvOutput.close();
-//			} catch (IOException e) {
-//				e.printStackTrace();
-//			}
+			try {
+				
+				Writer writer = new FileWriter(fichier+".csv");
+				
+				CSVWriter<Personne> csvWriter = new CSVWriterBuilder<Personne>(writer).entryConverter(new PersonneEntryConverter()).build();
+				csvWriter.writeAll(contacts);
+				
+				writer.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 			
 		}
 
