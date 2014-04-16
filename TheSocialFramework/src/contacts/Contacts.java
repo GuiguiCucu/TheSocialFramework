@@ -1,11 +1,14 @@
 package contacts;
 
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.Reader;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.googlecode.jcsv.reader.CSVReader;
+import com.googlecode.jcsv.writer.CSVWriter;
 import com.googlecode.jcsv.reader.internal.CSVReaderBuilder;
 import com.googlecode.jcsv.reader.internal.DefaultCSVEntryParser;
 import com.googlecode.jcsv.CSVStrategy;
@@ -25,10 +28,9 @@ public class Contacts {
 	}
 
 	/**
-	 * Fonction qui permet d'importer un fichier CSV contenant les contacts
-	 * issus de Gmail
+	 * Permet d'importer un fichier CSV contenant les contacts issus de Gmail
 	 * 
-	 * @param fichier
+	 * @param nom de fichier
 	 */
 	public static void importer(String fichier) {
 		
@@ -56,6 +58,22 @@ public class Contacts {
 			e.printStackTrace();
 		}
 
+	}
+	
+	/**
+	 * Permet l'export de la liste de ocntacts dans un fichier csv
+	 * 
+	 * @param chemin absolu du fichier
+	 */
+	public static void exporter(String fichier){
+		try {
+			Writer writer = new FileWriter(fichier);
+			
+			
+			
+		}catch (Exception e){
+			e.printStackTrace();
+		}
 	}
 
 }
