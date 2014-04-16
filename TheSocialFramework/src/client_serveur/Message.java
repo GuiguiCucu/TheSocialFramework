@@ -16,6 +16,15 @@ import javax.swing.JOptionPane;
  * @author forestip
  */
 public class Message {
+	
+	/**
+	 * TODO : Enregistrer chemin d'upload
+	 * TODO : enregistrer utilisateur serveur?
+	 * TODO : authentification : réponse serveur
+	 * TODO : Droit sur dossier? Un dossier par utilisateur?
+	 * TODO : Taille du dossier utilisateur?
+	 * TODO : Dernière modification ?
+	 */
 
     private OutputStream out = null;
     private InputStream in = null;
@@ -43,7 +52,7 @@ public class Message {
      * Envoi d'une chaine de caractères
      * @param message Message
      */
-    public void envoiMessage(String message) {
+    synchronized public void envoiMessage(String message) {
         try {
             sortie.writeUTF(message);
         } catch (IOException ex) {
@@ -55,8 +64,8 @@ public class Message {
      * Envoi d'un fichier par le réseau
      * @throws IOException 
      */
-    public void envoiFichier() throws IOException{
-    	File fileToSend = new File("/home/f/forestip/git/TheSocialFramework/TheSocialFramework/test.mp3");
+    synchronized public void envoiFichier() throws IOException{
+    	File fileToSend = new File("/home/f/forestip/git/TheSocialFramework/TheSocialFramework/test.jpg");
     	this.envoiMessage("@nameFile:"+fileToSend.getName());
     	this.envoiMessage("@sizeFile:"+fileToSend.length());
     	int count;
@@ -73,16 +82,21 @@ public class Message {
      * Réception d'un fichier transité par le fichier
      * @throws IOException 
      */
-    public void receptionFichier() throws IOException{
+    synchronized public void receptionFichier() throws IOException{
     	System.out.println("Réception fichier....");
     	String fileName = this.receptionMessage();
+    	System.out.println(fileName);
     	String cmd ="@nameFile:";
     	fileName = fileName.replace(cmd, "");
-		System.out.println(fileName);
-    	
     	
     	String fileSize = this.receptionMessage();
-    	FileOutputStream fos = new FileOutputStream("/home/f/forestip/git/TheSocialFramework/TheSocialFramework/uploads/"+fileName);
+    	System.out.println(fileSize);
+    	String cmd2 ="@sizeFile:";
+    	fileSize = fileSize.replace(cmd2, "");
+		System.out.println("Taille de " +fileName+" : "+fileSize);
+    	
+    	
+       	FileOutputStream fos = new FileOutputStream("/home/f/forestip/git/TheSocialFramework/TheSocialFramework/uploads/"+fileName);
     	BufferedOutputStream outBuf = new BufferedOutputStream(fos);
     	byte[] buffer = new byte[1024];
     	int count;
@@ -98,7 +112,7 @@ public class Message {
      * @return le message reçu
      * @throws IOException exception relative aux objets de communication
      */
-    public String receptionMessage() throws IOException  {
+    synchronized public String receptionMessage() throws IOException  {
         String res = "initialisation";
         try {
             res = entree.readUTF();
