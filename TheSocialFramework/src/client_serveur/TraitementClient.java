@@ -7,6 +7,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
+ * Thread représentant la connexion d'un client au serveur
  * 
  * @author forestip
  */
@@ -18,8 +19,14 @@ public class TraitementClient implements Runnable {
 	private Message message;
 	private InetAddress adresseClient;
 	private String nomClient;
-	private boolean alreadyConnected = false;
 
+	/**
+	 * 
+	 * @param socketTransfert
+	 *            Socket de transfert propre au serveur
+	 * @param serv
+	 *            Serveur sur lequel est rattaché le thread
+	 */
 	public TraitementClient(Socket socketTransfert, Serveur serv) {
 		this.setSocketDeTransfert(socketTransfert);
 		this.setServ(serv);
@@ -31,6 +38,10 @@ public class TraitementClient implements Runnable {
 		this.getClient().start();
 	}
 
+	/**
+	 * Redéfinition de la méthode run : 
+	 * description des instructions du thread (écoute en boucle)
+	 */
 	public void run() {
 		this.getServ().printWelcome((this));
 		boolean connect = true;
@@ -40,7 +51,14 @@ public class TraitementClient implements Runnable {
 			String envoi = "";
 			try {
 				envoi = this.getMessage().receptionMessage();
-				System.out.println("MESSAGE RECU de " +this.getAdresseClient() +" : "+envoi);
+				if(envoi.equals("@sendfile")){
+					System.out.println("Demande d'envoi de fichier");
+					System.out.println("Envoi de la confiormation de la demande pour débuter le transfert");
+					this.getMessage().envoiMessage("@oksendfile");
+					this.getMessage().receptionFichier();
+				}
+				//this.getMessage().receptionFichier();
+				//System.out.println("MESSAGE RECU de " + this.getAdresseClient()+ " : " + envoi);
 			} catch (IOException ex) {
 				Logger.getLogger(TraitementClient.class.getName()).log(
 						Level.SEVERE, null, ex);
@@ -95,7 +113,4 @@ public class TraitementClient implements Runnable {
 	public void setNomClient(String nomClient) {
 		this.nomClient = nomClient;
 	}
-
-	// ////////////////////////////////////////////////////////////////////
-
 }

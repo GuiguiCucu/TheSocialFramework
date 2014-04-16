@@ -12,7 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
- *
+ * Abstraction des objets et méthodes de communication sur le réseau
  * @author forestip
  */
 public class Message {
@@ -23,6 +23,10 @@ public class Message {
     private DataInputStream entree;
     private Socket socketTransfert;
 
+    /**
+     * Constructeur
+     * @param s le socket de liaison
+     */
     public Message(Socket s) {
         try {
             this.setSocket(s);        
@@ -35,6 +39,10 @@ public class Message {
         }
     }
 
+    /**
+     * Envoi d'une chaine de caractères
+     * @param message Message
+     */
     public void envoiMessage(String message) {
         try {
             sortie.writeUTF(message);
@@ -42,7 +50,54 @@ public class Message {
            JOptionPane.showMessageDialog(new JFrame(), "Erreur lors de l'envoi" );
         }
     }
+    
+    /**
+     * Envoi d'un fichier par le réseau
+     * @throws IOException 
+     */
+    public void envoiFichier() throws IOException{
+    	File fileToSend = new File("/home/f/forestip/git/TheSocialFramework/TheSocialFramework/test.mp3");
+    	this.envoiMessage("@nameFile:"+fileToSend.getName());
+    	this.envoiMessage("@sizeFile:"+fileToSend.length());
+    	int count;
+    	byte[] buffer = new byte[1024];
+    	BufferedInputStream inBuf = new BufferedInputStream(new FileInputStream(fileToSend));
+    	while ((count = inBuf.read(buffer)) >= 0) {
+    	     out.write(buffer, 0, count);
+    	     out.flush();
+    	}
+    	inBuf.close();
+    }
+    
+    /**
+     * Réception d'un fichier transité par le fichier
+     * @throws IOException 
+     */
+    public void receptionFichier() throws IOException{
+    	System.out.println("Réception fichier....");
+    	String fileName = this.receptionMessage();
+    	String cmd ="@nameFile:";
+    	fileName = fileName.replace(cmd, "");
+		System.out.println(fileName);
+    	
+    	
+    	String fileSize = this.receptionMessage();
+    	FileOutputStream fos = new FileOutputStream("/home/f/forestip/git/TheSocialFramework/TheSocialFramework/uploads/"+fileName);
+    	BufferedOutputStream outBuf = new BufferedOutputStream(fos);
+    	byte[] buffer = new byte[1024];
+    	int count;
+    	InputStream in = this.getSocket().getInputStream();
+    	while((count=in.read(buffer)) >=0){
+    	    fos.write(buffer, 0, count);
+    	}
+    	outBuf.close();
+    }
 
+    /**
+     *  Réception d'une chaine de caractères
+     * @return le message reçu
+     * @throws IOException exception relative aux objets de communication
+     */
     public String receptionMessage() throws IOException  {
         String res = "initialisation";
         try {
@@ -56,7 +111,7 @@ public class Message {
         }
         return res;
     }
-
+    
     public DataInputStream getEntree() {
         return entree;
     }
