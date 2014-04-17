@@ -1,12 +1,20 @@
 package dropbox.tests;
 
+import java.io.IOException;
+
+import com.dropbox.core.DbxException;
+
+import dropbox.Dropbox;
+
 public class TestDropbox {
 
-	public static void main(String[] args) {
-		String APP_KEY = "INSERT_APP_KEY";
-	    String APP_SECRET = "INSERT_APP_SECRET";
+	public static void main(String[] args) throws IOException, DbxException {
+		String APP_KEY = "tajxrbh3ovhxxxp";
+	    String APP_SECRET = "password";
 	    
-	    // appel de la methode ...
+	    Dropbox dropbox = new Dropbox();
+	    
+	    dropbox.identification(APP_KEY, APP_SECRET);
 	}
 
 }
