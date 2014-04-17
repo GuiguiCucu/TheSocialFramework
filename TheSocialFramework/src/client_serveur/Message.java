@@ -65,7 +65,7 @@ public class Message {
      * @throws IOException 
      */
     synchronized public void envoiFichier() throws IOException{
-    	File fileToSend = new File("/home/f/forestip/git/TheSocialFramework/TheSocialFramework/test.jpg");
+    	File fileToSend = new File("/home/f/forestip/git/TheSocialFramework/TheSocialFramework/test.zip");
     	this.envoiMessage("@nameFile:"+fileToSend.getName());
     	this.envoiMessage("@sizeFile:"+fileToSend.length());
     	int count;

@@ -118,8 +118,49 @@ public class Contacts {
 		getContacts().add(p);
 	}
 	
-//	public Personne findPersonneByNom(String nom){
-//		return getContacts().get
-//	}
+	/**
+	 * Effectue une recherche dans les contacts selon le nom
+	 * @param nom
+	 * @return listPersonne
+	 */
+	public ArrayList<Personne> findPersonneByNom(String nom){
+		ArrayList<Personne> list = new ArrayList<Personne>();
+		for (int i=0; i<getContacts().size(); i++){
+			if(getContacts().get(i).getNom().equals(nom)){
+				list.add(getContacts().get(i));
+			}
+		}
+		return list;
+	}
+	
+	/**
+	 * Effectue une recherche dans les contacts selon le prénom
+	 * @param nom
+	 * @return listPersonne
+	 */
+	public ArrayList<Personne> findPersonneByPrenom(String prenom){
+		ArrayList<Personne> list = new ArrayList<Personne>();
+		for (int i=0; i<getContacts().size(); i++){
+			if(getContacts().get(i).getPrenom().equals(prenom)){
+				list.add(getContacts().get(i));
+			}
+		}
+		return list;
+	}
+	
+	/**
+	 * Effectue une recherche dans les contacts selon l'adresse
+	 * @param nom
+	 * @return listPersonne
+	 */
+	public ArrayList<Personne> findPersonneByAdresse(String adresse){
+		ArrayList<Personne> list = new ArrayList<Personne>();
+		for (int i=0; i<getContacts().size(); i++){
+			if(getContacts().get(i).getPrenom().equals(adresse)){
+				list.add(getContacts().get(i));
+			}
+		}
+		return list;
+	}
 
 }

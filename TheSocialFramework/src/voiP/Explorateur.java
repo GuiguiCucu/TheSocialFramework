@@ -24,6 +24,7 @@ public class Explorateur {
 	 * http://stackoverflow.com/questions/3705581/java
 	 * -sound-api-capturing-microphone
 	 * http://forum.allaboutcircuits.com/archive/index.php/t-28560.html
+	 * http://forum.allaboutcircuits.com/archive/index.php/t-28560.html
 	 * http://systembash.com/content/a-simple-java-udp-server-and-udp-client/
 	 */
 
