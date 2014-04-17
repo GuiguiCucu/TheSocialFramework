@@ -16,7 +16,7 @@ import javax.sound.sampled.Mixer;
 import javax.sound.sampled.Port;
 import javax.sound.sampled.TargetDataLine;
 
-public class ClientVoipUDP {
+public class ClientVoipUDP implements Runnable{
 
 	private static final String IP_TO_STREAM_TO = "localhost";
 	private static final int PORT_TO_STREAM_TO = 8888;
@@ -28,7 +28,7 @@ public class ClientVoipUDP {
 	}
 
 	public static void main(String[] args) {
-		/*Mixer.Info minfo[] = AudioSystem.getMixerInfo();
+		Mixer.Info minfo[] = AudioSystem.getMixerInfo();
 		for (int i = 0; i < minfo.length; i++) {
 			System.out.println(minfo[i]);
 		}
@@ -53,9 +53,9 @@ public class ClientVoipUDP {
 				System.exit(0);
 			}
 		}
-		System.out.println("TEST OUT");*/
+		System.out.println("TEST OUT");
 		
-		record();
+		//record();
 	}
 
 	public static void record() {
@@ -122,6 +122,11 @@ public class ClientVoipUDP {
 			e.printStackTrace();
 			System.out.println(" Unable to send soundpacket using UDP ");
 		}
+	}
 
+	@Override
+	public void run() {
+		record();
+		
 	}
 }
