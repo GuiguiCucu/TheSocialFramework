@@ -35,7 +35,6 @@ public class Serveur {
 		try {
 			Serveur serv = new Serveur(7846);
 			System.out.println("Serveur lancé!");
-
 			while (true) {
 				new TraitementClient(serv.getSocketEcoute().accept(), serv);
 			}
@@ -111,7 +110,9 @@ public class Serveur {
 	/**
 	 * 
 	 * synchronized car partagée par plusieurs threads TraitementClient
-	 * @param tC thread à qui souhaiter la bienvenue
+	 * 
+	 * @param tC
+	 *            thread à qui souhaiter la bienvenue
 	 */
 	synchronized public void printWelcome(TraitementClient tC) {
 		System.out.println("Client connecté " + tC.getAdresseClient());
@@ -119,15 +120,19 @@ public class Serveur {
 
 	/**
 	 * synchronized car partagé par plusieurs threads TraitementClient
-	 * @param tC thread à supprimer
+	 * 
+	 * @param tC
+	 *            thread à supprimer
 	 */
 	synchronized public void delClient(TraitementClient tC) {
-		
+
 	}
 
 	/**
 	 * Ajout d'un thread à la liste des processus s'éxécutant sur le serveur
-	 * @param newClient thread à ajouter
+	 * 
+	 * @param newClient
+	 *            thread à ajouter
 	 * @return la nouvelle taille de la liste de thread éxécutés sur le serveur
 	 */
 	synchronized public int addClient(TraitementClient newClient) {
