@@ -26,6 +26,7 @@ public class Explorateur {
 	 * http://forum.allaboutcircuits.com/archive/index.php/t-28560.html
 	 * http://forum.allaboutcircuits.com/archive/index.php/t-28560.html
 	 * http://systembash.com/content/a-simple-java-udp-server-and-udp-client/
+	 * http://www.infres.enst.fr/~domas/TPthr-resjava.html#Ref10
 	 */
 
 	private static final String IP_TO_STREAM_TO = "localhost";
