@@ -136,7 +136,6 @@ public class Dropbox {
         System.out.println("3. Copy the authorization code.");
         String code = new BufferedReader(new InputStreamReader(System.in)).readLine().trim();
 
-        System.out.println("tutu");
         // This will fail if the user enters an invalid authorization code.
         DbxAuthFinish authFinish = webAuth.finish(code);
         String accessToken = authFinish.accessToken;
