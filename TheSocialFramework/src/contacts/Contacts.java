@@ -62,7 +62,7 @@ public class Contacts {
 	}
 
 	/**
-	 * Permet l'export de la liste de ocntacts dans un fichier csv
+	 * Permet l'export de la liste de contacts dans un fichier csv
 	 * 
 	 * @param fichier
 	 */
