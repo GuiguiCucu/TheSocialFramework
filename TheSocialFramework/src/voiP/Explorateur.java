@@ -23,6 +23,7 @@ public class Explorateur {
 	 * /enregistrer-l-entree-micro/
 	 * http://stackoverflow.com/questions/3705581/java
 	 * -sound-api-capturing-microphone
+	 * http://forum.allaboutcircuits.com/archive/index.php/t-28560.html
 	 */
 
 	private static final String IP_TO_STREAM_TO = "localhost";
