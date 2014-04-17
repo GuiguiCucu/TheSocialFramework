@@ -10,7 +10,8 @@ public class ContactTest {
 		Contacts contacts = new Contacts();
 		
 		// test de l'import
-		contacts.importer("/home/c/cutroneg/PPO/google.csv");
+		contacts.importer("Z:/POO/ProjetFramework/google.csv");
+		//contacts.importer("/home/c/cutroneg/PPO/google.csv");
 		
 		for(int i=0; i<contacts.getContacts().size(); i++){
 			System.out.print(((Personne) contacts.getContacts().get(i)).getNom()+" ");
@@ -20,7 +21,8 @@ public class ContactTest {
 		}
 		
 		// test de l'export
-		contacts.exporter("/home/c/cutroneg/PPO/contacts.csv");
+		 contacts.exporter("Z:/POO/ProjetFramework/test.csv");
+		//contacts.exporter("/home/c/cutroneg/PPO/contacts.csv");
 	}
 
 }

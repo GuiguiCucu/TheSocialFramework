@@ -69,7 +69,7 @@ public class Contacts {
 	public void exporter(String fichier) {
 		if (getContacts().isEmpty()) {
 			throw new IllegalArgumentException(
-					"Il n'y a aucun contact à exporter");
+					"Il n'y a aucun contact a exporter");
 		} else {
 				
 			try {
@@ -106,7 +106,7 @@ public class Contacts {
 	
 
 	/**
-	 * Crée une nouvelle personne et ajoute cette personne à la liste de contact
+	 * Cree une nouvelle personne et ajoute cette personne a la liste de contacts
 	 * @param nom
 	 * @param prenom
 	 * @param adresse
