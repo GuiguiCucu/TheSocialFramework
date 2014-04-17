@@ -8,47 +8,100 @@ import java.net.InetAddress;
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.DataLine;
+import javax.sound.sampled.Line;
+import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.Mixer;
 import javax.sound.sampled.Port;
 import javax.sound.sampled.TargetDataLine;
 
 public class Explorateur {
+	/*
+	 * http://stackoverflow.com/questions/18641040/delay-with-voice-streams-on-java
+	 * http://www.artima.com/forums/flat.jsp?forum=1&thread=1031
+	 * http://www.developpez
+	 * .net/forums/d149268/java/general-java/apis/multimedia
+	 * /enregistrer-l-entree-micro/
+	 * http://stackoverflow.com/questions/3705581/java
+	 * -sound-api-capturing-microphone
+	 */
 
 	private static final String IP_TO_STREAM_TO = "localhost";
 	private static final int PORT_TO_STREAM_TO = 8888;
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws LineUnavailableException {
+		TargetDataLine line;
+		DataLine.Info info = new DataLine.Info(TargetDataLine.class, 
+				getAudioFormat()); // format is an AudioFormat object
+		if (!AudioSystem.isLineSupported(info)) {
+		    System.out.println("NOT SUPPORTED"); 
+
+		}
+		// Obtain and open the line.
+		 System.out.println("SUPPORTED"); 
+		try {
+		    line = (TargetDataLine) AudioSystem.getLine(info);
+		    line.open(getAudioFormat());
+		} catch (LineUnavailableException ex) {
+		    // Handle the error ... 
+			System.out.println("NOT HANDLE YET");
+		}
+		
+		/*
+		 * if (AudioSystem.isLineSupported(Port.Info.MICROPHONE)) {
+		 * try {
+		 * DataLine.Info dataLineInfo = new DataLine.Info( TargetDataLine.class,
+		 * getAudioFormat()); TargetDataLine targetDataLine = (TargetDataLine)
+		 * AudioSystem .getLine(dataLineInfo);
+		 * targetDataLine.open(getAudioFormat()); targetDataLine.start(); byte
+		 * tempBuffer[] = new byte[1000]; int cnt = 0; while (true) {
+		 * targetDataLine.read(tempBuffer, 0, tempBuffer.length);
+		 * System.out.println("test : " + tempBuffer); }
+		 * 
+		 * } catch (Exception e) { System.out.println(" not correct ");
+		 * System.exit(0); } }
+		 */
+	}
+	
+	public TargetDataLine getOsMicro() throws LineUnavailableException {
+		// get the default micro set by your OS.
+		AudioFormat format = new AudioFormat(8000.0f, 16, 1, true, true);
+		TargetDataLine microphone = AudioSystem.getTargetDataLine(format);
+		// OR (big Endian to false
+		// TargetDataLine microphone2 =
+		// AudioSystem.getTargetDataLine(getAudioFormat());
+		return microphone;
+	}
+
+	public void enumMicro() {
+		/* Affichage des périphériques */
 		Mixer.Info minfo[] = AudioSystem.getMixerInfo();
 		for (int i = 0; i < minfo.length; i++) {
 			System.out.println(minfo[i]);
 		}
+	}
 
-		if (AudioSystem.isLineSupported(Port.Info.MICROPHONE)) {
+	public void enumInputDevice() throws LineUnavailableException {
+		/*
+		 * select a particular input device (TargetDataLine) enumerate the
+		 * mixers and filter the name
+		 */
+		Mixer.Info[] mixerInfos = AudioSystem.getMixerInfo();
+		for (Mixer.Info info : mixerInfos) {
+			Mixer m = AudioSystem.getMixer(info);
+			Line.Info[] lineInfos = m.getSourceLineInfo();
+			for (Line.Info lineInfo : lineInfos) {
+				System.out.println(info.getName() + "---" + lineInfo);
+				Line line = m.getLine(lineInfo);
+				System.out.println("\t-----" + line);
+			}
+			lineInfos = m.getTargetLineInfo();
+			for (Line.Info lineInfo : lineInfos) {
+				System.out.println(m + "---" + lineInfo);
+				Line line = m.getLine(lineInfo);
+				System.out.println("\t-----" + line);
 
-			try {
-
-				DataLine.Info dataLineInfo = new DataLine.Info(
-						TargetDataLine.class, getAudioFormat());
-				TargetDataLine targetDataLine = (TargetDataLine) AudioSystem
-						.getLine(dataLineInfo);
-				targetDataLine.open(getAudioFormat());
-				targetDataLine.start();
-				byte tempBuffer[] = new byte[1000];
-				int cnt = 0;
-				while (true) {
-					targetDataLine.read(tempBuffer, 0, tempBuffer.length);
-					System.out.println("test : " + tempBuffer);
-				}
-
-			} catch (Exception e) {
-				System.out.println(" not correct ");
-				System.exit(0);
 			}
 		}
-
-		/*
-		 * Explorateur e = new Explorateur(); e.listerRepertoireCourant();
-		 */
 	}
 
 	public static AudioFormat getAudioFormat() {
@@ -77,9 +130,6 @@ public class Explorateur {
 			System.out.println(" Unable to send soundpacket using UDP ");
 		}
 
-	}
-
-	public Explorateur() {
 	}
 
 	public void listerRepertoireCourant() {
