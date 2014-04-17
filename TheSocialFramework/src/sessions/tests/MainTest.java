@@ -18,7 +18,6 @@ public class MainTest {
 
 	public MainTest() {
 		boolean connected = false;
-		Personne pers = new Personne("Jean", "Paul", "gcharlety@laposte.net");
 
 		listUsers = new ArrayList<Utilisateur>();
 		Utilisateur user1 = new Utilisateur("michel", "micheldu38");
@@ -32,7 +31,5 @@ public class MainTest {
 		else
 			System.out.println("login ou mot de passe incorrect");
 
-		pers.envoyerMail("gcharlety@laposte.net", "SujetTest",
-				"Ceci est un essai");
 	}
 }
