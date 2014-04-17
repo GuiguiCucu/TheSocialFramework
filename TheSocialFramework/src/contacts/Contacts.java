@@ -24,7 +24,11 @@ import com.googlecode.jcsv.CSVStrategy;
  */
 public class Contacts {
 
-	private List contacts;
+	private List<Personne> contacts;
+	
+	public Contacts(){
+		this.contacts = new ArrayList<Personne>();
+	}
 
 	/**
 	 * Permet d'importer un fichier CSV contenant les contacts issus de Gmail
@@ -39,9 +43,7 @@ public class Contacts {
 			Reader reader = new FileReader(fichier);
 			CSVStrategy strategy = new CSVStrategy(',', '"', '#', true, false);
 
-			CSVReader<String[]> csvParser = new CSVReaderBuilder(reader)
-					.strategy(strategy)
-					.entryParser(new DefaultCSVEntryParser()).build();
+			CSVReader<String[]> csvParser = new CSVReaderBuilder(reader).strategy(strategy).entryParser(new DefaultCSVEntryParser()).build();
 
 			List<String[]> data = csvParser.readAll();
 
@@ -115,5 +117,9 @@ public class Contacts {
 		Personne p = new Personne(nom, prenom, adresse);
 		getContacts().add(p);
 	}
+	
+//	public Personne findPersonneByNom(String nom){
+//		return getContacts().get
+//	}
 
 }
