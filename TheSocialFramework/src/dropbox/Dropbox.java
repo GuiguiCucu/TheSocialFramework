@@ -6,10 +6,14 @@ import java.io.*;
 import java.util.Locale;
 
 public class Dropbox {
- public static void main(String[] args) throws IOException, DbxException {
+	
+	
+	public static void main(String[] args) throws IOException, DbxException {
      // Get your app key and secret from the Dropbox developers website.
-     final String APP_KEY = "INSERT_APP_KEY";
-     final String APP_SECRET = "INSERT_APP_SECRET";
+     //final String APP_KEY = "INSERT_APP_KEY";
+     //final String APP_SECRET = "INSERT_APP_SECRET";
+     final String APP_KEY = "tajxrbh3ovhxxxp";
+     final String APP_SECRET = "password";
 
      DbxAppInfo appInfo = new DbxAppInfo(APP_KEY, APP_SECRET);
 
@@ -32,6 +36,9 @@ public class Dropbox {
 
      System.out.println("Linked account: " + client.getAccountInfo().displayName);
 
+
+
+
      File inputFile = new File("working-draft.txt");
      FileInputStream inputStream = new FileInputStream(inputFile);
      try {
@@ -47,6 +54,8 @@ public class Dropbox {
      for (DbxEntry child : listing.children) {
          System.out.println("	" + child.name + ": " + child.toString());
      }
+     
+     
 
      FileOutputStream outputStream = new FileOutputStream("magnum-opus.txt");
      try {
