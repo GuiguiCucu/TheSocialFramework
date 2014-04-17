@@ -1,6 +1,7 @@
 package dropbox.tests;
 
 import java.io.IOException;
+import java.util.Scanner;
 
 import com.dropbox.core.DbxException;
 
@@ -14,7 +15,19 @@ public class TestDropbox {
 	    
 	    Dropbox dropbox = new Dropbox();
 	    
-	    dropbox.identification(APP_KEY, APP_SECRET);
+	    //String url = dropbox.identification(APP_KEY, APP_SECRET);
+	    //03h9bWNCFbUAAAAAAAAABTXqbECJDNH3Oi_BZP3PV14
+	    
+	    //System.out.println(url);
+	    
+//	    Scanner sc = new Scanner(System.in);
+//	    System.out.println("Veuillez saisir un mot :");
+//	    String code = sc.nextLine();
+
+	    
+	    //dropbox.acces(code);
+	    
+	   // dropbox.upload("Z:/POO/ProjetFramework/test.txt", "/test.txt");
 	}
 
 }
