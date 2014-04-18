@@ -1,86 +1,89 @@
 package core.models.modules.voip;
 
-import java.awt.*;
-import java.awt.event.*;
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 
-import javax.swing.*;
-import javax.sound.sampled.*;
+import javax.sound.sampled.AudioFileFormat;
+import javax.sound.sampled.AudioFormat;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.DataLine;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.Mixer;
+import javax.sound.sampled.SourceDataLine;
+import javax.sound.sampled.TargetDataLine;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 
-public class RecordAndPlay implements ActionListener, Runnable {
+public class CaptureAudio implements Runnable {
 
+	/**
+	 * Le processus de capture
+	 */
 	Thread thread;
+	/**
+	 * Le flux audio du périphérique séléctionné
+	 */
 	AudioInputStream ais;
-	boolean recordstatus = false;
-	boolean playstatus = false;
-	float samplerate = 11025.0f;
-	float framerate = 11025.0f;
-	int buffersize = 16384;
+	/**
+	 * Booléens pour l'utilisation du thread de capture
+	 */
+	boolean recordstatus;
+	boolean playstatus;
+	/**
+	 * Valeurs pour l'obtention d'un format audio standard
+	 */
+	float samplerate;
+	float framerate;
+	int buffersize;
 
-	public static void main(String[] args) {
-		RecordAndPlay recordandplay = new RecordAndPlay();
-		recordandplay.init();
+	/**
+	 * Constructeur
+	 */
+	public CaptureAudio() {
+		boolean recordstatus = false;
+		boolean playstatus = false;
+		float samplerate = 11025.0f;
+		float framerate = 11025.0f;
+		int buffersize = 16384;
 	}
 
-	public void init() {
-		JFrame frame = new JFrame("RecordAndPlay");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		JButton recordbutton = new JButton("Record");
-		JButton stopbutton = new JButton("Stop");
-		JButton playbutton = new JButton("Play");
-		JButton savebutton = new JButton("Save");
-		JButton exitbutton = new JButton("Exit");
-		recordbutton.addActionListener(this);
-		stopbutton.addActionListener(this);
-		playbutton.addActionListener(this);
-		savebutton.addActionListener(this);
-		exitbutton.addActionListener(this);
-		JPanel panel = new JPanel();
-		panel.add(recordbutton);
-		panel.add(stopbutton);
-		panel.add(playbutton);
-		panel.add(savebutton);
-		panel.add(exitbutton);
-		frame.getContentPane().add(panel, "Center");
-		frame.show();
-		frame.pack();
-
-	}
-
-	public void actionPerformed(ActionEvent actionevent) {
-		String command = actionevent.getActionCommand();
-		System.out.println(command);
-		if (command.compareTo("Record") == 0) {
-			recordstatus = true;
-			playstatus = false;
-			start();
-		} else if (command.compareTo("Stop") == 0) {
-			stop();
-		} else if (command.compareTo("Play") == 0) {
-			recordstatus = false;
-			playstatus = true;
-			start();
-		} else if (command.compareTo("Save") == 0) {
-			saveToFile();
-		} else if (command.compareTo("Exit") == 0) {
-			if (thread != null)
-				stop();
-			System.exit(0);
-		}
-
-	}
-
-	public void start() {
+	/**
+	 * Enregistrement audio
+	 */
+	public void startRecord() {
+		recordstatus = true;
+		playstatus = false;
 		thread = new Thread(this);
 		thread.start();
 	}
 
+	/**
+	 * Ecoute de l'enregistrement audio
+	 */
+	public void startPlay() {
+		recordstatus = false;
+		playstatus = true;
+		thread = new Thread(this);
+		thread.start();
+	}
+
+	/**
+	 * Arrêt de la détection des flux
+	 */
 	public void stop() {
 		recordstatus = false;
 		playstatus = false;
 		thread = null;
 	}
 
+	/**
+	 * Redéfinition de la méthode run() du processus chargé de la capture
+	 */
+	@Override
 	public void run() {
 		if ((recordstatus) && (!playstatus))
 			record();
@@ -88,6 +91,9 @@ public class RecordAndPlay implements ActionListener, Runnable {
 			playback();
 	}
 
+	/**
+	 * Ecoute du flux stocké
+	 */
 	public void playback() {
 		SourceDataLine line;
 		if (ais == null) {
@@ -167,6 +173,9 @@ public class RecordAndPlay implements ActionListener, Runnable {
 		line = null;
 	}
 
+	/**
+	 * Detection du périphérique et enregistrement du flux
+	 */
 	public void record() {
 		TargetDataLine line = null;
 		// define the required attributes for our line,
@@ -233,10 +242,11 @@ public class RecordAndPlay implements ActionListener, Runnable {
 		}
 	}
 
+	/**
+	 * Conversion du flux et enregistrement au format WAVE
+	 */
 	public void saveToFile() {
-
 		AudioFileFormat.Type audiofileformattype = AudioFileFormat.Type.WAVE;
-
 		if (ais == null) {
 			System.out.println("No recorded audio to save");
 			return;
@@ -247,7 +257,6 @@ public class RecordAndPlay implements ActionListener, Runnable {
 			System.err.println("Unable to reset stream " + e);
 			return;
 		}
-
 		File file = getFileToSave();
 		try {
 			if (AudioSystem.write(ais, audiofileformattype, file) == -1) {
@@ -261,8 +270,9 @@ public class RecordAndPlay implements ActionListener, Runnable {
 	}
 
 	/**
-	 * Uses the showSaveDialog method of JFileChooser to request the user to
-	 * select the file to save to
+	 * Demande un chemin ou enregistrer le flux audio
+	 * 
+	 * @return le fichier devant contenir le flux
 	 */
 	public File getFileToSave() {
 		File file = null;
@@ -274,4 +284,53 @@ public class RecordAndPlay implements ActionListener, Runnable {
 		}
 		return file;
 	}
+
+	// CLASSE STATIQUES
+
+	/**
+	 * Obtention du périphérique d'entrée audio définie par le système
+	 * d'exploitation
+	 * 
+	 * @return Données audio exploitables
+	 * @throws LineUnavailableException
+	 */
+	public static TargetDataLine getOsMicro() throws LineUnavailableException {
+		AudioFormat format = new AudioFormat(8000.0f, 16, 1, true, true);
+		TargetDataLine microphone = AudioSystem.getTargetDataLine(format);
+		return microphone;
+	}
+
+	/**
+	 * Enumération des informations sur les périphériques d'entrées audio
+	 * 
+	 * @return une liste d'informations
+	 */
+	public static ArrayList<Mixer.Info> enumMixer() {
+		ArrayList<Mixer.Info> infos = new ArrayList<Mixer.Info>();
+		Mixer.Info minfo[] = AudioSystem.getMixerInfo();
+		for (int i = 0; i < minfo.length; i++) {
+			infos.add(minfo[i]);
+		}
+		return infos;
+	}
+
+	/**
+	 * Méthode construisant un objet AudioFormat à partir de valeurs standards
+	 * @return le format audio standard pour la voix
+	 */
+	public static AudioFormat getStandardAudioFormat() {
+		float sampleRate = 8000.0F;
+		// 8000,11025,16000,22050,44100
+		int sampleSizeInBits = 16;
+		// 8,16
+		int channels = 1;
+		// 1,2
+		boolean signed = true;
+		// true,false
+		boolean bigEndian = false;
+		// true,false
+		return new AudioFormat(sampleRate, sampleSizeInBits, channels, signed,
+				bigEndian);
+	}
+
 }

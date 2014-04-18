@@ -42,7 +42,7 @@ public class ClientVoipUDP implements Runnable{
 						.getLine(dataLineInfo);
 				targetDataLine.open(getAudioFormat());
 				targetDataLine.start();
-				byte tempBuffer[] = new byte[targetDataLine.getBufferSize() / 5];
+				byte tempBuffer[] = new byte[8192];
 				int cnt = 0;
 				while (true) {
 					targetDataLine.read(tempBuffer, 0, tempBuffer.length);
