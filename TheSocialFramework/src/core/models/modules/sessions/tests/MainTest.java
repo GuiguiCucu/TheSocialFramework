@@ -16,19 +16,19 @@ public class MainTest {
 	}
 
 	public MainTest() {
-		boolean connected = false;
-
-		listUsers = new ArrayList<Utilisateur>();
-		Utilisateur user1 = new Utilisateur("michel", "micheldu38");
-
-		listUsers.add(user1);
-
-		Utilisateur currentUser = Utilisateur.verification("michel",
-				"micheldu38", listUsers);
-		if (currentUser != null)
-			System.out.println("utilisateur connecté");
-		else
-			System.out.println("login ou mot de passe incorrect");
+//		boolean connected = false;
+//
+//		listUsers = new ArrayList<Utilisateur>();
+//		Utilisateur user1 = new Utilisateur("michel", "micheldu38");
+//
+//		listUsers.add(user1);
+//
+//		Utilisateur currentUser = Utilisateur.verification("michel",
+//				"micheldu38", listUsers);
+//		if (currentUser != null)
+//			System.out.println("utilisateur connecté");
+//		else
+//			System.out.println("login ou mot de passe incorrect");
 
 	}
 }

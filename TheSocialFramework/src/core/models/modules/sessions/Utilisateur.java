@@ -2,9 +2,10 @@ package core.models.modules.sessions;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
 
-public class Utilisateur {
+import core.models.modules.contacts.Contacts;
+
+public abstract class Utilisateur {
 
 	private String login;
 	private String password;
@@ -69,22 +70,19 @@ public class Utilisateur {
 	 * @param listUsers ArrayList<Utilisateur>
 	 * @return l'utilisateur courant si présent dans listUsers, null sinon
 	 */
-	public static Utilisateur verification(String login, String password, ArrayList<Utilisateur> listUsers){
+	public static boolean verification(String login, String password, Contacts<Utilisateur> contacts){
 
 		boolean connected = false;
 		
-		for (int i = 0; i < listUsers.size(); i++) {
-			if (listUsers.get(i).getLogin().equals(login)
-					&& listUsers.get(i).getPassword()
+		for (int i = 0; i < contacts.getContacts().size(); i++) {
+			if (contacts.getContacts().get(i).getLogin().equals(login)
+					&& contacts.getContacts().get(i).getPassword()
 							.equals(encode(password))) {
 				connected = true;
 			}
 		}
 		
-		if(connected)
-			return new Utilisateur(login, password);
-		else
-			return null;
+		return connected;
 	}
 
 }
