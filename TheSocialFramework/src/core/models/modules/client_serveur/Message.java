@@ -126,50 +126,98 @@ public class Message {
         return res;
     }
     
+    /**
+     * Accesseur de d'entrée
+     * @return entrée
+     */
     public DataInputStream getEntree() {
         return entree;
     }
 
+    /**
+     * Mutateur d'entrée
+     * @param entree
+     */
     public void setEntree(DataInputStream entree) {
         this.entree = entree;
     }
 
+    /**
+     * Accesseur de d'inputStream
+     * @return in
+     */
     public InputStream getIn() {
         return in;
     }
 
+    /**
+     * Mutateur d'inputStream
+     * @param in
+     */
     public void setIn(InputStream in) {
         this.in = in;
     }
 
+    /**
+     * Accesseur de d'outpuStream
+     * @return out
+     */
     public OutputStream getOut() {
         return out;
     }
 
+    /**
+     * Mutateur d'outputStream
+     * @param out
+     */
     public void setOut(OutputStream out) {
         this.out = out;
     }
 
+    /**
+     * Accesseur de socket
+     * @return socket
+     */
     public Socket getSocket() {
         return socketTransfert;
     }
 
+    /**
+     * Mutateur de socket
+     * @param socket
+     */
     public void setSocket(Socket socket) {
         this.socketTransfert = socket;
     }
 
+    /**
+     * Accesseur de sortie
+     * @return sortie
+     */
     public DataOutputStream getSortie() {
         return sortie;
     }
 
+    /**
+     * Mutateur de sortie
+     * @param sortie
+     */
     public void setSortie(DataOutputStream sortie) {
         this.sortie = sortie;
     }
 
+    /**
+     * Accesseur de transfert  
+     * @return socketTransfert
+     */
     public Socket getSocketTransfert() {
         return socketTransfert;
     }
 
+    /**
+     * Mutateur de transfert
+     * @param socketTransfert
+     */
     public void setSocketTransfert(Socket socketTransfert) {
         this.socketTransfert = socketTransfert;
     }    

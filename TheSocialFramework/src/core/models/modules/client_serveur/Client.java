@@ -104,58 +104,116 @@ public class Client implements Runnable {
 	
 	
 	/*GETTERS & SETTERS*/
+	
+	
+	/**
+	 * Accesseur de socket
+	 * @return socket
+	 */
 	public Socket getSocket() {
 		return socket;
 	}
 
+	/**
+	 * Mutateur de socket
+	 * @param socket
+	 */
 	public void setSocket(Socket socket) {
 		this.socket = socket;
 	}
 
+	/**
+	 * Accesseur d'inetAdresse
+	 * @return inetAddress
+	 */
 	public InetAddress getServ() {
 		return serv;
 	}
 
+	/**
+	 * Mutateur d'inetAddress
+	 * @param serv
+	 */
 	public void setServ(InetAddress serv) {
 		this.serv = serv;
 	}
 
+	/**
+	 * Accesseur de port
+	 * @return port
+	 */
 	public int getPort() {
 		return port;
 	}
 
+	/**
+	 * Mutateur de port
+	 * @param port
+	 */
 	public void setPort(int port) {
 		this.port = port;
 	}
 
+	/**
+	 * Accesseur de Message
+	 * @return message
+	 */
 	public Message getMessage() {
 		return message;
 	}
 
+	/**
+	 * Mutateur de message
+	 * @param message
+	 */
 	public void setMessage(Message message) {
 		this.message = message;
 	}
 
+	/**
+	 * Accesseur de Serveur
+	 * @return serveur
+	 */
 	public Thread getServeur() {
 		return serveur;
 	}
 
+	/**
+	 * Mutateur de Serveur
+	 * @param serveur
+	 */
 	public void setServeur(Thread serveur) {
 		this.serveur = serveur;
 	}
 
+	/**
+	 * Accesseur de nom de serveur
+	 * @return nomServeur
+	 */
 	public String getNomServeur() {
 		return nomServeur;
 	}
 
+	/**
+	 * Mutateur de nom de serveur
+	 * @param nomServeur
+	 */
 	public void setNomServeur(String nomServeur) {
 		this.nomServeur = nomServeur;
 	}
 
+	/**
+	 * Accesseur de pseudo client
+	 * @return pseudoClient
+	 */
 	public String getPseudoClient() {
 		return pseudoClient;
 	}
 
+	/**
+	 * Mutateur de pseudoClient
+	 * @param pseudoClient
+	 */
 	public void setPseudoClient(String pseudoClient) {
 		this.pseudoClient = pseudoClient;
 	}

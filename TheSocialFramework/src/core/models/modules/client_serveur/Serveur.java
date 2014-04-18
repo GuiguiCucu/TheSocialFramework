@@ -143,38 +143,71 @@ public class Serveur {
 	}
 
 	// ////////////////////////////////////////////////////////
+	
+	/**
+	 * Accesseur de port
+	 * @return port
+	 */
 	public int getPort() {
 		return port;
 	}
 
+	/**
+	 * Mutateur de port
+	 * @param port
+	 */
 	public void setPort(int port) {
 		this.port = port;
 	}
 
 	// ////////////////////////////////////////////////////////
 
+	/**
+	 * Accesseur de socketEcoute
+	 * @return socketEcoute
+	 */
 	public ServerSocket getSocketEcoute() {
 		return socketEcoute;
 	}
 
+	/**
+	 * Mutateur de socketEcoute
+	 * @param socketEcoute
+	 */
 	public void setSocketEcoute(ServerSocket socketEcoute) {
 		this.socketEcoute = socketEcoute;
 	}
 
 	// ////////////////////////////////////////////////////////
 
+	/**
+	 * Accesseur de socketTransfert
+	 * @return socketTransfert
+	 */
 	public Socket getSocketTransfert() {
 		return socketTransfert;
 	}
 
+	/**
+	 * Mutateur socketTransfert
+	 * @param socketTransfert
+	 */
 	public void setSocketTransfert(Socket socketTransfert) {
 		this.socketTransfert = socketTransfert;
 	}
 
+	/**
+	 * Accesseur de traiteClients
+	 * @return traiteClients
+	 */
 	public ArrayList<TraitementClient> getTraiteClients() {
 		return traiteClients;
 	}
 
+	/**
+	 * Mutateur de traiteCliens
+	 * @param traiteClients
+	 */
 	public void setTraiteClients(ArrayList<TraitementClient> traiteClients) {
 		this.traiteClients = traiteClients;
 	}

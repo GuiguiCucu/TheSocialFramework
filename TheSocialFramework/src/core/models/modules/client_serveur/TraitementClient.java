@@ -66,50 +66,98 @@ public class TraitementClient implements Runnable {
 		}
 	}
 
+	/**
+	 * Accesseur de socketDeTransfert
+	 * @return socketDeTransfert
+	 */
 	public Socket getSocketDeTransfert() {
 		return socketDeTransfert;
 	}
 
+	/**
+	 * Mutateur de socketDeTransfert
+	 * @param socketDeTransfert
+	 */
 	public void setSocketDeTransfert(Socket socketDeTransfert) {
 		this.socketDeTransfert = socketDeTransfert;
 	}
 
+	/**
+	 * Accesseur de thread client
+	 * @return client
+	 */
 	public Thread getClient() {
 		return client;
 	}
 
+	/**
+	 * Mutateur de thread client
+	 * @param client
+	 */
 	public void setClient(Thread client) {
 		this.client = client;
 	}
 
+	/**
+	 * Accesseur de serveur
+	 * @return serv
+	 */
 	public Serveur getServ() {
 		return serv;
 	}
 
+	/**
+	 * Mutateur de serveur
+	 * @param serv
+	 */
 	public void setServ(Serveur serv) {
 		this.serv = serv;
 	}
 
+	/**
+	 * Accesseur de Message
+	 * @return message
+	 */
 	public Message getMessage() {
 		return message;
 	}
 
+	/**
+	 * Mutateur de Message
+	 * @param message
+	 */
 	public void setMessage(Message message) {
 		this.message = message;
 	}
 
+	/**
+	 * Accesseur d'adresse client
+	 * @return adresseClient
+	 */
 	public InetAddress getAdresseClient() {
 		return adresseClient;
 	}
 
+	/**
+	 * Mutateur d'adresse client
+	 * @param adresseClient
+	 */
 	public void setAdresseClient(InetAddress adresseClient) {
 		this.adresseClient = adresseClient;
 	}
 
+	/**
+	 * Accesseur de nom client
+	 * @return nomClient
+	 */
 	public String getNomClient() {
 		return nomClient;
 	}
 
+	/**
+	 * Mutateur de nom client
+	 * @param nomClient
+	 */
 	public void setNomClient(String nomClient) {
 		this.nomClient = nomClient;
 	}
