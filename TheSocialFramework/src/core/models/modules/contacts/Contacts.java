@@ -5,7 +5,7 @@ import java.util.List;
 
 
 /**
- * 
+ * Permet la gestion d'un groupe de contacts de type P à definir
  * @author montalda
  * 
  */

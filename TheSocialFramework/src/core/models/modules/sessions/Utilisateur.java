@@ -5,6 +5,13 @@ import java.security.NoSuchAlgorithmException;
 
 import core.models.modules.contacts.Contacts;
 
+/**
+ * Classe abstraite qui permet la gestion des utilisateurs avec encodage
+ * de mot de passe en MD5
+ * La classe est comptatible avec la classe Contacts
+ * @author cutroneg
+ *
+ */
 public abstract class Utilisateur {
 
 	private String login;
