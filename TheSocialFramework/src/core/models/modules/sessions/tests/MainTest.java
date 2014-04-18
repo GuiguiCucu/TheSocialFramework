@@ -4,31 +4,30 @@ import java.util.ArrayList;
 
 import javax.rmi.CORBA.Util;
 
+import core.models.modules.contacts.Contacts;
 import core.models.modules.contacts.Personne;
 import core.models.modules.sessions.Utilisateur;
 
 public class MainTest {
-
-	private ArrayList<Utilisateur> listUsers;
 
 	public static void main(String[] args) {
 		new MainTest();
 	}
 
 	public MainTest() {
-//		boolean connected = false;
-//
-//		listUsers = new ArrayList<Utilisateur>();
-//		Utilisateur user1 = new Utilisateur("michel", "micheldu38");
-//
-//		listUsers.add(user1);
-//
-//		Utilisateur currentUser = Utilisateur.verification("michel",
-//				"micheldu38", listUsers);
-//		if (currentUser != null)
-//			System.out.println("utilisateur connecté");
-//		else
-//			System.out.println("login ou mot de passe incorrect");
+		
+		Contacts<Utilisateur> c = new Contacts<Utilisateur>();
+
+		User1 user1 = new User1("michel", "robert"); 
+		
+		System.out.println("password encodé : "+user1.getPassword());
+
+		c.ajouterPersonne(user1);
+		
+		if(Utilisateur.verification("michel", "robert", c))
+			System.out.println("utilisateur connecté");
+		else
+			System.out.println("login ou mdp incorrect");
 
 	}
 }
