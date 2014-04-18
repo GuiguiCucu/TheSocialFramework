@@ -22,79 +22,21 @@ import com.googlecode.jcsv.CSVStrategy;
  * @author montalda
  * 
  */
-public class Contacts {
+public class Contacts<P> {
 
-	private List<Personne> contacts;
+	private List<P> contacts;
 	
 	public Contacts(){
-		this.contacts = new ArrayList<Personne>();
+		this.contacts = new ArrayList<P>();
 	}
 
-	/**
-	 * Permet d'importer un fichier CSV contenant les contacts issus de Gmail
-	 * 
-	 * @param fichier
-	 */
-	public void importer(String fichier) {
-
-		setContacts(new ArrayList<Personne>());
-
-		try {
-			Reader reader = new FileReader(fichier);
-			CSVStrategy strategy = new CSVStrategy(',', '"', '#', true, false);
-
-			CSVReader<String[]> csvParser = new CSVReaderBuilder(reader).strategy(strategy).entryParser(new DefaultCSVEntryParser()).build();
-
-			List<String[]> data = csvParser.readAll();
-
-			for (int i = 1; i < data.size() - 1; i += 2) {
-				String nom = data.get(i)[3].replaceAll("[\u0000-\u001f]", "");
-				String prenom = data.get(i)[1]
-						.replaceAll("[\u0000-\u001f]", "");
-				String mail = data.get(i)[28].replaceAll("[\u0000-\u001f]", "");
-
-				creerPersonne(nom, prenom, mail);
-			}
-			
-			csvParser.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-	}
-
-	/**
-	 * Permet l'export de la liste de contacts dans un fichier csv
-	 * 
-	 * @param fichier
-	 */
-	public void exporter(String fichier) {
-		if (getContacts().isEmpty()) {
-			throw new IllegalArgumentException(
-					"Il n'y a aucun contact a exporter");
-		} else {
-				
-			try {
-				
-				Writer writer = new FileWriter(fichier);
-				
-				CSVWriter<Personne> csvWriter = new CSVWriterBuilder<Personne>(writer).entryConverter(new PersonneEntryConverter()).build();
-				csvWriter.writeAll(getContacts());
-				
-				writer.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			
-		}
-
-	}
+	
 
 	/**
 	 * accesseur de la liste de contacts 
 	 * @return contacts
 	 */
-	public List<Personne> getContacts() {
+	public List<P> getContacts() {
 		return contacts;
 	}
 
@@ -102,7 +44,7 @@ public class Contacts {
 	 * mutateur de liste de contacts
 	 * @param contacts
 	 */
-	public void setContacts(List<Personne> contacts) {
+	public void setContacts(List<P> contacts) {
 		this.contacts = contacts;
 	}
 	
@@ -113,54 +55,8 @@ public class Contacts {
 	 * @param prenom
 	 * @param adresse
 	 */
-	public void creerPersonne(String nom, String prenom, String adresse){
-		Personne p = new Personne(nom, prenom, adresse);
-		getContacts().add(p);
-	}
-	
-	/**
-	 * Effectue une recherche dans les contacts selon le nom
-	 * @param nom
-	 * @return listPersonne
-	 */
-	public ArrayList<Personne> findPersonneByNom(String nom){
-		ArrayList<Personne> list = new ArrayList<Personne>();
-		for (int i=0; i<getContacts().size(); i++){
-			if(getContacts().get(i).getNom().equals(nom)){
-				list.add(getContacts().get(i));
-			}
-		}
-		return list;
-	}
-	
-	/**
-	 * Effectue une recherche dans les contacts selon le prénom
-	 * @param nom
-	 * @return listPersonne
-	 */
-	public ArrayList<Personne> findPersonneByPrenom(String prenom){
-		ArrayList<Personne> list = new ArrayList<Personne>();
-		for (int i=0; i<getContacts().size(); i++){
-			if(getContacts().get(i).getPrenom().equals(prenom)){
-				list.add(getContacts().get(i));
-			}
-		}
-		return list;
-	}
-	
-	/**
-	 * Effectue une recherche dans les contacts selon l'adresse
-	 * @param nom
-	 * @return listPersonne
-	 */
-	public ArrayList<Personne> findPersonneByAdresse(String adresse){
-		ArrayList<Personne> list = new ArrayList<Personne>();
-		for (int i=0; i<getContacts().size(); i++){
-			if(getContacts().get(i).getPrenom().equals(adresse)){
-				list.add(getContacts().get(i));
-			}
-		}
-		return list;
+	public void ajouterPersonne(P personne){
+		getContacts().add(personne);
 	}
 
 }
