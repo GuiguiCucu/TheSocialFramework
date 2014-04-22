@@ -2,7 +2,7 @@ package core.models.modules.contacts;
 
 import java.util.*;
 
-public class Personne {
+public class Personne extends Contact<Personne> {
 
 	private String nom;
 	private String prenom;
@@ -39,5 +39,14 @@ public class Personne {
 		this.adresse = adresse;
 	}
 
+	@Override
+	public boolean compareTo(Contact<Personne> c) {
+		boolean res = false;
+		if (((Personne) c).getNom().equals(this.getNom())
+				&& ((Personne) c).getPrenom().equals(this.getPrenom())
+				&& ((Personne) c).getAdresse().equals(this.getAdresse()))
+			res = true;
+		return res;
+	}
 
 }

@@ -25,7 +25,9 @@ public class ContactTest {
 			System.out.println("\n*****************\n");
 		}
 		
-		//System.out.println(groupe.findPersonneByPrenom("Adèle").get(0).getNom());
+		if(((Personne) contacts.getContacts().get(0)).compareTo(new Personne("Montaldi", "Ad�le", "adele.montaldi@gmail.com"))){
+			System.out.println("ok");
+		}
 
 //		String chaine = "Adèle";
 //		String str2 = new String(chaine.getBytes(),Charset.forName("UTF-8"));
@@ -33,7 +35,7 @@ public class ContactTest {
 		
 		// test de l'export
 		//Csv.exporter("Z:/POO/ProjetFramework/test.csv", contacts);
-		Csv.exporter("/home/c/cutroneg/PPO/contacts.csv", contacts);
+		//Csv.exporter("/home/c/cutroneg/PPO/contacts.csv", contacts);
 	}
 
 }
