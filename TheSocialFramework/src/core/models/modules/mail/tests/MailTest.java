@@ -9,8 +9,9 @@ public class MailTest {
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		EnvoyerMail.envoyerMail("gcharlety@laposte.net", "SujetTest",
-				"Corps  Tests éà");
-	}
 
+		EnvoyerMail.mail("theSocialFramework@laposte.net",
+				"gcharlety@laposte.net", "theSocialFramework", "Miage2014",
+				"SujetTest", "Corps  Tests éà");
+	}
 }
