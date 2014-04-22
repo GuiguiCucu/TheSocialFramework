@@ -8,11 +8,15 @@ import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+
+import core.models.modules.client_serveur.commandes.Commande;
 
 /**
  * Objet simulant le serveur
@@ -26,24 +30,19 @@ public class Serveur {
 	private int port = 5010;
 	private ServerSocket socketEcoute;
 	private Socket socketTransfert;
+	private HashMap<String, Commande> listeCommandes;
 
 	/**
 	 * @param args
 	 *            the command line arguments
 	 */
-	public static void main(String[] args) {
-		try {
-			Serveur serv = new Serveur(7846);
-			System.out.println("Serveur lancé!");
-			while (true) {
-				new TraitementClient(serv.getSocketEcoute().accept(), serv);
-			}
-		} catch (IOException ex) {
-			JOptionPane.showMessageDialog(new JFrame(),
-					"Ce port à cette adresse est occupé");
-			System.exit(0);
-		}
-	}
+	/*
+	 * public static void main(String[] args) { try { Serveur serv = new
+	 * Serveur(7846); System.out.println("Serveur lancé!"); while (true) { new
+	 * TraitementClient(serv.getSocketEcoute().accept(), serv); } } catch
+	 * (IOException ex) { JOptionPane.showMessageDialog(new JFrame(),
+	 * "Ce port à cette adresse est occupé"); System.exit(0); } }
+	 */
 
 	/**
 	 * Constructeur
@@ -56,6 +55,7 @@ public class Serveur {
 			this.setTraiteClients(new ArrayList<TraitementClient>());
 			this.setPort(p);
 			this.setSocketEcoute(new ServerSocket(this.getPort()));
+			this.setListeCommandes(new HashMap<String, Commande>());
 		} catch (IOException ex) {
 			JOptionPane.showMessageDialog(new JFrame(),
 					"Ce port à cette adresse est occupé");
@@ -143,9 +143,10 @@ public class Serveur {
 	}
 
 	// ////////////////////////////////////////////////////////
-	
+
 	/**
 	 * Accesseur de port
+	 * 
 	 * @return port
 	 */
 	public int getPort() {
@@ -154,6 +155,7 @@ public class Serveur {
 
 	/**
 	 * Mutateur de port
+	 * 
 	 * @param port
 	 */
 	public void setPort(int port) {
@@ -164,6 +166,7 @@ public class Serveur {
 
 	/**
 	 * Accesseur de socketEcoute
+	 * 
 	 * @return socketEcoute
 	 */
 	public ServerSocket getSocketEcoute() {
@@ -172,6 +175,7 @@ public class Serveur {
 
 	/**
 	 * Mutateur de socketEcoute
+	 * 
 	 * @param socketEcoute
 	 */
 	public void setSocketEcoute(ServerSocket socketEcoute) {
@@ -182,6 +186,7 @@ public class Serveur {
 
 	/**
 	 * Accesseur de socketTransfert
+	 * 
 	 * @return socketTransfert
 	 */
 	public Socket getSocketTransfert() {
@@ -190,6 +195,7 @@ public class Serveur {
 
 	/**
 	 * Mutateur socketTransfert
+	 * 
 	 * @param socketTransfert
 	 */
 	public void setSocketTransfert(Socket socketTransfert) {
@@ -198,6 +204,7 @@ public class Serveur {
 
 	/**
 	 * Accesseur de traiteClients
+	 * 
 	 * @return traiteClients
 	 */
 	public ArrayList<TraitementClient> getTraiteClients() {
@@ -206,10 +213,31 @@ public class Serveur {
 
 	/**
 	 * Mutateur de traiteCliens
+	 * 
 	 * @param traiteClients
 	 */
 	public void setTraiteClients(ArrayList<TraitementClient> traiteClients) {
 		this.traiteClients = traiteClients;
+	}
+
+	/**
+	 * Accesseur de la liste des commandes
+	 * 
+	 * @return la liste des commandes
+	 */
+	public HashMap<String, Commande> getListeCommandes() {
+		return listeCommandes;
+	}
+
+	/**
+	 * Mutateur de la liste de commande
+	 * 
+	 * @param listeCommandes
+	 *            la liste de commande
+	 */
+
+	public void setListeCommandes(HashMap<String, Commande> listeCommandes) {
+		this.listeCommandes = listeCommandes;
 	}
 
 }

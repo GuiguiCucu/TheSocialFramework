@@ -3,8 +3,10 @@ package core.models.modules.client_serveur;
 import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import core.models.modules.client_serveur.commandes.Commande;
 
 /**
  * Thread représentant la connexion d'un client au serveur
@@ -12,13 +14,14 @@ import java.util.logging.Logger;
  * @author forestip
  */
 public class TraitementClient implements Runnable {
-
+	
 	private Socket socketDeTransfert = null;
 	private Thread client = null;
 	private Serveur serv = null;
 	private Message message;
 	private InetAddress adresseClient;
 	private String nomClient;
+	private HashMap<String, Commande> listeCommandes;
 
 	/**
 	 * 
@@ -51,14 +54,8 @@ public class TraitementClient implements Runnable {
 			String envoi = "";
 			try {
 				envoi = this.getMessage().receptionMessage();
-				if(envoi.equals("@sendfile")){
-					System.out.println("Demande d'envoi de fichier");
-					System.out.println("Envoi de la confiormation de la demande pour débuter le transfert");
-					this.getMessage().envoiMessage("@oksendfile");
-					this.getMessage().receptionFichier();
-				}
-				//this.getMessage().receptionFichier();
-				//System.out.println("MESSAGE RECU de " + this.getAdresseClient()+ " : " + envoi);
+				Commande cmd = 	this.getServ().getListeCommandes().get(envoi);
+				cmd.execute(this.getMessage());
 			} catch (IOException ex) {
 				Logger.getLogger(TraitementClient.class.getName()).log(
 						Level.SEVERE, null, ex);
@@ -161,4 +158,8 @@ public class TraitementClient implements Runnable {
 	public void setNomClient(String nomClient) {
 		this.nomClient = nomClient;
 	}
+
+
+	
+	
 }
