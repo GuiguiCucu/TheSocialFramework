@@ -1,9 +1,10 @@
-package core.models.core_modele;
+package core.models.modules.module_clientserveur;
 
 import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import core.models.core_modele.Client;
 import core.models.core_modele.commandes.commandesClient.ConfirmReceptionFichier;
 
 public class LanceurClient {

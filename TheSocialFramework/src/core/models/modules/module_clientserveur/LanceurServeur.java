@@ -1,10 +1,12 @@
-package core.models.core_modele;
+package core.models.modules.module_clientserveur;
 
 import java.io.IOException;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+import core.models.core_modele.Serveur;
+import core.models.core_modele.TraitementClient;
 import core.models.core_modele.commandes.commandesServeur.EnvoiFichier;
 
 public class LanceurServeur {
@@ -19,14 +21,14 @@ public class LanceurServeur {
 					new TraitementClient(serv.getSocketEcoute().accept(), serv);
 				}
 			} catch (IOException ex) {
-				//TODO Changer pour lever
+				//TODO Changer pour lever une exception
 				JOptionPane.showMessageDialog(new JFrame(),
 						"Ce port à cette adresse est occupé");
 				System.exit(0);
 			}
 		}
 		else{
-			//TODO Lever Exceptions
+			//TODO Lever Exceptions mauvais port
 		}
 	}
 }

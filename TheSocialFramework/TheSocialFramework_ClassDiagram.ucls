@@ -10,8 +10,10 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="2" language="java" name="core.models.core_modele.LanceurClient" project="TheSocialFramework" 
-    file="/TheSocialFramework/src/core/models/core_modele/LanceurClient.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="2" language="java" name="core.models.modules.module_clientserveur.LanceurClient" 
+    project="TheSocialFramework" 
+    file="/TheSocialFramework/src/core/models/modules/module_clientserveur/LanceurClient.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
     <position height="97" width="161" x="654" y="387"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
