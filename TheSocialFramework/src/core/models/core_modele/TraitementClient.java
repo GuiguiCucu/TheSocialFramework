@@ -56,7 +56,14 @@ public class TraitementClient implements Runnable {
 			try {
 				envoi = this.getMessage().receptionMessage();
 				CommandeServeur cmd = 	this.getServ().getListeCommandes().get(envoi);
-				cmd.execute(this.getMessage(), this);
+				if(cmd!=null){
+					System.out.println("NOTNULL");
+					cmd.execute(this.getMessage(), this);
+				}else{
+					System.out.println("recu : "+envoi);
+					this.getMessage().envoiMessage(envoi.toUpperCase());
+				}
+				
 			} catch (IOException ex) {
 				Logger.getLogger(TraitementClient.class.getName()).log(
 						Level.SEVERE, null, ex);

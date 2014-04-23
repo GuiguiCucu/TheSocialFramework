@@ -96,7 +96,12 @@ public class Client implements Runnable {
 			try {
 				recu = this.getMessage().receptionMessage();
 				CommandeClient cmd = 	this.getListeCommandes().get(recu);
-				cmd.execute(this.getMessage());
+				if(cmd!=null){
+					cmd.execute(this.getMessage());
+				}else{
+					System.out.println("RECU : " +recu);
+				}
+				
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

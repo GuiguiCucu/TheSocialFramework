@@ -38,7 +38,7 @@ public class Message {
 	 * @param s
 	 *            le socket de liaison
 	 */
-	public Message(Socket s) {
+	 public Message(Socket s) {
 		try {
 			this.setSocket(s);
 			this.setOut(this.getSocket().getOutputStream());
@@ -57,7 +57,7 @@ public class Message {
 	 * @param message
 	 *            Message
 	 */
-	public void envoiMessage(String message) {
+	 synchronized public void envoiMessage(String message) {
 		try {
 			sortie.writeUTF(message);
 		} catch (IOException ex) {
@@ -71,9 +71,9 @@ public class Message {
 	 * 
 	 * @throws IOException
 	 */
-	public void envoiFichier() throws IOException {
+	 synchronized public void envoiFichier() throws IOException {
 		File fileToSend = new File(
-				"/home/c/cutroneg/git/TheSocialFramework/TheSocialFramework/test.mp3");
+				"/home/f/forestip/git/TheSocialFramework/TheSocialFramework/test.mp3");
 		this.envoiMessage("@nameFile:" + fileToSend.getName());
 		this.envoiMessage("@sizeFile:" + fileToSend.length());
 		int count;
@@ -87,7 +87,8 @@ public class Message {
 		inBuf.close();
 		System.out.println("Fin envoi");
 	}
-	public void envoiFichier2() throws IOException {
+	 
+	 synchronized public void envoiFichier2() throws IOException {
 		File fileToSend = new File(
 				"/home/c/cutroneg/git/TheSocialFramework/TheSocialFramework/testEnvoi.txt");
 		this.envoiMessage("@nameFile:" + fileToSend.getName());
@@ -108,7 +109,7 @@ public class Message {
 	 * 
 	 * @throws IOException
 	 */
-	public void receptionFichier() throws IOException {
+	 synchronized public void receptionFichier() throws IOException {
 		System.out.println("Réception fichier....");
 		String fileName = this.receptionMessage();
 		System.out.println(fileName);
@@ -122,7 +123,7 @@ public class Message {
 		System.out.println("Taille de " + fileName + " : " + fileSize);
 
 		FileOutputStream fos = new FileOutputStream(
-				"/home/c/cutroneg/git/TheSocialFramework/TheSocialFramework/uploads/"
+				"/home/f/forestip/git/TheSocialFramework/TheSocialFramework/uploads/"
 						+ fileName);
 		BufferedOutputStream outBuf = new BufferedOutputStream(fos);
 		byte[] buffer = new byte[1024];
@@ -148,7 +149,7 @@ public class Message {
 	 * @throws IOException
 	 *             exception relative aux objets de communication
 	 */
-	public String receptionMessage() throws IOException {
+	 synchronized public String receptionMessage() throws IOException {
 		String res = "initialisation";
 		try {
 			res = entree.readUTF();
@@ -164,7 +165,7 @@ public class Message {
 		return res;
 	}
 
-	public void fermeture() throws IOException {
+	 synchronized public void fermeture() throws IOException {
 		this.getEntree().close();
 		this.getSortie().close();
 		this.getIn().close();

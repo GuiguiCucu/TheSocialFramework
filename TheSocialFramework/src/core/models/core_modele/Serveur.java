@@ -15,10 +15,7 @@ import java.util.logging.Logger;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-
-import core.models.core_modele.commandes.commandesClient.CommandeClient;
 import core.models.core_modele.commandes.commandesServeur.CommandeServeur;
-
 /**
  * Objet simulant le serveur
  * 
@@ -144,9 +141,6 @@ public class Serveur {
 	public void setPort(int port) {
 		this.port = port;
 	}
-
-	// ////////////////////////////////////////////////////////
-
 	/**
 	 * Accesseur de socketEcoute
 	 * 
@@ -164,9 +158,6 @@ public class Serveur {
 	public void setSocketEcoute(ServerSocket socketEcoute) {
 		this.socketEcoute = socketEcoute;
 	}
-
-	// ////////////////////////////////////////////////////////
-
 	/**
 	 * Accesseur de socketTransfert
 	 * 
