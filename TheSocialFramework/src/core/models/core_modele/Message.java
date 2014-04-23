@@ -85,6 +85,22 @@ public class Message {
 			out.flush();
 		}
 		inBuf.close();
+		System.out.println("Fin envoi");
+	}
+	public void envoiFichier2() throws IOException {
+		File fileToSend = new File(
+				"/home/c/cutroneg/git/TheSocialFramework/TheSocialFramework/testEnvoi.txt");
+		this.envoiMessage("@nameFile:" + fileToSend.getName());
+		this.envoiMessage("@sizeFile:" + fileToSend.length());
+		int count;
+		byte[] buffer = new byte[1024];
+		BufferedInputStream inBuf = new BufferedInputStream(
+				new FileInputStream(fileToSend));
+		while ((count = inBuf.read(buffer)) >= 0) {
+			out.write(buffer, 0, count);
+			out.flush();
+		}
+		inBuf.close();
 	}
 
 	/**
@@ -114,8 +130,15 @@ public class Message {
 		InputStream in = this.getSocket().getInputStream();
 		while ((count = in.read(buffer)) >= 0) {
 			fos.write(buffer, 0, count);
+			fos.flush();
+			if(count < buffer.length){
+				fos.close();
+				break;
+			}	
 		}
-		outBuf.close();
+		System.out.println("Fin reception");
+		
+		outBuf.close();	
 	}
 
 	/**

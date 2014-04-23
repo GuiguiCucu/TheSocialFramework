@@ -29,7 +29,6 @@ public class Client implements Runnable {
 	private String nomServeur;
 	private String pseudoClient;
 
-
 	/**
 	 * Constructeur
 	 * 
@@ -44,12 +43,7 @@ public class Client implements Runnable {
 		this.setPort(numPort);
 		this.connexionServeur();
 		this.getServeur().start();
-		this.setListeCommandes(new HashMap<String, CommandeClient>());
-		/*
-		 * this.getMessage().envoiMessage("@sendfile");
-		 * System.out.println("Envoi fichier...");
-		 * this.getMessage().envoiFichier();
-		 */
+		this.setListeCommandes(new HashMap<String, CommandeClient>());		
 	}
 
 	/**

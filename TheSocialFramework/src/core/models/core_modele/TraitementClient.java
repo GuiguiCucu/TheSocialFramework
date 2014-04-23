@@ -50,7 +50,6 @@ public class TraitementClient implements Runnable {
 	public void run() {
 		this.getServ().printWelcome((this));
 		boolean connect = true;
-		System.out.println("Un nouveau client s'est connecté");
 
 		while (connect) {
 			String envoi = "";

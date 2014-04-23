@@ -34,18 +34,6 @@ public class Serveur {
 	private HashMap<String, CommandeServeur> listeCommandes;
 
 	/**
-	 * @param args
-	 *            the command line arguments
-	 */
-	/*
-	 * public static void main(String[] args) { try { Serveur serv = new
-	 * Serveur(7846); System.out.println("Serveur lancé!"); while (true) { new
-	 * TraitementClient(serv.getSocketEcoute().accept(), serv); } } catch
-	 * (IOException ex) { JOptionPane.showMessageDialog(new JFrame(),
-	 * "Ce port à cette adresse est occupé"); System.exit(0); } }
-	 */
-
-	/**
 	 * Constructeur
 	 * 
 	 * @param p

@@ -8,14 +8,16 @@ import javax.swing.JOptionPane;
 import core.models.core_modele.Serveur;
 import core.models.core_modele.TraitementClient;
 import core.models.core_modele.commandes.commandesServeur.EnvoiFichier;
+import core.models.core_modele.commandes.commandesServeur.EnvoiFichier2;
 
 public class LanceurServeur {
 
 	public static void run(int numPort) {
 		if(numPort >0 && numPort <= 65535){
 			try {
-				Serveur serv = new Serveur(7846);
+				Serveur serv = new Serveur(numPort);
 				serv.getListeCommandes().put("@sendfile", new EnvoiFichier());
+				serv.getListeCommandes().put("@sendfileBis", new EnvoiFichier2());
 				System.out.println("Serveur lancé!");
 				while (true) {
 					new TraitementClient(serv.getSocketEcoute().accept(), serv);
