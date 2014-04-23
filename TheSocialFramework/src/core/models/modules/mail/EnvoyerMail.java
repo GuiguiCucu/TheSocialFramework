@@ -48,6 +48,9 @@ public class EnvoyerMail {
 			envoyerMailTls("smtp.yahoo.fr", user, pwd, adresseEnvoi,
 					adresseDestinataire, sujet, corps);
 			break;
+		case "e.ujf-grenoble.fr":
+			envoyerMailTls("smtps.ujf-grenoble.fr", user, pwd, adresseEnvoi,
+					adresseDestinataire, sujet, corps);
 		default:
 			envoyerMailTls("smtp.laposte.net", "theSocialFramework",
 					"Miage2014", "theSocialFramework@laposte.net",

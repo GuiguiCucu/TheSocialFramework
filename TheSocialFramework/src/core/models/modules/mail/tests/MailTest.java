@@ -11,8 +11,8 @@ public class MailTest {
 		// TODO Auto-generated method stub
 
 		
-		EnvoyerMail.mail("theSocialFramework@laposte.net",
-				"gcharlety@laposte.net", "theSocialFramework", "Miage2014",
+		EnvoyerMail.mail("Guillaume.Charlety@e.ujf-grenoble.fr",
+				"gcharlety@laposte.net", "charletg", "password",
 				"SujetTest", "Corps  Tests éà");
 	}
 }
