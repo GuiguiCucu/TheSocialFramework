@@ -47,7 +47,7 @@ public abstract class Utilisateur {
 	 * @param password
 	 * @return
 	 */
-	private static String encode(String password) {
+	protected static String encode(String password) {
 		byte[] uniqueKey = password.getBytes();
 		byte[] hash = null;
 
@@ -67,29 +67,6 @@ public abstract class Utilisateur {
 				hashString.append(hex.substring(hex.length() - 2));
 		}
 		return hashString.toString();
-	}
-	
-	/**
-	 * Permet de verifier la presence d'un utilisateur dans l'ArrayList listUsers
-	 * Fonction de verification pour la gestion des utilisateurs
-	 * @param login
-	 * @param password
-	 * @param listUsers ArrayList<Utilisateur>
-	 * @return l'utilisateur courant si présent dans listUsers, null sinon
-	 */
-	public static boolean verification(String login, String password, Contacts<Utilisateur> contacts){
-
-		boolean connected = false;
-		
-		for (int i = 0; i < contacts.getContacts().size(); i++) {
-			if (contacts.getContacts().get(i).getLogin().equals(login)
-					&& contacts.getContacts().get(i).getPassword()
-							.equals(encode(password))) {
-				connected = true;
-			}
-		}
-		
-		return connected;
 	}
 
 }

@@ -10,9 +10,12 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+
 import javax.swing.JPasswordField;
+
 import java.awt.Font;
 
 public class VueConnexion extends JFrame {
@@ -26,26 +29,14 @@ public class VueConnexion extends JFrame {
 	private JPasswordField pwdPassword;
 	private JLabel lblExportImport;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VueConnexion frame = new VueConnexion();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	private Controller c;
+
 
 	/**
 	 * Create the frame.
 	 */
-	public VueConnexion() {
+	public VueConnexion(Controller c) {
+		this.c = c;
 		textField.setColumns(10);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -63,9 +54,12 @@ public class VueConnexion extends JFrame {
 		btnSeConnecter.setFont(new Font("Calibri", Font.PLAIN, 13));
 		btnSeConnecter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				String login = txtLogin.getText();
+				String pwd = pwdPassword.getText();
+				getC().setCurrentUser(login, pwd);
 			}
 		});
-		btnSeConnecter.setBounds(314, 228, 110, 23);
+		btnSeConnecter.setBounds(307, 238, 127, 23);
 		contentPane.add(btnSeConnecter);
 		
 		txtLogin = new JTextField();
@@ -84,9 +78,19 @@ public class VueConnexion extends JFrame {
 		
 		lblExportImport = new JLabel("Export / Import de fichiers");
 		lblExportImport.setFont(new Font("Calibri", Font.ITALIC, 12));
-		lblExportImport.setBounds(150, 44, 144, 14);
+		lblExportImport.setBounds(140, 43, 167, 14);
 		contentPane.add(lblExportImport);
 		
 		
+	}
+
+
+	public Controller getC() {
+		return c;
+	}
+
+
+	public void setC(Controller c) {
+		this.c = c;
 	}
 }

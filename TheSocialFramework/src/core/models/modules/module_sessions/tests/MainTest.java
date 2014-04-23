@@ -24,7 +24,7 @@ public class MainTest {
 
 		c.ajouterPersonne(user1);
 		
-		if(Utilisateur.verification("michel", "robert", c))
+		if(User1.verification("michel", "robert", c))
 			System.out.println("utilisateur connecté");
 		else
 			System.out.println("login ou mdp incorrect");

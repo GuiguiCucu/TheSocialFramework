@@ -1,11 +1,11 @@
-package core.models.modules.module_sessions.tests;
+package application_temoin_cloud;
 
 import core.models.modules.module_contacts.Contacts;
 import core.models.modules.module_sessions.Utilisateur;
 
-public class User1 extends Utilisateur {
+public class User extends Utilisateur {
 
-	public User1(String login, String password) {
+	public User(String login, String password) {
 		super(login, password);
 	}
 	
@@ -17,14 +17,14 @@ public class User1 extends Utilisateur {
 	 * @param listUsers ArrayList<Utilisateur>
 	 * @return l'utilisateur courant si présent dans listUsers, null sinon
 	 */
-	public static boolean verification(String login, String password, Contacts<Utilisateur> contacts){
+	public static boolean verification(String login, String password, Contacts<User> contacts){
 
 		boolean connected = false;
 		
 		for (int i = 0; i < contacts.getContacts().size(); i++) {
 			if (contacts.getContacts().get(i).getLogin().equals(login)
 					&& contacts.getContacts().get(i).getPassword()
-							.equals(Utilisateur.encode(password))) {
+							.equals(encode(password))) {
 				connected = true;
 			}
 		}
