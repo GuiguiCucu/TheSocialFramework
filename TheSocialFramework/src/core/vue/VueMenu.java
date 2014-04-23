@@ -1,12 +1,12 @@
 package core.vue;
 
-import core.controleur.Controleur;
+import core.controleur.SuperControleur;
 
 public class VueMenu extends View{
 	
 	private static final long serialVersionUID = 1L;
 
-	public VueMenu(Controleur controleur) {
+	public VueMenu(SuperControleur controleur) {
 		super(controleur);
 	}
 

@@ -14,7 +14,7 @@ import core.vue.VueMenu;
  * 
  * @author Pierre-Antoine Forestier
  */
-public class Controleur implements Serializable {
+public class SuperControleur implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	/**
@@ -23,7 +23,7 @@ public class Controleur implements Serializable {
 	 * l'appli
 	 */
 	private LinkedList<View> _vues;
-	public Controleur() {
+	public SuperControleur() {
 		this.setVue(new LinkedList<View>());
 	} 
 	/**
@@ -106,11 +106,11 @@ public class Controleur implements Serializable {
 	 * restauration des objets de
 	 * l'application
 	 */
-	public Controleur restaure() {
+	public SuperControleur restaure() {
 		try {
 			FileInputStream fichier = new FileInputStream("Fsauv.ser");
 			ObjectInputStream in = new ObjectInputStream(fichier);
-			return ((Controleur) in.readObject());
+			return ((SuperControleur) in.readObject());
 		} catch (Exception e) {
 		System.out.println("Pbs de Restauration ou fichier non encore créé");
 			return this;

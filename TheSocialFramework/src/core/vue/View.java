@@ -2,7 +2,7 @@ package core.vue;
 
 import javax.swing.JFrame;
 
-import core.controleur.Controleur;
+import core.controleur.SuperControleur;
 
 import java.util.Observable;
 import java.util.Observer;
@@ -19,18 +19,18 @@ public abstract class View extends JFrame implements Observer{
 	public final static int initiale = 0, inter1 = 1, inter2 = 2, inter3 = 3, inter4 = 4, finale = 5;
 	
 	// toute vue communique avec le controleur
-	private Controleur _controleur;
+	private SuperControleur _controleur;
 	private int _etat;
 
-	public View(Controleur controleur) {
+	public View(SuperControleur controleur) {
 		this.setControleur(controleur);
 	}
 	
-	protected Controleur getControleur() {
+	protected SuperControleur getControleur() {
 		return _controleur;
 	}
 	
-	protected void setControleur(Controleur cont) {
+	protected void setControleur(SuperControleur cont) {
 		_controleur = cont;
 	}
 	
