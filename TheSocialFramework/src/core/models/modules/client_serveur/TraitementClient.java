@@ -6,7 +6,9 @@ import java.net.Socket;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import core.models.modules.client_serveur.commandes.Commande;
+
+import core.models.modules.client_serveur.commandes.commandesClient.CommandeClient;
+import core.models.modules.client_serveur.commandes.commandesServeur.CommandeServeur;
 
 /**
  * Thread représentant la connexion d'un client au serveur
@@ -21,7 +23,7 @@ public class TraitementClient implements Runnable {
 	private Message message;
 	private InetAddress adresseClient;
 	private String nomClient;
-	private HashMap<String, Commande> listeCommandes;
+	private HashMap<String, CommandeClient> listeCommandes;
 
 	/**
 	 * 
@@ -54,8 +56,8 @@ public class TraitementClient implements Runnable {
 			String envoi = "";
 			try {
 				envoi = this.getMessage().receptionMessage();
-				Commande cmd = 	this.getServ().getListeCommandes().get(envoi);
-				cmd.execute(this.getMessage());
+				CommandeServeur cmd = 	this.getServ().getListeCommandes().get(envoi);
+				cmd.execute(this.getMessage(), this);
 			} catch (IOException ex) {
 				Logger.getLogger(TraitementClient.class.getName()).log(
 						Level.SEVERE, null, ex);

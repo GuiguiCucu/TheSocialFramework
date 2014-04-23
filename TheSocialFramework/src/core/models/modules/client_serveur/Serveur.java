@@ -16,7 +16,8 @@ import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-import core.models.modules.client_serveur.commandes.Commande;
+import core.models.modules.client_serveur.commandes.commandesClient.CommandeClient;
+import core.models.modules.client_serveur.commandes.commandesServeur.CommandeServeur;
 
 /**
  * Objet simulant le serveur
@@ -30,7 +31,7 @@ public class Serveur {
 	private int port = 5010;
 	private ServerSocket socketEcoute;
 	private Socket socketTransfert;
-	private HashMap<String, Commande> listeCommandes;
+	private HashMap<String, CommandeServeur> listeCommandes;
 
 	/**
 	 * @param args
@@ -55,7 +56,7 @@ public class Serveur {
 			this.setTraiteClients(new ArrayList<TraitementClient>());
 			this.setPort(p);
 			this.setSocketEcoute(new ServerSocket(this.getPort()));
-			this.setListeCommandes(new HashMap<String, Commande>());
+			this.setListeCommandes(new HashMap<String, CommandeServeur>());
 		} catch (IOException ex) {
 			JOptionPane.showMessageDialog(new JFrame(),
 					"Ce port à cette adresse est occupé");
@@ -89,16 +90,10 @@ public class Serveur {
 	 */
 	synchronized public void sendAll(TraitementClient origine, String message) {
 		DataOutput tmpFlux;
-		for (int i = 0; i < this.getTraiteClients().size(); i++) // parcours de
-																	// la table
-																	// des
-																	// connectés
-		{
+		for (int i = 0; i < this.getTraiteClients().size(); i++) {
 			try {
 				tmpFlux = this.getTraiteClients().get(i).getMessage()
-						.getSortie(); // extraction de l'élément courant
-				// ecriture du texte passé en paramètre (et concaténation d'une
-				// string de fin de chaine si besoin)
+						.getSortie();
 				tmpFlux.writeUTF(message);
 			} catch (IOException ex) {
 				Logger.getLogger(Serveur.class.getName()).log(Level.SEVERE,
@@ -225,7 +220,7 @@ public class Serveur {
 	 * 
 	 * @return la liste des commandes
 	 */
-	public HashMap<String, Commande> getListeCommandes() {
+	public HashMap<String, CommandeServeur> getListeCommandes() {
 		return listeCommandes;
 	}
 
@@ -236,7 +231,8 @@ public class Serveur {
 	 *            la liste de commande
 	 */
 
-	public void setListeCommandes(HashMap<String, Commande> listeCommandes) {
+	public void setListeCommandes(
+			HashMap<String, CommandeServeur> listeCommandes) {
 		this.listeCommandes = listeCommandes;
 	}
 

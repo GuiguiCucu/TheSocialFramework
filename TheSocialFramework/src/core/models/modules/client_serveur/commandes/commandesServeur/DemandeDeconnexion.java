@@ -1,16 +1,17 @@
-package core.models.modules.client_serveur.commandes;
+package core.models.modules.client_serveur.commandes.commandesServeur;
 
 import java.io.IOException;
 
 import core.models.modules.client_serveur.Message;
 import core.models.modules.client_serveur.TraitementClient;
+import core.models.modules.client_serveur.commandes.commandesClient.CommandeClient;
 
 
 /*@demandedeco*/
-public class DemandeDeconnexion implements Commande {
+public class DemandeDeconnexion implements CommandeServeur {
 
 	@Override
-	public void execute(Message message) {
+	public void execute(Message message, TraitementClient tc) {
 		System.out.println("Demande déconnexion");
 		message.envoiMessage("@okdeconnexion");
 				

@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-import core.models.modules.client_serveur.commandes.Commande;
+import core.models.modules.client_serveur.commandes.commandesClient.CommandeClient;
 
 /**
  * Classe matérialisant le client sous forme de thread
@@ -25,15 +25,10 @@ public class Client implements Runnable {
 	private int port;
 	private Message message;
 	private Thread serveur = null;
-	private HashMap<String, Commande> listeCommandes;
+	private HashMap<String, CommandeClient> listeCommandes;
 	private String nomServeur;
 	private String pseudoClient;
 
-	/*
-	 * public static void main(String[] args) throws IOException { String
-	 * nameServer = new String("0.0.0.0"); int numPort = 7846; new
-	 * Client(nameServer, numPort); }
-	 */
 
 	/**
 	 * Constructeur
@@ -49,7 +44,7 @@ public class Client implements Runnable {
 		this.setPort(numPort);
 		this.connexionServeur();
 		this.getServeur().start();
-		this.setListeCommandes(new HashMap<String, Commande>());
+		this.setListeCommandes(new HashMap<String, CommandeClient>());
 		/*
 		 * this.getMessage().envoiMessage("@sendfile");
 		 * System.out.println("Envoi fichier...");
@@ -106,7 +101,7 @@ public class Client implements Runnable {
 			String recu = "";
 			try {
 				recu = this.getMessage().receptionMessage();
-				Commande cmd = 	this.getListeCommandes().get(recu);
+				CommandeClient cmd = 	this.getListeCommandes().get(recu);
 				cmd.execute(this.getMessage());
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -247,7 +242,7 @@ public class Client implements Runnable {
 	 * Accesseur de la liste des commandes
 	 * @return la liste des commandes
 	 */
-	public HashMap<String, Commande> getListeCommandes() {
+	public HashMap<String, CommandeClient> getListeCommandes() {
 		return listeCommandes;
 	}
 
@@ -255,7 +250,7 @@ public class Client implements Runnable {
 	 * Mutateur de la liste de commande
 	 * @param listeCommandes la liste de commande
 	 */
-	public void setListeCommandes(HashMap<String, Commande> listeCommandes) {
+	public void setListeCommandes(HashMap<String, CommandeClient> listeCommandes) {
 		this.listeCommandes = listeCommandes;
 	}
 

@@ -2,7 +2,7 @@ package core.models.modules.client_serveur;
 
 import java.io.IOException;
 
-import core.models.modules.client_serveur.commandes.ConfirmReceptionFichier;
+import core.models.modules.client_serveur.commandes.commandesClient.ConfirmReceptionFichier;
 
 public class RunClient {
 	public static void main(String[] args) throws IOException {

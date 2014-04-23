@@ -5,7 +5,7 @@ import java.io.IOException;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-import core.models.modules.client_serveur.commandes.EnvoiFichier;
+import core.models.modules.client_serveur.commandes.commandesServeur.EnvoiFichier;
 
 public class RunServeur {
 
