@@ -28,7 +28,6 @@ public class Controller {
 	private Client client;
 	private String userName;
 	private File currentDir;
-	private File[] liste;
 
 	/**
 	 * Constructeur
@@ -104,10 +103,7 @@ public class Controller {
 			getClient().getListeCommandes().put("@oksendfile",
 					new ConfirmReceptionFichier());
 			runVueCloud();
-			getVueConnexion().dispose();
-			
-			folder();
-			list();
+			getVueConnexion().dispose();			
 		} else
 			JOptionPane.showMessageDialog(null,
 					"Login ou mot de passe incorrect", "Erreur",
@@ -127,34 +123,7 @@ public class Controller {
 		System.out.println("OUT");
 	}
 
-	/**
-	 * crée un dossier pour l'utilisateur courant si il n'exite pas
-	 */
-	public void folder() {
-		String repertoireCourant = System.getProperty("user.dir");
-		
-		setCurrentDir(new File(repertoireCourant+"/"+getUserName()));
-		
-		if(!getCurrentDir().exists()){
-			getCurrentDir().mkdir();
-		}
-	}
 	
-	/**
-	 * liste tous les fichiers dans le répertoire courant
-	 */
-	public void list(){
-
-		setListe(getCurrentDir().listFiles());
-		for (int i = 0; i < getListe().length; i++) {
-//			if (listefichiers[i].isDirectory()) {
-//				System.out.println("Dossier : " + listefichiers[i].getName());
-//			} else if (listefichiers[i].isFile()) {
-//				
-				System.out.println("Fichier : " + getListe()[i].getName());
-			//}
-		}
-	}
 
 	public VueConnexion getVueConnexion() {
 		return vueConnexion;
@@ -188,20 +157,5 @@ public class Controller {
 		this.userName = userName;
 	}
 
-	public File getCurrentDir() {
-		return currentDir;
-	}
-
-	public void setCurrentDir(File currentDir) {
-		this.currentDir = currentDir;
-	}
-
-	public File[] getListe() {
-		return liste;
-	}
-
-	public void setListe(File[] liste) {
-		this.liste = liste;
-	}
 
 }
