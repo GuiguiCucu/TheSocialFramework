@@ -32,7 +32,7 @@ public class Video {
 		      
 		       recorder.setFormat("mp4");  
 		       recorder.setFrameRate(20);  
-		       recorder.setVideoBitrate(20 * 1280 * 1024);  
+		       recorder.setBitrate(20 * 1280 * 1024);  
 
 		       recorder.start();  
 
