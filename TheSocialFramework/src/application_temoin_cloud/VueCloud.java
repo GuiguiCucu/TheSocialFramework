@@ -7,11 +7,14 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+
 import java.awt.Font;
+
 import javax.swing.JTextPane;
 import javax.swing.JComboBox;
 import javax.swing.JList;
 import javax.swing.JButton;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -24,7 +27,7 @@ public class VueCloud extends JFrame {
 	 * Create the frame.
 	 */
 	public VueCloud(Controller c) {
-		this.c = c;
+		this.setC(c);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 514, 551);
 		contentPane = new JPanel();
@@ -52,12 +55,22 @@ public class VueCloud extends JFrame {
 		btnExporter.setFont(new Font("Calibri", Font.PLAIN, 13));
 		btnExporter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				System.out.println("gné");
 			}
 		});
 		btnExporter.setBounds(100, 431, 110, 23);
 		contentPane.add(btnExporter);
 		
 		JButton btnUploader = new JButton("Uploader");
+		btnUploader.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+					getC().fileChooser();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
 		btnUploader.setFont(new Font("Calibri", Font.PLAIN, 13));
 		btnUploader.setBounds(305, 431, 100, 23);
 		contentPane.add(btnUploader);
@@ -66,5 +79,13 @@ public class VueCloud extends JFrame {
 		btnSeDconnecter.setFont(new Font("Calibri", Font.PLAIN, 13));
 		btnSeDconnecter.setBounds(37, 479, 425, 23);
 		contentPane.add(btnSeDconnecter);
+	}
+
+	public Controller getC() {
+		return c;
+	}
+
+	public void setC(Controller c) {
+		this.c = c;
 	}
 }
