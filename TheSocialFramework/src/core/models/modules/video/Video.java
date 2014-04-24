@@ -28,13 +28,13 @@ public class Video {
 		       canvasFrame.setCanvasSize(grabbedImage.width(), grabbedImage.height());  
 		       grabber.setFrameRate(grabber.getFrameRate());  
 		       
-		       FFmpegFrameRecorder recorder = new FFmpegFrameRecorder("mytestvideo.mp4", grabber.getImageWidth(), grabber.getImageHeight()); 
+		       FFmpegFrameRecorder recorder = new FFmpegFrameRecorder("video1.mp4", grabber.getImageWidth(), grabber.getImageHeight()); 
 		      
 		       recorder.setFormat("mp4");  
-		       recorder.setFrameRate(20);  
-		       recorder.setBitrate(20 * 1280 * 1024);  
-
-		       recorder.start();  
+		       recorder.setFrameRate(30);  
+		       recorder.setVideoBitrate(30 * 640 * 480);  
+       
+	          recorder.start();  
 
 		       while (canvasFrame.isVisible() && (grabbedImage = grabber.grab()) != null) {  
 		         canvasFrame.showImage(grabbedImage);  
@@ -56,7 +56,7 @@ public static ByteArrayOutputStream convertirVidVersBits(String fich) throws Fil
 		File file = new File(fich);
 		FileInputStream fis = new FileInputStream(file);
 		ByteArrayOutputStream bos = new ByteArrayOutputStream();
-	        byte[] buf = new byte[11000];
+	        byte[] buf = new byte[10000];
 	        try {
 	            for (int readNum; (readNum = fis.read(buf)) != -1;) {
 	                bos.write(buf, 0, readNum); 
@@ -72,7 +72,7 @@ public static ByteArrayOutputStream convertirVidVersBits(String fich) throws Fil
 	
 public static File convertirBitsVersVid(ByteArrayOutputStream bos) throws FileNotFoundException{
 	 byte[] bytes = bos.toByteArray();
-	 File fich = new File("video.avi");
+	 File fich = new File("video2.mp4");
      FileOutputStream fos = new FileOutputStream(fich);
      
      try {
