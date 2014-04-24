@@ -18,6 +18,9 @@ import com.googlecode.javacv.cpp.opencv_core;
 
 public class Video {
 
+	/** 
+	 * Capture une video et l'enregistre dans le dossier courant sous le nom video1.mp4
+	 */
 	public static void capturerVideo(){
 
 		     try {  
@@ -51,6 +54,12 @@ public class Video {
 		     }  
 		   }  
 
+/**
+ * Convertit une video en un tableau de bits
+ * @param fich
+ * @return un tableau de bit correspondant à la video
+ * @throws FileNotFoundException
+ */
 public static ByteArrayOutputStream convertirVidVersBits(String fich) throws FileNotFoundException{
 		
 		File file = new File(fich);
@@ -69,7 +78,12 @@ public static ByteArrayOutputStream convertirVidVersBits(String fich) throws Fil
 	}
  
  
-	
+/**
+ * Convertit un tableau de bit en un fichier
+ * @param bos
+ * @return un fichier video
+ * @throws FileNotFoundException
+ */
 public static File convertirBitsVersVid(ByteArrayOutputStream bos) throws FileNotFoundException{
 	 byte[] bytes = bos.toByteArray();
 	 File fich = new File("video2.mp4");
