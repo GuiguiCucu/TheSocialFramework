@@ -83,7 +83,8 @@ public class Controller {
 		int returnVal = chooser.showOpenDialog(null);
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
 			File f = chooser.getSelectedFile();
-			upload(f.getAbsolutePath());
+			//upload(f.getAbsolutePath());
+			this.initialiserContenuRepertoire();
 		}
 	}
 
@@ -115,11 +116,19 @@ public class Controller {
 	 * @param fileName
 	 */
 	public void upload(String fileName) {
-		System.out.println("IN");
+		System.out.println("IN upload");
 		System.out.println("commande existante : "
 				+ client.getListeCommandes().get("@oksendfile"));
 		client.getMessage().envoiMessage("@sendfile");
 		System.out.println("OUT");
+	}
+	
+	public void initialiserContenuRepertoire(){
+		System.out.println("IN init");
+		this.getClient().getListeCommandes().put("@okafficherrepertoire",
+				new ConfirmReceptionContenuDossier());
+		this.getClient().getMessage().envoiMessage("@afficherrepertoire");
+		this.getVueCloud().alimenteContenu();
 	}
 
 	

@@ -94,4 +94,9 @@ public class VueCloud extends JFrame {
 	public void setC(Controller c) {
 		this.c = c;
 	}
+
+	public void alimenteContenu() {
+		// TODO alimenter la vue avec des représentations de dossiers, fichiers
+		
+	}
 }
