@@ -65,7 +65,7 @@ public class VueConnexion extends JFrame {
 				}
 			}
 		});
-		btnSeConnecter.setBounds(307, 238, 127, 23);
+		btnSeConnecter.setBounds(237, 228, 127, 23);
 		contentPane.add(btnSeConnecter);
 
 		txtLogin = new JTextField();
@@ -86,6 +86,16 @@ public class VueConnexion extends JFrame {
 		lblExportImport.setFont(new Font("Calibri", Font.ITALIC, 12));
 		lblExportImport.setBounds(140, 43, 167, 14);
 		contentPane.add(lblExportImport);
+		
+		JButton btnSinscrire = new JButton("S'inscrire");
+		btnSinscrire.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+			}
+		});
+		btnSinscrire.setFont(new Font("Calibri", Font.PLAIN, 13));
+		btnSinscrire.setBounds(81, 228, 89, 23);
+		contentPane.add(btnSinscrire);
 
 	}
 
