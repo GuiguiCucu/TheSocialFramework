@@ -10,9 +10,9 @@ public class MainTest {
 	 * @throws InterruptedException 
 	 */
 	public static void main(String[] args) throws FileNotFoundException, InterruptedException {
-		//Photo.prendrePhoto();
+		Photo.prendrePhoto();
 		Video.capturerVideo();
-		Video.convertirBitsVersVid(Video.convertirVidVersBits("mytestvideo.mp4"));
+		Video.convertirBitsVersVid(Video.convertirVidVersBits("video1.mp4"));
 		
 	}
 

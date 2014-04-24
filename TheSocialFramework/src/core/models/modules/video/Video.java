@@ -18,6 +18,9 @@ import com.googlecode.javacv.cpp.opencv_core;
 
 public class Video {
 
+	/** 
+	 * Capture une video et l'enregistre dans le dossier courant sous le nom video1.mp4
+	 */
 	public static void capturerVideo(){
 
 		     try {  
@@ -28,13 +31,13 @@ public class Video {
 		       canvasFrame.setCanvasSize(grabbedImage.width(), grabbedImage.height());  
 		       grabber.setFrameRate(grabber.getFrameRate());  
 		       
-		       FFmpegFrameRecorder recorder = new FFmpegFrameRecorder("mytestvideo.mp4", grabber.getImageWidth(), grabber.getImageHeight()); 
+		       FFmpegFrameRecorder recorder = new FFmpegFrameRecorder("video1.mp4", grabber.getImageWidth(), grabber.getImageHeight()); 
 		      
 		       recorder.setFormat("mp4");  
-		       recorder.setFrameRate(20);  
-		       recorder.setBitrate(20 * 1280 * 1024);  
-
-		       recorder.start();  
+		       recorder.setFrameRate(30);  
+		       recorder.setVideoBitrate(30 * 640 * 480);  
+       
+	          recorder.start();  
 
 		       while (canvasFrame.isVisible() && (grabbedImage = grabber.grab()) != null) {  
 		         canvasFrame.showImage(grabbedImage);  
@@ -51,12 +54,18 @@ public class Video {
 		     }  
 		   }  
 
+/**
+ * Convertit une video en un tableau de bits
+ * @param fich
+ * @return un tableau de bit correspondant à la video
+ * @throws FileNotFoundException
+ */
 public static ByteArrayOutputStream convertirVidVersBits(String fich) throws FileNotFoundException{
 		
 		File file = new File(fich);
 		FileInputStream fis = new FileInputStream(file);
 		ByteArrayOutputStream bos = new ByteArrayOutputStream();
-	        byte[] buf = new byte[11000];
+	        byte[] buf = new byte[10000];
 	        try {
 	            for (int readNum; (readNum = fis.read(buf)) != -1;) {
 	                bos.write(buf, 0, readNum); 
@@ -69,10 +78,15 @@ public static ByteArrayOutputStream convertirVidVersBits(String fich) throws Fil
 	}
  
  
-	
+/**
+ * Convertit un tableau de bit en un fichier
+ * @param bos
+ * @return un fichier video
+ * @throws FileNotFoundException
+ */
 public static File convertirBitsVersVid(ByteArrayOutputStream bos) throws FileNotFoundException{
 	 byte[] bytes = bos.toByteArray();
-	 File fich = new File("video.avi");
+	 File fich = new File("video2.mp4");
      FileOutputStream fos = new FileOutputStream(fich);
      
      try {
