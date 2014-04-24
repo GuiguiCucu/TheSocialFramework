@@ -3,6 +3,10 @@ package application_temoin_cloud;
 import core.models.modules.module_contacts.Contacts;
 import core.models.modules.module_sessions.Utilisateur;
 
+/**
+ * 
+ * @author cutroneg
+ */
 public class User extends Utilisateur {
 
 	public User(String login, String password) {

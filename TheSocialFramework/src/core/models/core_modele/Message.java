@@ -73,7 +73,7 @@ public class Message {
 	 */
 	 synchronized public void envoiFichier() throws IOException {
 		File fileToSend = new File(
-				"/home/f/forestip/git/TheSocialFramework/TheSocialFramework/test.mp3");
+				"/home/c/cutroneg/git/TheSocialFramework/TheSocialFramework/test.mp3");
 		this.envoiMessage("@nameFile:" + fileToSend.getName());
 		this.envoiMessage("@sizeFile:" + fileToSend.length());
 		int count;
@@ -123,7 +123,7 @@ public class Message {
 		System.out.println("Taille de " + fileName + " : " + fileSize);
 
 		FileOutputStream fos = new FileOutputStream(
-				"/home/f/forestip/git/TheSocialFramework/TheSocialFramework/uploads/"
+				"/home/c/cutroneg/git/TheSocialFramework/TheSocialFramework/uploads/"
 						+ fileName);
 		BufferedOutputStream outBuf = new BufferedOutputStream(fos);
 		byte[] buffer = new byte[1024];
@@ -151,6 +151,7 @@ public class Message {
 	 */
 	 synchronized public String receptionMessage() throws IOException {
 		String res = "initialisation";
+		System.out.println("attente de message....");
 		try {
 			res = entree.readUTF();
 		} catch (IOException ex) {

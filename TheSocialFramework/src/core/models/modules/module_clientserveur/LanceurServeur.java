@@ -18,6 +18,7 @@ public class LanceurServeur {
 				Serveur serv = new Serveur(numPort);
 				serv.getListeCommandes().put("@sendfile", new EnvoiFichier());
 				serv.getListeCommandes().put("@sendfileBis", new EnvoiFichier2());
+				System.out.println("command eexisqtante : "+serv.getListeCommandes().get("@sendfile"));
 				System.out.println("Serveur lancé!");
 				while (true) {
 					new TraitementClient(serv.getSocketEcoute().accept(), serv);

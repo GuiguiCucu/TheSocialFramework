@@ -20,7 +20,8 @@ public class LanceurClient {
 			client.getListeCommandes().put("@oksendfile", new ConfirmReceptionFichier());	
 			client.getListeCommandes().put("@oksendfileBis", new ConfirmReceptionFichier2());	
 			//Début du commencement de la fin
-	        client.getMessage().envoiMessage("@sendfile");
+	       client.getMessage().envoiMessage("@sendfile");
+		//	client.getMessage().envoiMessage("testmajucscule");
 	       // client.getMessage().envoiMessage("@sendfileBis");
 		}
 		else{
