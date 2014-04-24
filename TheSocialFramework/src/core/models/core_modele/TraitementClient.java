@@ -52,6 +52,7 @@ public class TraitementClient implements Runnable {
 		boolean connect = true;
 
 		while (connect) {
+			System.out.println("Connected :"+connect);
 			String envoi = "";
 			try {
 				envoi = this.getMessage().receptionMessage();
