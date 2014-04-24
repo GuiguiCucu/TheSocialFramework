@@ -7,8 +7,9 @@ import static com.googlecode.javacv.cpp.opencv_highgui.cvSaveImage;
 
 public class Photo {
 
+	
 	/**
-	 * @param args
+	 *  Fonction prenant une photo à l'aide de la webcam et plaçant l'image dans le repertoire source
 	 */
 	public static void prendrePhoto() {
 		OpenCVFrameGrabber grabber = new OpenCVFrameGrabber(0);
