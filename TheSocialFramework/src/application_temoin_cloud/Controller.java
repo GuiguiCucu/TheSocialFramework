@@ -16,8 +16,9 @@ import core.models.modules.module_contacts.Contacts;
 
 /**
  * Contrôleur permettant de gérer les interfaces graphiques
+ * 
  * @author cutroneg
- *
+ * 
  */
 public class Controller {
 
@@ -25,7 +26,10 @@ public class Controller {
 	private VueCloud vueCloud;
 	private VueConnexion vueConnexion;
 	private Client client;
-	
+	private String userName;
+	private File currentDir;
+	private File[] liste;
+
 	/**
 	 * Constructeur
 	 */
@@ -45,7 +49,8 @@ public class Controller {
 	}
 
 	/**
-	 * Lancement de l'interface qui permet de s'identifier et accéder à l'interface des fonctionnalités
+	 * Lancement de l'interface qui permet de s'identifier et accéder à
+	 * l'interface des fonctionnalités
 	 */
 	public void runVueConnexion() {
 		try {
@@ -63,13 +68,16 @@ public class Controller {
 		try {
 			setVueCloud(new VueCloud(this));
 			getVueCloud().setVisible(true);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
+
 	/**
 	 * FileChooser permettant de choisir le fichier à uploader sur le serveur
+	 * 
 	 * @throws Exception
 	 */
 	public void fileChooser() throws Exception {
@@ -80,33 +88,72 @@ public class Controller {
 			upload(f.getAbsolutePath());
 		}
 	}
+
 	/**
-	 * Vérification du login et du mot de passe lors de l'iddentification d'un utilisateur
+	 * Vérification du login et du mot de passe lors de l'iddentification d'un
+	 * utilisateur
+	 * 
 	 * @param login
 	 * @param pwd
 	 * @throws IOException
 	 */
 	public void setCurrentUser(String login, String pwd) throws IOException {
 		if (User.verification(login, pwd, users)) {
+			setUserName(login);
 			setClient(new Client("0.0.0.0", 2048));
-			getClient().getListeCommandes().put("@oksendfile", new ConfirmReceptionFichier());	
+			getClient().getListeCommandes().put("@oksendfile",
+					new ConfirmReceptionFichier());
 			runVueCloud();
 			getVueConnexion().dispose();
+			
+			folder();
+			list();
 		} else
 			JOptionPane.showMessageDialog(null,
 					"Login ou mot de passe incorrect", "Erreur",
 					JOptionPane.ERROR_MESSAGE);
 	}
-	
+
 	/**
 	 * Fonction d'upload du fichier choisi sur le serveur
+	 * 
 	 * @param fileName
 	 */
-	public void upload(String fileName){
+	public void upload(String fileName) {
 		System.out.println("IN");
-		System.out.println("commande existante : "+client.getListeCommandes().get("@oksendfile"));
-		 client.getMessage().envoiMessage("@sendfile");
+		System.out.println("commande existante : "
+				+ client.getListeCommandes().get("@oksendfile"));
+		client.getMessage().envoiMessage("@sendfile");
 		System.out.println("OUT");
+	}
+
+	/**
+	 * crée un dossier pour l'utilisateur courant si il n'exite pas
+	 */
+	public void folder() {
+		String repertoireCourant = System.getProperty("user.dir");
+		
+		setCurrentDir(new File(repertoireCourant+"/"+getUserName()));
+		
+		if(!getCurrentDir().exists()){
+			getCurrentDir().mkdir();
+		}
+	}
+	
+	/**
+	 * liste tous les fichiers dans le répertoire courant
+	 */
+	public void list(){
+
+		setListe(getCurrentDir().listFiles());
+		for (int i = 0; i < getListe().length; i++) {
+//			if (listefichiers[i].isDirectory()) {
+//				System.out.println("Dossier : " + listefichiers[i].getName());
+//			} else if (listefichiers[i].isFile()) {
+//				
+				System.out.println("Fichier : " + getListe()[i].getName());
+			//}
+		}
 	}
 
 	public VueConnexion getVueConnexion() {
@@ -132,4 +179,29 @@ public class Controller {
 	public void setClient(Client client) {
 		this.client = client;
 	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public File getCurrentDir() {
+		return currentDir;
+	}
+
+	public void setCurrentDir(File currentDir) {
+		this.currentDir = currentDir;
+	}
+
+	public File[] getListe() {
+		return liste;
+	}
+
+	public void setListe(File[] liste) {
+		this.liste = liste;
+	}
+
 }
