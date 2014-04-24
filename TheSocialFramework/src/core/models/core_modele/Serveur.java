@@ -31,7 +31,6 @@ public class Serveur {
 	private Socket socketTransfert;
 	private HashMap<String, CommandeServeur> listeCommandes;
 	
-	public File currentDir;
 	private File[] liste;
 
 	/**
@@ -220,20 +219,7 @@ public class Serveur {
 	}
 	
 	
-	
-	/**
-	 * crée un dossier pour l'utilisateur courant si il n'exite pas
-	 */
-	public void folder() {
-		String repertoireCourant = System.getProperty("user.dir");
-		
-		setCurrentDir(new File(repertoireCourant+"/"+getUserName()));
-		
-		if(!getCurrentDir().exists()){
-			getCurrentDir().mkdir();
-		}
-	}
-	
+
 	/**
 	 * liste tous les fichiers dans le répertoire courant
 	 */
@@ -248,14 +234,6 @@ public class Serveur {
 				System.out.println("Fichier : " + getListe()[i].getName());
 			//}
 		}
-	}
-	
-	public File getCurrentDir() {
-		return currentDir;
-	}
-
-	public void setCurrentDir(File currentDir) {
-		this.currentDir = currentDir;
 	}
 	
 	public File[] getListe() {

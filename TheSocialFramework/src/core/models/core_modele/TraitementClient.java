@@ -24,6 +24,7 @@ public class TraitementClient implements Runnable {
 	private InetAddress adresseClient;
 	private String nomClient;
 	private HashMap<String, CommandeClient> listeCommandes;
+	private File currentDir;
 
 	/**
 	 * 
@@ -71,6 +72,21 @@ public class TraitementClient implements Runnable {
 			}
 		}
 	}
+	
+	/**
+	 * Guillaume et Adele
+	 * crée un dossier pour l'utilisateur courant si il n'exite pas
+	 */
+	public void folder() {
+		String repertoireCourant = System.getProperty("user.dir");
+		
+		setCurrentDir(new File(repertoireCourant+"/"+getNomClient()));
+		
+		if(!getCurrentDir().exists()){
+			getCurrentDir().mkdir();
+		}
+	}
+	
 
 	/**
 	 * Accesseur de socketDeTransfert
@@ -168,6 +184,14 @@ public class TraitementClient implements Runnable {
 		this.nomClient = nomClient;
 	}
 
+	public File getCurrentDir() {
+		return currentDir;
+	}
+
+	public void setCurrentDir(File currentDir) {
+		this.currentDir = currentDir;
+	}
+	
 
 	
 	

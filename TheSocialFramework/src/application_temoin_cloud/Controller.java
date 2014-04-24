@@ -27,7 +27,6 @@ public class Controller {
 	private VueConnexion vueConnexion;
 	private Client client;
 	private String userName;
-	private File currentDir;
 
 	/**
 	 * Constructeur
