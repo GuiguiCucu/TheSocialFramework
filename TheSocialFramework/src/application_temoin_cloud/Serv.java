@@ -18,7 +18,7 @@ public class Serv {
 	//	listeCommandes.put("@sendfile", new EnvoiFichier());
 		listeCommandes.put("@afficherrepertoire", new DemandeContenuDossier());
 		listeCommandes.put("@demandeconnexion", new DemandeConnexion());
-		listeCommandes.put("@demande_deconnexion", new DemandeDeconnexion());
+		listeCommandes.put("@demande_deconnexion", new application_temoin_cloud.commandeServeur.DemandeDeconnexion());
 		listeCommandes.put("@demandetelechargement", new DemandeTelechargement());
 		Serveur serv = LanceurServeur.run(2048, listeCommandes);
 	}

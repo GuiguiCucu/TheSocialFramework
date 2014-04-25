@@ -30,6 +30,7 @@ public class Client implements Runnable {
 	private String nomServeur;
 	private String pseudoClient;
 	private SuperControleur controleur;
+	private boolean connect;
 
 	/**
 	 * Constructeur
@@ -44,6 +45,7 @@ public class Client implements Runnable {
 		this.setNomServeur(serverName);
 		this.setPort(numPort);
 		this.setControleur(controleur);
+		this.setConnect(true);
 		this.connexionServeur();
 		this.getServeur().start();
 		this.setListeCommandes(new HashMap<String, CommandeClient>());		
@@ -72,17 +74,15 @@ public class Client implements Runnable {
 	/**
 	 * Fermeture de la connexion avec le serveur
 	 */
-	public void deconnexionServeur() {
-		try {
-			// Thread + appel
-			this.getMessage().fermeture();
-			this.getSocket().close();
-
-		} catch (IOException ex) {
-			Logger.getLogger(Client.class.getName())
-					.log(Level.SEVERE, null, ex);
-		}
-	}
+	 public void deconnexionServeur() {
+	        try {
+	            this.getMessage().getEntree().close();
+	            this.getMessage().getSortie().close();
+	            this.getSocket().close();
+	        } catch (IOException ex) {
+	            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+	        }
+	    }
 
 	/**
 	 * Redéfinition de la méthode run : Description des instructions du thread
@@ -92,8 +92,7 @@ public class Client implements Runnable {
 	public void run() {
 
 		System.out.println("Connecté à " + this.getNomServeur());
-		boolean connect = true;
-		while (connect) {
+		while (isConnect()) {
 			String recu = "";
 			try {
 				recu = this.getMessage().receptionMessage();
@@ -262,6 +261,15 @@ public class Client implements Runnable {
 	public void setControleur(SuperControleur controleur) {
 		this.controleur = controleur;
 	}
+
+	public boolean isConnect() {
+		return connect;
+	}
+
+	public void setConnect(boolean connect) {
+		this.connect = connect;
+	}
+	
 	
 	
 

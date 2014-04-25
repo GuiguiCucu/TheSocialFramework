@@ -25,6 +25,7 @@ public class TraitementClient implements Runnable {
 	private String nomClient;
 	private HashMap<String, CommandeClient> listeCommandes;
 	private File currentDir;
+	private boolean connect ;
 
 	/**
 	 * 
@@ -40,6 +41,7 @@ public class TraitementClient implements Runnable {
 		this.setMessage(new Message(this.getSocketDeTransfert()));
 		this.setAdresseClient(this.getSocketDeTransfert().getInetAddress());
 		this.setNomClient("");
+		this.setConnect(true);
 		this.setClient(new Thread(this));
 		this.getClient().start();
 	}
@@ -50,9 +52,8 @@ public class TraitementClient implements Runnable {
 	 */
 	public void run() {
 		this.getServ().printWelcome((this));
-		boolean connect = true;
 
-		while (connect) {
+		while (isConnect()) {
 			String envoi = "";
 			try {
 				envoi = this.getMessage().receptionMessage();
@@ -190,6 +191,14 @@ public class TraitementClient implements Runnable {
 
 	public void setCurrentDir(File currentDir) {
 		this.currentDir = currentDir;
+	}
+
+	public boolean isConnect() {
+		return connect;
+	}
+
+	public void setConnect(boolean connect) {
+		this.connect = connect;
 	}
 	
 

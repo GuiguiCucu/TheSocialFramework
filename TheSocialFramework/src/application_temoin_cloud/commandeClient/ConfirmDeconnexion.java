@@ -11,6 +11,8 @@ public class ConfirmDeconnexion implements CommandeClient {
 		((Controller)controleur).runVueConnexion();
 		((Controller)controleur).getVueCloud().dispose();
 		((Controller)controleur).getClient().deconnexionServeur();
+		((Controller)controleur).getClient().setConnect(false);
+		System.out.println("END Confirm Deconnexion");
 	}
 
 }
