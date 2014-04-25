@@ -32,6 +32,7 @@ public class Serveur {
 	private HashMap<String, CommandeServeur> listeCommandes;
 	
 	private File[] liste;
+	private File currentDir;
 
 	/**
 	 * Constructeur
@@ -242,6 +243,14 @@ public class Serveur {
 
 	public void setListe(File[] liste) {
 		this.liste = liste;
+	}
+
+	public File getCurrentDir() {
+		return currentDir;
+	}
+
+	public void setCurrentDir(File currentDir) {
+		this.currentDir = currentDir;
 	}
 
 }
