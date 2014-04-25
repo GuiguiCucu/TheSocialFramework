@@ -3,6 +3,8 @@ package application_temoin_cloud;
 
 import java.util.HashMap;
 
+import application_temoin_cloud.commandeServeur.DemandeConnexion;
+import application_temoin_cloud.commandeServeur.DemandeContenuDossier;
 import core.models.core_modele.Serveur;
 import core.models.core_modele.commandes.commandesServeur.EnvoiFichier;
 import core.models.modules.module_clientserveur.LanceurServeur;
@@ -14,6 +16,7 @@ public class Serv {
 		HashMap<String, CommandeServeur> listeCommandes = new HashMap<String, CommandeServeur>();
 	//	listeCommandes.put("@sendfile", new EnvoiFichier());
 		listeCommandes.put("@afficherrepertoire", new DemandeContenuDossier());
+		listeCommandes.put("@demandeconnexion", new DemandeConnexion());
 		Serveur serv = LanceurServeur.run(2048, listeCommandes);
 	}
 	

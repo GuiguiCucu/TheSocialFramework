@@ -57,12 +57,8 @@ public class VueConnexion extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				String login = txtLogin.getText();
 				String pwd = pwdPassword.getText();
-				try {
-					getC().setCurrentUser(login, pwd);
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+				//getC().setCurrentUser(login, pwd);
+				getC().connexion(login, pwd);
 			}
 		});
 		btnSeConnecter.setBounds(237, 228, 127, 23);
