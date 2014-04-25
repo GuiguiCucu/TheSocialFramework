@@ -11,6 +11,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 import application_temoin_cloud.commandeClient.ConfirmConnexion;
+import application_temoin_cloud.commandeClient.ConfirmDeconnexion;
 import application_temoin_cloud.commandeClient.ConfirmReceptionContenuDossier;
 import core.controleur.SuperControleur;
 import core.models.core_modele.Client;
@@ -56,7 +57,7 @@ public class Controller extends SuperControleur {
 		try {
 			setVueConnexion(new VueConnexion(this));
 			getVueConnexion().setVisible(true);
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -108,9 +109,11 @@ public class Controller extends SuperControleur {
 		this.getClient().getMessage().envoiMessage(pwd);
 		System.out.println();
 	}
-	
-	public void deconnexion(){
-		
+
+	public void deconnexion() {
+		this.getClient().getListeCommandes()
+				.put("@confirm_demande_deconnexion", new ConfirmDeconnexion());
+		this.getClient().getMessage().envoiMessage("@demande_deconnexion");
 	}
 
 	/**
