@@ -87,8 +87,7 @@ public class VueCloud extends JFrame {
 		JButton btnSeDconnecter = new JButton("Se déconnecter");
 		btnSeDconnecter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				getC().runVueConnexion();
-				getC().getVueCloud().dispose();
+				getC().deconnexion();
 			}
 		});
 		btnSeDconnecter.setFont(new Font("Calibri", Font.PLAIN, 13));

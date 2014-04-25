@@ -37,7 +37,6 @@ public class Controller extends SuperControleur {
 	 * Constructeur
 	 */
 	public Controller() {
-		initialisationClient();
 	}
 
 	/**
@@ -100,14 +99,13 @@ public class Controller extends SuperControleur {
 	}
 
 	public void connexion(String login, String pwd) {
+		initialisationClient();
 		setUserName(login);
-		System.out.println("IN demande connexion");
 		this.getClient().getListeCommandes()
 				.put("@confirmconnexion", new ConfirmConnexion());
 		this.getClient().getMessage().envoiMessage("@demandeconnexion");
 		this.getClient().getMessage().envoiMessage(login);
 		this.getClient().getMessage().envoiMessage(pwd);
-		System.out.println();
 	}
 
 	public void deconnexion() {

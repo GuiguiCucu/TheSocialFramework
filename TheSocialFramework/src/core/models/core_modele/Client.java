@@ -75,8 +75,7 @@ public class Client implements Runnable {
 	public void deconnexionServeur() {
 		try {
 			// Thread + appel
-			this.getMessage().getEntree().close();
-			this.getMessage().getSortie().close();
+			this.getMessage().fermeture();
 			this.getSocket().close();
 
 		} catch (IOException ex) {
