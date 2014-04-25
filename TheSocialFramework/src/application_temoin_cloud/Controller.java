@@ -13,6 +13,7 @@ import javax.swing.JOptionPane;
 import application_temoin_cloud.commandeClient.ConfirmConnexion;
 import application_temoin_cloud.commandeClient.ConfirmDeconnexion;
 import application_temoin_cloud.commandeClient.ConfirmReceptionContenuDossier;
+import application_temoin_cloud.commandeClient.ConfirmTelechargement;
 import core.controleur.SuperControleur;
 import core.models.core_modele.Client;
 import core.models.core_modele.Message;
@@ -156,10 +157,12 @@ public class Controller extends SuperControleur {
 	
 	public void telechargement(String filename) {
 		System.out.println("IN telechargement");
+		this.getClient().getListeCommandes().put("@oktelechargement", new ConfirmTelechargement());
 		System.out.println("commande existante : "
 				+ client.getListeCommandes().get("@oktelechargement"));
 		client.getMessage().envoiMessage("@demandetelechargement");
-		System.out.println("OUT");
+		client.getMessage().envoiMessage(filename);
+		System.out.println("OUT telechargment");
 	}
 
 	public VueConnexion getVueConnexion() {

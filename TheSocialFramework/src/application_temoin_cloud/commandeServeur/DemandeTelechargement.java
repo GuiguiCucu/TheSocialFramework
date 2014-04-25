@@ -14,8 +14,15 @@ public class DemandeTelechargement implements CommandeServeur{
 
 	@Override
 	public void execute(Message message, TraitementClient tc) {
-		// TODO Auto-generated method stub
-		
+
+		try {
+			System.out.println(this.getClass().getCanonicalName());
+			message.envoiMessage("@oktelechargement");
+			String nomFichier = message.receptionMessage();
+			message.envoiFichier();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 }
