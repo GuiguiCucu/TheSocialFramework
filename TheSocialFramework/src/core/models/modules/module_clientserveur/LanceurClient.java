@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import core.controleur.SuperControleur;
 import core.models.core_modele.Client;
 import core.models.core_modele.commandes.commandesClient.ConfirmReceptionFichier;
 import core.models.core_modele.commandes.commandesClient.ConfirmReceptionFichier2;
@@ -14,7 +15,7 @@ public class LanceurClient {
 		/*String nameServer = new String("0.0.0.0");
 		int numPort = 7846;*/
 		if(validate(nameServer) && numPort >0 && numPort <= 65535){
-			Client client = new Client(nameServer, numPort);
+			Client client = new Client(nameServer, numPort, new SuperControleur());
 			
 			/*Exemple de création de commande */
 			client.getListeCommandes().put("@oksendfile", new ConfirmReceptionFichier());	
