@@ -1,9 +1,10 @@
-package application_temoin_cloud;
+package application_temoin_cloud.commandeClient;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import application_temoin_cloud.Controller;
 import core.controleur.SuperControleur;
 import core.models.core_modele.Message;
 import core.models.core_modele.commandes.commandesClient.CommandeClient;

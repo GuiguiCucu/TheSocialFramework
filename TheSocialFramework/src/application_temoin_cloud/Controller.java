@@ -10,6 +10,8 @@ import java.util.HashMap;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
+import application_temoin_cloud.commandeClient.ConfirmConnexion;
+import application_temoin_cloud.commandeClient.ConfirmReceptionContenuDossier;
 import core.controleur.SuperControleur;
 import core.models.core_modele.Client;
 import core.models.core_modele.Message;
@@ -34,9 +36,7 @@ public class Controller extends SuperControleur {
 	 * Constructeur
 	 */
 	public Controller() {
-		users = new Contacts<User>();
-		users.ajouterPersonne(new User("Adele", "pwd"));
-		users.ajouterPersonne(new User("Guillaume", "pwd"));
+		initialisationClient();
 	}
 
 	/**
@@ -56,6 +56,7 @@ public class Controller extends SuperControleur {
 		try {
 			setVueConnexion(new VueConnexion(this));
 			getVueConnexion().setVisible(true);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -68,12 +69,19 @@ public class Controller extends SuperControleur {
 		try {
 			setVueCloud(new VueCloud(this));
 			getVueCloud().setVisible(true);
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
+	public void initialisationClient() {
+		try {
+			setClient(new Client("0.0.0.0", 2048, this));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
 	/**
 	 * FileChooser permettant de choisir le fichier à uploader sur le serveur
@@ -85,31 +93,24 @@ public class Controller extends SuperControleur {
 		int returnVal = chooser.showOpenDialog(null);
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
 			File f = chooser.getSelectedFile();
-			//upload(f.getAbsolutePath());
+			// upload(f.getAbsolutePath());
 			this.initialiserContenuRepertoire();
 		}
 	}
 
-	/**
-	 * Vérification du login et du mot de passe lors de l'iddentification d'un
-	 * utilisateur
-	 * 
-	 * @param login
-	 * @param pwd
-	 * @throws IOException
-	 */
-	public void setCurrentUser(String login, String pwd) throws IOException {
-		if (User.verification(login, pwd, users)) {
-			setUserName(login);
-			setClient(new Client("0.0.0.0", 2048, this));
-			getClient().getListeCommandes().put("@oksendfile",
-					new ConfirmReceptionFichier());
-			runVueCloud();
-			getVueConnexion().dispose();			
-		} else
-			JOptionPane.showMessageDialog(null,
-					"Login ou mot de passe incorrect", "Erreur",
-					JOptionPane.ERROR_MESSAGE);
+	public void connexion(String login, String pwd) {
+		setUserName(login);
+		System.out.println("IN demande connexion");
+		this.getClient().getListeCommandes()
+				.put("@confirmconnexion", new ConfirmConnexion());
+		this.getClient().getMessage().envoiMessage("@demandeconnexion");
+		this.getClient().getMessage().envoiMessage(login);
+		this.getClient().getMessage().envoiMessage(pwd);
+		System.out.println();
+	}
+	
+	public void deconnexion(){
+		
 	}
 
 	/**
@@ -119,24 +120,28 @@ public class Controller extends SuperControleur {
 	 */
 	public void upload(String fileName) {
 		System.out.println("IN upload");
+		getClient().getListeCommandes().put("@oksendfile",
+				new ConfirmReceptionFichier());
 		System.out.println("commande existante : "
 				+ client.getListeCommandes().get("@oksendfile"));
+
 		client.getMessage().envoiMessage("@sendfile");
 		System.out.println("OUT");
 	}
-	
-	public void initialiserContenuRepertoire(){
+
+	public void initialiserContenuRepertoire() {
 		System.out.println("IN init");
-		this.getClient().getListeCommandes().put("@okafficherrepertoire",
-				new ConfirmReceptionContenuDossier());
+		this.getClient()
+				.getListeCommandes()
+				.put("@okafficherrepertoire",
+						new ConfirmReceptionContenuDossier());
 		this.getClient().getMessage().envoiMessage("@afficherrepertoire");
 	}
-	
-	public void alimenteVueCloud(ArrayList<String> dossiers, HashMap<String, Long> fichiers){
-		this.getVueCloud().alimenteDocuments(dossiers,fichiers);
-	}
 
-	
+	public void alimenteVueCloud(ArrayList<String> dossiers,
+			HashMap<String, Long> fichiers) {
+		this.getVueCloud().alimenteDocuments(dossiers, fichiers);
+	}
 
 	public VueConnexion getVueConnexion() {
 		return vueConnexion;
@@ -169,6 +174,5 @@ public class Controller extends SuperControleur {
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
-
 
 }

@@ -1,4 +1,4 @@
-package application_temoin_cloud;
+package application_temoin_cloud.commandeServeur;
 
 import java.io.File;
 import java.util.ArrayList;
