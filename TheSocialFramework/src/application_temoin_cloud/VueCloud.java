@@ -18,6 +18,8 @@ import javax.swing.JButton;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -25,7 +27,7 @@ public class VueCloud extends JFrame {
 
 	private JPanel contentPane;
 	private Controller c;
-	private JList listeDocuments;
+	private JList<String> listeDocuments;
 	private DefaultListModel modelListeDocuments;
 
 	/**
@@ -54,8 +56,8 @@ public class VueCloud extends JFrame {
 		listeDocuments.setToolTipText("yes");
 		listeDocuments.setSelectedIndex(1);
 		listeDocuments.setBounds(37, 70, 425, 332);
+		getC().initialiserContenuRepertoire();
 		contentPane.add(listeDocuments);
-		
 		
 		modelListeDocuments = new DefaultListModel();
 		listeDocuments.setModel(modelListeDocuments);
@@ -64,7 +66,7 @@ public class VueCloud extends JFrame {
 		btnExporter.setFont(new Font("Calibri", Font.PLAIN, 13));
 		btnExporter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("gné");
+				getC().telechargement("hey.txt");
 			}
 		});
 		btnExporter.setBounds(100, 431, 110, 23);
@@ -93,8 +95,16 @@ public class VueCloud extends JFrame {
 		btnSeDconnecter.setFont(new Font("Calibri", Font.PLAIN, 13));
 		btnSeDconnecter.setBounds(37, 479, 425, 23);
 		contentPane.add(btnSeDconnecter);
-	}
 
+	listeDocuments.addMouseListener(new MouseAdapter() {
+	    public void mouseClicked(MouseEvent evt) {
+	        if (evt.getClickCount() == 2) {
+	        	getC().actualiserContenuRepertoire(listeDocuments.getSelectedValue());
+	        } 
+	    }
+	});
+	}
+	
 	public Controller getC() {
 		return c;
 	}

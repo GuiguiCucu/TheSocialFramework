@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import application_temoin_cloud.commandeServeur.DemandeConnexion;
 import application_temoin_cloud.commandeServeur.DemandeContenuDossier;
+import application_temoin_cloud.commandeServeur.DemandeTelechargement;
 import core.models.core_modele.Serveur;
 import core.models.core_modele.commandes.commandesServeur.EnvoiFichier;
 import core.models.modules.module_clientserveur.LanceurServeur;
@@ -18,6 +19,7 @@ public class Serv {
 		listeCommandes.put("@afficherrepertoire", new DemandeContenuDossier());
 		listeCommandes.put("@demandeconnexion", new DemandeConnexion());
 		listeCommandes.put("@demande_deconnexion", new DemandeDeconnexion());
+		listeCommandes.put("@demandetelechargement", new DemandeTelechargement());
 		Serveur serv = LanceurServeur.run(2048, listeCommandes);
 	}
 	

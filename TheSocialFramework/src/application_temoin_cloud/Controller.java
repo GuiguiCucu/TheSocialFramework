@@ -94,9 +94,10 @@ public class Controller extends SuperControleur {
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
 			File f = chooser.getSelectedFile();
 			// upload(f.getAbsolutePath());
-			this.initialiserContenuRepertoire();
 		}
 	}
+	
+	
 
 	public void connexion(String login, String pwd) {
 		initialisationClient();
@@ -138,10 +139,27 @@ public class Controller extends SuperControleur {
 						new ConfirmReceptionContenuDossier());
 		this.getClient().getMessage().envoiMessage("@afficherrepertoire");
 	}
+	
+	public void actualiserContenuRepertoire(String dossier) {
+		System.out.println("IN actualisation");
+		this.getClient()
+				.getListeCommandes()
+				.put("@okafficherrepertoire",
+						new ConfirmReceptionContenuDossier());
+		this.getClient().getMessage().envoiMessage("@afficherrepertoire");
+	}	
 
 	public void alimenteVueCloud(ArrayList<String> dossiers,
 			HashMap<String, Long> fichiers) {
 		this.getVueCloud().alimenteDocuments(dossiers, fichiers);
+	}
+	
+	public void telechargement(String filename) {
+		System.out.println("IN telechargement");
+		System.out.println("commande existante : "
+				+ client.getListeCommandes().get("@oktelechargement"));
+		client.getMessage().envoiMessage("@demandetelechargement");
+		System.out.println("OUT");
 	}
 
 	public VueConnexion getVueConnexion() {

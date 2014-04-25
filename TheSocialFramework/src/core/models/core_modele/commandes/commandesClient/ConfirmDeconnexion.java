@@ -9,7 +9,7 @@ public class ConfirmDeconnexion implements CommandeClient {
 	///@okdeconnexion
 	@Override
 	public void execute(Message message, SuperControleur controleur) {
-
+		
 	}
 
 }
