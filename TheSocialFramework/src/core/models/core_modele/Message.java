@@ -73,9 +73,9 @@ public class Message {
 	 * 
 	 * @throws IOException
 	 */
-	  public void envoiFichier() throws IOException {
+	  public void envoiFichier(String path) throws IOException {
 		File fileToSend = new File(
-				"/home/f/forestip/git/TheSocialFramework/TheSocialFramework/test.mp3");
+				"/home/f/forestip/git/TheSocialFramework/TheSocialFramework/"+path);
 		System.out.println("Enovi du nom de fichier");
 		this.envoiMessage("@nameFile:" + fileToSend.getName());
 		System.out.println("Enovi de la taille de fichier");
@@ -92,22 +92,6 @@ public class Message {
 		System.out.println("Fin envoi");
 	}
 	 
-	  public void envoiFichier2() throws IOException {
-		File fileToSend = new File(
-				"/home/f/forestip/git/TheSocialFramework/TheSocialFramework/testEnvoi.txt");
-		this.envoiMessage("@nameFile:" + fileToSend.getName());
-		this.envoiMessage("@sizeFile:" + fileToSend.length());
-		int count;
-		byte[] buffer = new byte[1024];
-		BufferedInputStream inBuf = new BufferedInputStream(
-				new FileInputStream(fileToSend));
-		while ((count = inBuf.read(buffer)) >= 0) {
-			out.write(buffer, 0, count);
-			out.flush();
-		}
-		inBuf.close();
-	}
-
 	/**
 	 * Réception d'un fichier transité par le fichier
 	 * 

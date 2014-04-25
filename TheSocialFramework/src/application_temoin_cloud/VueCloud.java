@@ -11,6 +11,7 @@ import javax.swing.JLabel;
 import java.awt.Font;
 
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextPane;
 import javax.swing.JComboBox;
 import javax.swing.JList;
@@ -22,6 +23,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map.Entry;
 
 public class VueCloud extends JFrame {
 
@@ -66,7 +68,15 @@ public class VueCloud extends JFrame {
 		btnExporter.setFont(new Font("Calibri", Font.PLAIN, 13));
 		btnExporter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				getC().telechargement("hey.txt");
+				if(listeDocuments.getSelectedValue()!=null){
+					getC().telechargement(listeDocuments.getSelectedValue());
+				}
+				else{
+					JOptionPane.showMessageDialog(null,
+							"Spécifiez un fichier à télécharger", "Erreur",
+							JOptionPane.ERROR_MESSAGE);
+				}
+				
 			}
 		});
 		btnExporter.setBounds(100, 431, 110, 23);
@@ -123,6 +133,12 @@ public class VueCloud extends JFrame {
 		for(String dossier: dossiers){
 			this.modelListeDocuments.addElement(dossier);
 			}
+
+		for(Entry<String, Long> entry : fichiers.entrySet()) {
+		    String key = entry.getKey();
+		    Long value = entry.getValue();
+		    this.modelListeDocuments.addElement(key);
+		}
 		
 	}
 }

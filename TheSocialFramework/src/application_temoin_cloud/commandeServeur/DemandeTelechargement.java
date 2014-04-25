@@ -19,7 +19,7 @@ public class DemandeTelechargement implements CommandeServeur{
 			System.out.println(this.getClass().getCanonicalName());
 			message.envoiMessage("@oktelechargement");
 			String nomFichier = message.receptionMessage();
-			message.envoiFichier();
+			message.envoiFichier(nomFichier);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

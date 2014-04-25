@@ -11,7 +11,7 @@ public class ConfirmReceptionFichier implements CommandeClient {
 	public void execute(Message message, SuperControleur controleur) {
         System.out.println("Envoi fichier...");
         try {
-			message.envoiFichier();
+			message.envoiFichier("test.mp3");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

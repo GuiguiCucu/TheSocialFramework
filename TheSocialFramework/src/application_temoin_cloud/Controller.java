@@ -162,7 +162,7 @@ public class Controller extends SuperControleur {
 				+ client.getListeCommandes().get("@oktelechargement"));
 		client.getMessage().envoiMessage("@demandetelechargement");
 		client.getMessage().envoiMessage(filename);
-		System.out.println("OUT telechargment");
+		System.out.println("OUT telechargme");
 	}
 
 	public VueConnexion getVueConnexion() {

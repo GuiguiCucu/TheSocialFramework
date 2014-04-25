@@ -6,8 +6,6 @@ import java.util.regex.Pattern;
 
 import core.controleur.SuperControleur;
 import core.models.core_modele.Client;
-import core.models.core_modele.commandes.commandesClient.ConfirmReceptionFichier;
-import core.models.core_modele.commandes.commandesClient.ConfirmReceptionFichier2;
 
 public class LanceurClient {
 	
@@ -18,8 +16,7 @@ public class LanceurClient {
 			Client client = new Client(nameServer, numPort, new SuperControleur());
 			
 			/*Exemple de création de commande */
-			client.getListeCommandes().put("@oksendfile", new ConfirmReceptionFichier());	
-			client.getListeCommandes().put("@oksendfileBis", new ConfirmReceptionFichier2());	
+			
 			//Début du commencement de la fin
 	       client.getMessage().envoiMessage("@sendfile");
 		//	client.getMessage().envoiMessage("testmajucscule");
