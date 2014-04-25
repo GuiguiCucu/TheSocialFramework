@@ -2,6 +2,8 @@ package application_temoin_chat;
 
 import java.io.IOException;
 
+import application_temoin_chat.commandeClient.ConfirmConnexion;
+import application_temoin_chat.commandeClient.ConfirmSendMessage;
 import core.controleur.SuperControleur;
 import core.models.core_modele.Client;
 
@@ -10,6 +12,7 @@ public class Controller extends SuperControleur{
 	private Client client;
 	private VuePseudo vuePseudo;
 	private VueDiscussion vueDiscussion;
+	private String pseudo;
 
 	/**
 	 * Constructeur
@@ -43,7 +46,7 @@ public class Controller extends SuperControleur{
 	 */
 	public void runVueDiscussion() {
 		try {
-			setVueDiscussion(new VueDiscussion());
+			setVueDiscussion(new VueDiscussion(this));
 			getVueDiscussion().setVisible(true);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -59,6 +62,26 @@ public class Controller extends SuperControleur{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	/**
+	 * Connexion du client au serveur
+	 * @param pseudo
+	 */
+	public void connexion(String pseudo) {
+		initialisationClient();
+		setPseudo(pseudo);
+		System.out.println("in connexion");
+		this.getClient().getListeCommandes()
+				.put("@confirmconnexion", new ConfirmConnexion());
+		this.getClient().getMessage().envoiMessage("@demandeconnexion");
+		this.getClient().getMessage().envoiMessage(pseudo);
+	}
+	
+	public void send(String msg){
+		this.getClient().getListeCommandes().put("@confirmsendmessage", new ConfirmSendMessage());
+		this.getClient().getMessage().envoiMessage("@sendmessage");
+		this.getClient().getMessage().envoiMessage(getPseudo()+"> "+msg);
 	}
 
 	public Client getClient() {
@@ -83,6 +106,19 @@ public class Controller extends SuperControleur{
 
 	public void setVueDiscussion(VueDiscussion vueDiscussion) {
 		this.vueDiscussion = vueDiscussion;
+	}
+
+	public String getPseudo() {
+		return pseudo;
+	}
+
+	public void setPseudo(String pseudo) {
+		this.pseudo = pseudo;
+	}
+
+	public void alimenteDiscussion(String reponse) {
+		this.getVueDiscussion().alimenteFilDiscussion(reponse);
+		
 	}
 
 }

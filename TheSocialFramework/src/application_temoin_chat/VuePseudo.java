@@ -45,8 +45,7 @@ public class VuePseudo extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				String pseudo = textField.getText();
 				if(!pseudo.equals("")){
-					getC().runVueDiscussion();
-					getC().getVuePseudo().dispose();
+					getC().connexion(pseudo);
 				}
 			}
 		});

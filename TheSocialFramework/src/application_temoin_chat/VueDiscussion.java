@@ -15,30 +15,21 @@ import javax.swing.JScrollPane;
 import javax.swing.JLabel;
 import javax.swing.ScrollPaneConstants;
 
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
 public class VueDiscussion extends JFrame {
 
 	private JPanel contentPane;
-
-//	/**
-//	 * Launch the application.
-//	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					VueDiscussion frame = new VueDiscussion();
-//					frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
+	private Controller c;
+	private JTextArea textArea_1;
+	private JTextArea textArea;
 
 	/**
 	 * Create the frame.
 	 */
-	public VueDiscussion() {
+	public VueDiscussion(Controller c) {
+		setC(c);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 551, 463);
 		contentPane = new JPanel();
@@ -46,7 +37,7 @@ public class VueDiscussion extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JTextArea textArea = new JTextArea();
+		textArea = new JTextArea();
 		textArea.setEditable(false);
 		textArea.setBounds(32, 36, 366, 310);
 		textArea.setLineWrap(true);
@@ -57,9 +48,6 @@ public class VueDiscussion extends JFrame {
 		contentPane.add(scrollPane_2);
 		scrollPane_2.setViewportView(textArea);
 		
-		JButton btnEnvoyer = new JButton("Envoyer");
-		btnEnvoyer.setBounds(410, 358, 112, 52);
-		contentPane.add(btnEnvoyer);
 		
 		JList list = new JList();
 		list.setBounds(410, 36, 112, 310);
@@ -83,9 +71,34 @@ public class VueDiscussion extends JFrame {
 		scrollPane_1.setBounds(32, 358, 366, 52);
 		contentPane.add(scrollPane_1);
 		
-		JTextArea textArea_1 = new JTextArea();
+		textArea_1 = new JTextArea();
 		textArea_1.setBounds(32, 359, 366, 51);
 		scrollPane_1.setViewportView(textArea_1);
 		textArea_1.setLineWrap(true); 
+		
+		JButton btnEnvoyer = new JButton("Envoyer");
+		btnEnvoyer.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String msg = textArea_1.getText();
+				if(!msg.equals(""))
+					getC().send(msg);
+					textArea_1.setText("");
+			}
+		});
+		btnEnvoyer.setBounds(410, 358, 112, 52);
+		contentPane.add(btnEnvoyer);
+	}
+
+	public Controller getC() {
+		return c;
+	}
+
+	public void setC(Controller c) {
+		this.c = c;
+	}
+
+	public void alimenteFilDiscussion(String reponse) {
+		this.textArea.append(reponse+"\n");
+		
 	}
 }
