@@ -16,7 +16,9 @@ import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+import application_temoin_cloud.User;
 import core.models.core_modele.commandes.commandesServeur.CommandeServeur;
+import core.models.modules.module_contacts.Contacts;
 /**
  * Objet simulant le serveur
  * 
@@ -33,6 +35,9 @@ public class Serveur {
 	
 	private File[] liste;
 	private File currentDir;
+	
+	private Contacts<User> users;
+
 
 	/**
 	 * Constructeur
@@ -46,6 +51,12 @@ public class Serveur {
 			this.setPort(p);
 			this.setSocketEcoute(new ServerSocket(this.getPort()));
 			this.setListeCommandes(new HashMap<String, CommandeServeur>());
+			
+			users = new Contacts<User>();
+			users.ajouterPersonne(new User("Adele", "pwd"));
+			users.ajouterPersonne(new User("Guillaume", "pwd"));
+			
+			
 		} catch (IOException ex) {
 			JOptionPane.showMessageDialog(new JFrame(),
 					"Ce port à cette adresse est occupé");
@@ -252,5 +263,23 @@ public class Serveur {
 	public void setCurrentDir(File currentDir) {
 		this.currentDir = currentDir;
 	}
+
+	public Vector<String> getListeClients() {
+		return listeClients;
+	}
+
+	public void setListeClients(Vector<String> listeClients) {
+		this.listeClients = listeClients;
+	}
+
+	public Contacts<User> getUsers() {
+		return users;
+	}
+
+	public void setUsers(Contacts<User> users) {
+		this.users = users;
+	}
+	
+	
 
 }

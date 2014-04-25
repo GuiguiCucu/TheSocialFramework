@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+import core.controleur.SuperControleur;
 import core.models.core_modele.commandes.commandesClient.CommandeClient;
 
 /**
@@ -28,6 +29,7 @@ public class Client implements Runnable {
 	private HashMap<String, CommandeClient> listeCommandes;
 	private String nomServeur;
 	private String pseudoClient;
+	private SuperControleur controleur;
 
 	/**
 	 * Constructeur
@@ -38,9 +40,10 @@ public class Client implements Runnable {
 	 *            port du serveur
 	 * @throws IOException
 	 */
-	public Client(String serverName, int numPort) throws IOException {
+	public Client(String serverName, int numPort, SuperControleur controleur) throws IOException {
 		this.setNomServeur(serverName);
 		this.setPort(numPort);
+		this.setControleur(controleur);
 		this.connexionServeur();
 		this.getServeur().start();
 		this.setListeCommandes(new HashMap<String, CommandeClient>());		
@@ -97,7 +100,7 @@ public class Client implements Runnable {
 				recu = this.getMessage().receptionMessage();
 				CommandeClient cmd = 	this.getListeCommandes().get(recu);
 				if(cmd!=null){
-					cmd.execute(this.getMessage());
+					cmd.execute(this.getMessage(), this.getControleur());
 				}else{
 					System.out.println("RECU : " +recu);
 				}
@@ -252,5 +255,15 @@ public class Client implements Runnable {
 	public void setListeCommandes(HashMap<String, CommandeClient> listeCommandes) {
 		this.listeCommandes = listeCommandes;
 	}
+
+	public SuperControleur getControleur() {
+		return controleur;
+	}
+
+	public void setControleur(SuperControleur controleur) {
+		this.controleur = controleur;
+	}
+	
+	
 
 }

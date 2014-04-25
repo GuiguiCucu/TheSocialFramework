@@ -10,6 +10,7 @@ import javax.swing.JLabel;
 
 import java.awt.Font;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JTextPane;
 import javax.swing.JComboBox;
 import javax.swing.JList;
@@ -17,11 +18,15 @@ import javax.swing.JButton;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class VueCloud extends JFrame {
 
 	private JPanel contentPane;
 	private Controller c;
+	private JList listeDocuments;
+	private DefaultListModel modelListeDocuments;
 
 	/**
 	 * Create the frame.
@@ -45,11 +50,15 @@ public class VueCloud extends JFrame {
 		label_1.setBounds(200, 44, 144, 14);
 		contentPane.add(label_1);
 		
-		JList list = new JList();
-		list.setToolTipText("yes");
-		list.setSelectedIndex(1);
-		list.setBounds(37, 70, 425, 332);
-		contentPane.add(list);
+		listeDocuments = new JList();
+		listeDocuments.setToolTipText("yes");
+		listeDocuments.setSelectedIndex(1);
+		listeDocuments.setBounds(37, 70, 425, 332);
+		contentPane.add(listeDocuments);
+		
+		
+		modelListeDocuments = new DefaultListModel();
+		listeDocuments.setModel(modelListeDocuments);
 		
 		JButton btnExporter = new JButton("Télécharger");
 		btnExporter.setFont(new Font("Calibri", Font.PLAIN, 13));
@@ -97,6 +106,14 @@ public class VueCloud extends JFrame {
 
 	public void alimenteContenu() {
 		// TODO alimenter la vue avec des représentations de dossiers, fichiers
+		
+	}
+
+	public void alimenteDocuments(ArrayList<String> dossiers,
+			HashMap<String, Long> fichiers) {
+		for(String dossier: dossiers){
+			this.modelListeDocuments.addElement(dossier);
+			}
 		
 	}
 }

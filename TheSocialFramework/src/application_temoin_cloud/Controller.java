@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -20,7 +22,7 @@ import core.models.modules.module_contacts.Contacts;
  * @author cutroneg
  * 
  */
-public class Controller {
+public class Controller extends SuperControleur {
 
 	private Contacts<User> users;
 	private VueCloud vueCloud;
@@ -99,7 +101,7 @@ public class Controller {
 	public void setCurrentUser(String login, String pwd) throws IOException {
 		if (User.verification(login, pwd, users)) {
 			setUserName(login);
-			setClient(new Client("0.0.0.0", 2048));
+			setClient(new Client("0.0.0.0", 2048, this));
 			getClient().getListeCommandes().put("@oksendfile",
 					new ConfirmReceptionFichier());
 			runVueCloud();
@@ -128,7 +130,10 @@ public class Controller {
 		this.getClient().getListeCommandes().put("@okafficherrepertoire",
 				new ConfirmReceptionContenuDossier());
 		this.getClient().getMessage().envoiMessage("@afficherrepertoire");
-		this.getVueCloud().alimenteContenu();
+	}
+	
+	public void alimenteVueCloud(ArrayList<String> dossiers, HashMap<String, Long> fichiers){
+		this.getVueCloud().alimenteDocuments(dossiers,fichiers);
 	}
 
 	
