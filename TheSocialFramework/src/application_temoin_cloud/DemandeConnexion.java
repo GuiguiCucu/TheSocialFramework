@@ -16,8 +16,9 @@ public class DemandeConnexion implements CommandeServeur {
 			String password = message.receptionMessage();
 			if(User.verification(nickname, password, tc.getServ().getUsers())){
 				message.envoiMessage("@okconnexion");
+				tc.setNomClient(nickname);
 			}else{
-				
+				message.envoiMessage("@invalideconnexion");
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
