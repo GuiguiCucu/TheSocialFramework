@@ -15,6 +15,7 @@ import java.util.logging.Logger;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+
 import core.models.core_modele.commandes.commandesServeur.CommandeServeur;
 /**
  * Objet simulant le serveur
@@ -29,6 +30,9 @@ public class Serveur {
 	private ServerSocket socketEcoute;
 	private Socket socketTransfert;
 	private HashMap<String, CommandeServeur> listeCommandes;
+	
+	private File[] liste;
+	private File currentDir;
 
 	/**
 	 * Constructeur
@@ -213,6 +217,40 @@ public class Serveur {
 	public void setListeCommandes(
 			HashMap<String, CommandeServeur> listeCommandes) {
 		this.listeCommandes = listeCommandes;
+	}
+	
+	
+
+	/**
+	 * liste tous les fichiers dans le répertoire courant
+	 */
+	public void list(){
+
+		setListe(getCurrentDir().listFiles());
+		for (int i = 0; i < getListe().length; i++) {
+//			if (listefichiers[i].isDirectory()) {
+//				System.out.println("Dossier : " + listefichiers[i].getName());
+//			} else if (listefichiers[i].isFile()) {
+//				
+				System.out.println("Fichier : " + getListe()[i].getName());
+			//}
+		}
+	}
+	
+	public File[] getListe() {
+		return liste;
+	}
+
+	public void setListe(File[] liste) {
+		this.liste = liste;
+	}
+
+	public File getCurrentDir() {
+		return currentDir;
+	}
+
+	public void setCurrentDir(File currentDir) {
+		this.currentDir = currentDir;
 	}
 
 }

@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import core.models.core_modele.Message;
 import core.models.core_modele.TraitementClient;
-import core.models.core_modele.commandes.commandesClient.CommandeClient;
 
 
 /*@demandedeco*/

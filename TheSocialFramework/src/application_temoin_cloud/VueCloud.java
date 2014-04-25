@@ -76,6 +76,12 @@ public class VueCloud extends JFrame {
 		contentPane.add(btnUploader);
 		
 		JButton btnSeDconnecter = new JButton("Se déconnecter");
+		btnSeDconnecter.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				getC().runVueConnexion();
+				getC().getVueCloud().dispose();
+			}
+		});
 		btnSeDconnecter.setFont(new Font("Calibri", Font.PLAIN, 13));
 		btnSeDconnecter.setBounds(37, 479, 425, 23);
 		contentPane.add(btnSeDconnecter);
@@ -87,5 +93,10 @@ public class VueCloud extends JFrame {
 
 	public void setC(Controller c) {
 		this.c = c;
+	}
+
+	public void alimenteContenu() {
+		// TODO alimenter la vue avec des représentations de dossiers, fichiers
+		
 	}
 }

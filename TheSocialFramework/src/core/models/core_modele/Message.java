@@ -57,8 +57,10 @@ public class Message {
 	 * @param message
 	 *            Message
 	 */
-	 synchronized public void envoiMessage(String message) {
+	  public void envoiMessage(String message) {
+		 System.out.println("IN ENVOI DE MESSAGE...");
 		try {
+			System.out.println("TRY ENVOI DE MESSAGE...");
 			sortie.writeUTF(message);
 		} catch (IOException ex) {
 			JOptionPane.showMessageDialog(new JFrame(),
@@ -71,10 +73,12 @@ public class Message {
 	 * 
 	 * @throws IOException
 	 */
-	 synchronized public void envoiFichier() throws IOException {
+	  public void envoiFichier() throws IOException {
 		File fileToSend = new File(
-				"/home/c/cutroneg/git/TheSocialFramework/TheSocialFramework/test.mp3");
+				"/home/f/forestip/git/TheSocialFramework/TheSocialFramework/test.mp3");
+		System.out.println("Enovi du nom de fichier");
 		this.envoiMessage("@nameFile:" + fileToSend.getName());
+		System.out.println("Enovi de la taille de fichier");
 		this.envoiMessage("@sizeFile:" + fileToSend.length());
 		int count;
 		byte[] buffer = new byte[1024];
@@ -88,9 +92,9 @@ public class Message {
 		System.out.println("Fin envoi");
 	}
 	 
-	 synchronized public void envoiFichier2() throws IOException {
+	  public void envoiFichier2() throws IOException {
 		File fileToSend = new File(
-				"/home/c/cutroneg/git/TheSocialFramework/TheSocialFramework/testEnvoi.txt");
+				"/home/f/forestip/git/TheSocialFramework/TheSocialFramework/testEnvoi.txt");
 		this.envoiMessage("@nameFile:" + fileToSend.getName());
 		this.envoiMessage("@sizeFile:" + fileToSend.length());
 		int count;
@@ -109,7 +113,7 @@ public class Message {
 	 * 
 	 * @throws IOException
 	 */
-	 synchronized public void receptionFichier() throws IOException {
+	  public void receptionFichier() throws IOException {
 		System.out.println("Réception fichier....");
 		String fileName = this.receptionMessage();
 		System.out.println(fileName);
@@ -123,7 +127,7 @@ public class Message {
 		System.out.println("Taille de " + fileName + " : " + fileSize);
 
 		FileOutputStream fos = new FileOutputStream(
-				"/home/c/cutroneg/git/TheSocialFramework/TheSocialFramework/uploads/"
+				"/home/f/forestip/git/TheSocialFramework/TheSocialFramework/uploads/"
 						+ fileName);
 		BufferedOutputStream outBuf = new BufferedOutputStream(fos);
 		byte[] buffer = new byte[1024];
@@ -149,7 +153,7 @@ public class Message {
 	 * @throws IOException
 	 *             exception relative aux objets de communication
 	 */
-	 synchronized public String receptionMessage() throws IOException {
+	  public String receptionMessage() throws IOException {
 		String res = "initialisation";
 		System.out.println("attente de message....");
 		try {
@@ -166,7 +170,7 @@ public class Message {
 		return res;
 	}
 
-	 synchronized public void fermeture() throws IOException {
+	  public void fermeture() throws IOException {
 		this.getEntree().close();
 		this.getSortie().close();
 		this.getIn().close();

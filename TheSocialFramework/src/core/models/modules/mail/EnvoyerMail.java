@@ -10,8 +10,39 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+/**
+ * EnvoyerMail est la classe permettant d'envoyer un mail Pour l'envoi du mail
+ * il y a besoin des informations suivantes :
+ * <ul>
+ * <li>Une adresse mail avec laquelle on envoie le mail</li>
+ * <li>Une adresse mail de destination</li>
+ * <li>Un nom d'utilisateur</li>
+ * <li>Le mot de passe de l'utilisateur</li>
+ * <li>Le sujet du mail</li>
+ * <li>Le corps du mail</li>
+ * </ul>
+ * 
+ * @author imag-soft
+ * @version 1.0
+ */
 public class EnvoyerMail {
 
+	/**
+	 * Appel de Envoyer mailTLS avec les bonnes informations de connexions
+	 * 
+	 * @param adresseEnvoi
+	 *            L'adresse mail de l'emetteur
+	 * @param adresseDestinataire
+	 *            L'adresse mail du destinataire
+	 * @param user
+	 *            L'utilisateur rattach&eacute; &agrave; l'adresse mail destinataire
+	 * @param pwd
+	 *            Le mot de passe rattach&eacute; &agrave; l'utilisateur
+	 * @param sujet
+	 *            Le sujet du mail
+	 * @param corps
+	 *            Le corps du mail
+	 */
 	public static void mail(String adresseEnvoi, String adresseDestinataire,
 			String user, String pwd, String sujet, String corps) {
 		int index = 0;
@@ -59,33 +90,24 @@ public class EnvoyerMail {
 
 	}
 
-	/*
-	 * public static void envoyerMail(String serveur, final String user, final
-	 * String pwd, String adMail, String destinataire, String sujet, String
-	 * corps) {
+	/**
+	 * envoyerMailTls envoie le mail d'apr&egrave;s les informations de la
+	 * m&eacute;thode mail
 	 * 
-	 * try { Properties prop = new Properties();
-	 * prop.setProperty("mail.transport.protocol", "smtp");
-	 * prop.setProperty("mail.smtp.host", serveur);
-	 * prop.setProperty("mail.smtp.user", user); prop.setProperty("mail.from",
-	 * adMail); prop.setProperty("mail.smtp.auth", "true");
-	 * prop.setProperty("mail.smtp.port", "587"); prop.put("mail.smtp.password",
-	 * pwd);
-	 * 
-	 * Session session = Session.getInstance(prop, new
-	 * javax.mail.Authenticator() { protected PasswordAuthentication
-	 * getPasswordAuthentication() { return new PasswordAuthentication(user,
-	 * pwd); } }); MimeMessage message = new MimeMessage(session);
-	 * message.setFrom(new InternetAddress(adMail));
-	 * message.setRecipients(Message.RecipientType.TO, destinataire);
-	 * message.setSubject(sujet); message.setText(corps);
-	 * message.setSentDate(new Date());
-	 * 
-	 * Transport.send(message); } catch (AddressException e) {
-	 * e.printStackTrace(); } catch (MessagingException e) {
-	 * e.printStackTrace(); }
-	 * 
-	 * }
+	 * @param serveur
+	 *            Adresse smtp du serveur
+	 * @param user
+	 *            Nom de l'utilisateur rattach&eacute; au client de messagerie
+	 * @param pwd
+	 *            Mot de passe rattach&eacute; au client de messagerie
+	 * @param adMail
+	 *            Adresse mail de l'&eacute;metteur
+	 * @param destinataire
+	 *            Adresse mail du destinataire
+	 * @param sujet
+	 *            Sujet du mail
+	 * @param corps
+	 *            Corps du mail
 	 */
 	public static void envoyerMailTls(String serveur, final String user,
 			final String pwd, String adMail, String destinataire, String sujet,
