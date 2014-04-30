@@ -44,6 +44,7 @@ public class TraitementClient implements Runnable {
 		this.setConnect(true);
 		this.setClient(new Thread(this));
 		this.getClient().start();
+		
 	}
 
 	/**
@@ -75,14 +76,11 @@ public class TraitementClient implements Runnable {
 	}
 	
 	/**
-	 * Guillaume et Adele
 	 * crée un dossier pour l'utilisateur courant si il n'exite pas
 	 */
 	public void folder() {
 		String repertoireCourant = System.getProperty("user.dir");
-		
 		setCurrentDir(new File(repertoireCourant+"/"+getNomClient()));
-		
 		if(!getCurrentDir().exists()){
 			getCurrentDir().mkdir();
 		}

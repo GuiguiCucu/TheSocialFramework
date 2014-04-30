@@ -32,8 +32,6 @@ public class ConfirmReceptionContenuDossier implements CommandeClient {
 				envoi = message.receptionMessage();
 			}
 			((Controller)controleur).alimenteVueCloud(listeDossiers, listeFichier);
-			//System.out.println(listeDossiers.toString());
-			//System.out.println(listeFichier.toString());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

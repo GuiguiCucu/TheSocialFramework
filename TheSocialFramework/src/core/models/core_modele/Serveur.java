@@ -241,8 +241,7 @@ public class Serveur {
 		for (int i = 0; i < getListe().length; i++) {
 //			if (listefichiers[i].isDirectory()) {
 //				System.out.println("Dossier : " + listefichiers[i].getName());
-//			} else if (listefichiers[i].isFile()) {
-//				
+//			} else if (listefichiers[i].isFile()) {	
 				System.out.println("Fichier : " + getListe()[i].getName());
 			//}
 		}

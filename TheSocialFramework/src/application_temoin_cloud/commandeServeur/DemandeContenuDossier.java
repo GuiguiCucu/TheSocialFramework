@@ -15,7 +15,9 @@ public class DemandeContenuDossier implements CommandeServeur {
 		message.envoiMessage("@okafficherrepertoire");
 
 		File[] listeDocuments;
-		File repertoire = new File("./");
+		
+		String repertoireCourant = System.getProperty("user.dir");
+		File repertoire = new File(repertoireCourant+"/"+tc.getNomClient());
 		listeDocuments = repertoire.listFiles();
 
 		ArrayList<String> listeFichiers = new ArrayList<String>();

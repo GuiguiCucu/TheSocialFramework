@@ -45,5 +45,9 @@ public class Contacts<P> {
 	public void ajouterPersonne(P personne){
 		getContacts().add(personne);
 	}
+	
+	public boolean rechercheContact(String nom){
+		return false;
+	}
 
 }

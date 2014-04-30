@@ -1,15 +1,12 @@
 package application_temoin_cloud;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
+
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -17,7 +14,6 @@ import java.awt.event.ActionEvent;
 import javax.swing.JPasswordField;
 
 import java.awt.Font;
-import java.io.IOException;
 
 public class VueConnexion extends JFrame {
 
@@ -57,7 +53,6 @@ public class VueConnexion extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				String login = txtLogin.getText();
 				String pwd = pwdPassword.getText();
-				//getC().setCurrentUser(login, pwd);
 				getC().connexion(login, pwd);
 			}
 		});
@@ -86,7 +81,7 @@ public class VueConnexion extends JFrame {
 		JButton btnSinscrire = new JButton("S'inscrire");
 		btnSinscrire.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+				getC().runVueInscription();
 			}
 		});
 		btnSinscrire.setFont(new Font("Calibri", Font.PLAIN, 13));

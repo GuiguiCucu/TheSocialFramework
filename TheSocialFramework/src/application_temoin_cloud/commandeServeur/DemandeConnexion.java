@@ -20,6 +20,7 @@ public class DemandeConnexion implements CommandeServeur {
 			if(User.verification(nickname, password, tc.getServ().getUsers())){
 				message.envoiMessage("@okconnexion");
 				tc.setNomClient(nickname);
+				tc.folder();
 			}else{
 				message.envoiMessage("@invalideconnexion");
 			}

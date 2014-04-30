@@ -16,10 +16,10 @@ public class DemandeTelechargement implements CommandeServeur{
 	public void execute(Message message, TraitementClient tc) {
 
 		try {
-			System.out.println(this.getClass().getCanonicalName());
 			message.envoiMessage("@oktelechargement");
+			String userName = message.receptionMessage();
 			String nomFichier = message.receptionMessage();
-			message.envoiFichier(nomFichier);
+			message.envoiFichier(tc.getCurrentDir().getPath()+"/"+nomFichier);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

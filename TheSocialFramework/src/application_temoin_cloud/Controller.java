@@ -1,8 +1,6 @@
 package application_temoin_cloud;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,13 +10,12 @@ import javax.swing.JOptionPane;
 
 import application_temoin_cloud.commandeClient.ConfirmConnexion;
 import application_temoin_cloud.commandeClient.ConfirmDeconnexion;
+import application_temoin_cloud.commandeClient.ConfirmInscription;
 import application_temoin_cloud.commandeClient.ConfirmReceptionContenuDossier;
 import application_temoin_cloud.commandeClient.ConfirmTelechargement;
+import application_temoin_cloud.commandeClient.ConfirmUpload;
 import core.controleur.SuperControleur;
 import core.models.core_modele.Client;
-import core.models.core_modele.Message;
-import core.models.core_modele.commandes.commandesClient.ConfirmReceptionFichier;
-import core.models.modules.module_contacts.Contacts;
 
 /**
  * Contrôleur permettant de gérer les interfaces graphiques
@@ -28,10 +25,10 @@ import core.models.modules.module_contacts.Contacts;
  */
 public class Controller extends SuperControleur {
 
-	private Contacts<User> users;
 	private VueCloud vueCloud;
 	private VueConnexion vueConnexion;
-	private Client client;
+	private VueInscription vueInscription;
+	private Client client = null;
 	private String userName;
 
 	/**
@@ -76,6 +73,16 @@ public class Controller extends SuperControleur {
 		}
 	}
 
+	public void runVueInscription() {
+		try {
+			setVueInscription(new VueInscription(this));
+			getVueInscription().setVisible(true);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 	public void initialisationClient() {
 		try {
 			setClient(new Client("0.0.0.0", 2048, this));
@@ -94,11 +101,24 @@ public class Controller extends SuperControleur {
 		int returnVal = chooser.showOpenDialog(null);
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
 			File f = chooser.getSelectedFile();
-			// upload(f.getAbsolutePath());
+			upload(f.getAbsolutePath());
 		}
 	}
-	
-	
+
+	public void inscription(String login, String pwd, String pwdBis) {
+		if (pwd.equals(pwdBis)) {
+			this.getClient().getListeCommandes()
+					.put("@confirm_inscription", new ConfirmInscription());
+			this.getClient().getMessage().envoiMessage("@inscription");
+			this.getClient().getMessage().envoiMessage(login);
+			this.getClient().getMessage().envoiMessage(pwd);
+		} else {
+			JOptionPane.showMessageDialog(null,
+					"Les mots de passe doivent être identiques", "Erreur",
+					JOptionPane.ERROR_MESSAGE);
+		}
+
+	}
 
 	public void connexion(String login, String pwd) {
 		initialisationClient();
@@ -114,6 +134,7 @@ public class Controller extends SuperControleur {
 		this.getClient().getListeCommandes()
 				.put("@confirm_demande_deconnexion", new ConfirmDeconnexion());
 		this.getClient().getMessage().envoiMessage("@demande_deconnexion");
+		System.out.println("AFTER");
 	}
 
 	/**
@@ -122,47 +143,38 @@ public class Controller extends SuperControleur {
 	 * @param fileName
 	 */
 	public void upload(String fileName) {
-		System.out.println("IN upload");
-		getClient().getListeCommandes().put("@oksendfile",
-				new ConfirmReceptionFichier());
+		getClient().getListeCommandes().put("@oksendfile", new ConfirmUpload());
 		System.out.println("commande existante : "
 				+ client.getListeCommandes().get("@oksendfile"));
-
-		client.getMessage().envoiMessage("@sendfile");
-		System.out.println("OUT");
+		this.getClient().getMessage().envoiMessage("@sendfile");
+		this.getClient().getMessage().envoiMessage(fileName);
+		this.getVueCloud().majUpload(fileName);
 	}
 
 	public void initialiserContenuRepertoire() {
-		System.out.println("IN init");
 		this.getClient()
 				.getListeCommandes()
 				.put("@okafficherrepertoire",
 						new ConfirmReceptionContenuDossier());
 		this.getClient().getMessage().envoiMessage("@afficherrepertoire");
 	}
-	
-	public void actualiserContenuRepertoire(String dossier) {
+
+	public void actualiserContenuRepertoire() {
 		System.out.println("IN actualisation");
-		this.getClient()
-				.getListeCommandes()
-				.put("@okafficherrepertoire",
-						new ConfirmReceptionContenuDossier());
 		this.getClient().getMessage().envoiMessage("@afficherrepertoire");
-	}	
+	}
 
 	public void alimenteVueCloud(ArrayList<String> dossiers,
 			HashMap<String, Long> fichiers) {
 		this.getVueCloud().alimenteDocuments(dossiers, fichiers);
 	}
-	
+
 	public void telechargement(String filename) {
-		System.out.println("IN telechargement");
-		this.getClient().getListeCommandes().put("@oktelechargement", new ConfirmTelechargement());
-		System.out.println("commande existante : "
-				+ client.getListeCommandes().get("@oktelechargement"));
+		this.getClient().getListeCommandes()
+				.put("@oktelechargement", new ConfirmTelechargement());
 		client.getMessage().envoiMessage("@demandetelechargement");
+		this.getClient().getMessage().envoiMessage(this.getUserName());
 		client.getMessage().envoiMessage(filename);
-		System.out.println("OUT telechargme");
 	}
 
 	public VueConnexion getVueConnexion() {
@@ -179,6 +191,14 @@ public class Controller extends SuperControleur {
 
 	public void setVueCloud(VueCloud vueCloud) {
 		this.vueCloud = vueCloud;
+	}
+
+	public VueInscription getVueInscription() {
+		return vueInscription;
+	}
+
+	public void setVueInscription(VueInscription vueInscription) {
+		this.vueInscription = vueInscription;
 	}
 
 	public Client getClient() {

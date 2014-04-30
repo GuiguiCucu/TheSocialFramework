@@ -19,12 +19,6 @@ import javax.swing.JOptionPane;
  */
 public class Message {
 
-	/**
-	 * TODO : Enregistrer chemin d'upload TODO : enregistrer utilisateur
-	 * serveur? TODO : authentification : réponse serveur TODO : Droit sur
-	 * dossier? Un dossier par utilisateur? TODO : Taille du dossier
-	 * utilisateur? TODO : Dernière modification ?
-	 */
 
 	private OutputStream out = null;
 	private InputStream in = null;
@@ -38,7 +32,7 @@ public class Message {
 	 * @param s
 	 *            le socket de liaison
 	 */
-	 public Message(Socket s) {
+	public Message(Socket s) {
 		try {
 			this.setSocket(s);
 			this.setOut(this.getSocket().getOutputStream());
@@ -57,10 +51,8 @@ public class Message {
 	 * @param message
 	 *            Message
 	 */
-	  public void envoiMessage(String message) {
-		 System.out.println("IN ENVOI DE MESSAGE...");
+	public void envoiMessage(String message) {
 		try {
-			System.out.println("TRY ENVOI DE MESSAGE...");
 			sortie.writeUTF(message);
 		} catch (IOException ex) {
 			JOptionPane.showMessageDialog(new JFrame(),
@@ -73,9 +65,8 @@ public class Message {
 	 * 
 	 * @throws IOException
 	 */
-	  public void envoiFichier(String path) throws IOException {
-		File fileToSend = new File(
-				"/home/f/forestip/git/TheSocialFramework/TheSocialFramework/"+path);
+	public void envoiFichier(String path) throws IOException {
+		File fileToSend = new File(path);
 		System.out.println("Enovi du nom de fichier");
 		this.envoiMessage("@nameFile:" + fileToSend.getName());
 		System.out.println("Enovi de la taille de fichier");
@@ -91,13 +82,14 @@ public class Message {
 		inBuf.close();
 		System.out.println("Fin envoi");
 	}
-	 
+
 	/**
 	 * Réception d'un fichier transité par le fichier
 	 * 
 	 * @throws IOException
 	 */
-	  public void receptionFichier() throws IOException {
+	public void receptionFichier(String path) throws IOException {
+		System.out.println("path de reception : "+path);
 		System.out.println("Réception fichier....");
 		String fileName = this.receptionMessage();
 		System.out.println(fileName);
@@ -110,9 +102,11 @@ public class Message {
 		fileSize = fileSize.replace(cmd2, "");
 		System.out.println("Taille de " + fileName + " : " + fileSize);
 
-		FileOutputStream fos = new FileOutputStream(
-				"/home/f/forestip/git/TheSocialFramework/TheSocialFramework/uploads/"
-						+ fileName);
+		FileOutputStream fos = null;
+		fos = new FileOutputStream(
+				path +"/"+ fileName);
+		System.out.println("fos : "+fos.toString());
+
 		BufferedOutputStream outBuf = new BufferedOutputStream(fos);
 		byte[] buffer = new byte[1024];
 		int count;
@@ -120,14 +114,14 @@ public class Message {
 		while ((count = in.read(buffer)) >= 0) {
 			fos.write(buffer, 0, count);
 			fos.flush();
-			if(count < buffer.length){
+			if (count < buffer.length) {
 				fos.close();
 				break;
-			}	
+			}
 		}
 		System.out.println("Fin reception");
-		
-		outBuf.close();	
+
+		outBuf.close();
 	}
 
 	/**
@@ -137,7 +131,7 @@ public class Message {
 	 * @throws IOException
 	 *             exception relative aux objets de communication
 	 */
-	  public String receptionMessage() throws IOException {
+	public String receptionMessage() throws IOException {
 		String res = "initialisation";
 		System.out.println("attente de message....");
 		try {
@@ -154,7 +148,7 @@ public class Message {
 		return res;
 	}
 
-	  public void fermeture() throws IOException {
+	public void fermeture() throws IOException {
 		this.getEntree().close();
 		this.getSortie().close();
 		this.getIn().close();
@@ -269,4 +263,5 @@ public class Message {
 	public void setSocketTransfert(Socket socketTransfert) {
 		this.socketTransfert = socketTransfert;
 	}
+
 }

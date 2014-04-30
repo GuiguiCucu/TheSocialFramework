@@ -13,7 +13,8 @@ public class ConfirmTelechargement implements CommandeClient{
 	@Override
 	public void execute(Message message, SuperControleur controleur) {		
 		try {
-			message.receptionFichier();
+			String path = System.getProperty("user.home")+"\\Downloads";
+			message.receptionFichier(path);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
