@@ -7,8 +7,9 @@ import core.models.core_modele.TraitementClient;
 import core.models.core_modele.commandes.commandesServeur.CommandeServeur;
 
 public class DemandeDeconnexion implements CommandeServeur {
-	public void execute(Message message, TraitementClient tc) {
+	public void execute(TraitementClient tc) {
 		try {
+			Message message = tc.getMessage();
 			message.envoiMessage("@confirm_demande_deconnexion");
 			tc.getMessage().getEntree().close();
             tc.getMessage().getSortie().close();

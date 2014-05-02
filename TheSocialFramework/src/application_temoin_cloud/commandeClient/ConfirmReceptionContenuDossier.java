@@ -12,10 +12,11 @@ import core.models.core_modele.commandes.commandesClient.CommandeClient;
 public class ConfirmReceptionContenuDossier implements CommandeClient {
 
 	@Override
-	public void execute(Message message, SuperControleur controleur) {
+	public void execute(SuperControleur controleur) {
 		String envoi;
 		HashMap<String, Long> listeFichier = new HashMap<String,Long>();	
 		ArrayList<String> listeDossiers = new ArrayList<String>();
+		Message message = ((application_temoin_cloud.Controller)controleur).getClient().getMessage();
 		try {
 			envoi = message.receptionMessage();
 			while (!(envoi.equals("@fin_envoi_contenu"))) {

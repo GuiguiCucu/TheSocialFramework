@@ -12,9 +12,10 @@ import core.models.core_modele.commandes.commandesClient.CommandeClient;
 public class ConfirmInscription implements CommandeClient {
 
 	@Override
-	public void execute(Message message, SuperControleur controleur) {
+	public void execute(SuperControleur controleur) {
 		String response;
 		try {
+			Message message = ((Controller)controleur).getClient().getMessage();
 			response = message.receptionMessage();
 			if (response.equals("@alreadyexisting")) {
 				JOptionPane.showMessageDialog(null, "Login déjà utilisé",

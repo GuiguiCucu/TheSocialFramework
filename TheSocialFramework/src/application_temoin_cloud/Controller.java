@@ -134,7 +134,6 @@ public class Controller extends SuperControleur {
 		this.getClient().getListeCommandes()
 				.put("@confirm_demande_deconnexion", new ConfirmDeconnexion());
 		this.getClient().getMessage().envoiMessage("@demande_deconnexion");
-		System.out.println("AFTER");
 	}
 
 	/**

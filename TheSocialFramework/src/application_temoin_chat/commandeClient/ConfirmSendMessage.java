@@ -10,11 +10,12 @@ import core.models.core_modele.commandes.commandesClient.CommandeClient;
 public class ConfirmSendMessage implements CommandeClient {
 
 	@Override
-	public void execute(Message message, SuperControleur controleur) {
+	public void execute(/*Message message,*/ SuperControleur controleur) {
 		try {
-			String reponse = message.receptionMessage();
-			((Controller)controleur).alimenteDiscussion(reponse);
-			System.out.println("message : "+reponse);
+			Message message = ((Controller)controleur).getClient().getMessage();
+			String origine =  message.receptionMessage();
+			String msg = message.receptionMessage();
+			((Controller)controleur).alimenteDiscussion(origine, msg);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

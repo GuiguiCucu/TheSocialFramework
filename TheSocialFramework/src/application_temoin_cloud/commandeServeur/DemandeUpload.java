@@ -9,8 +9,8 @@ import core.models.core_modele.commandes.commandesServeur.CommandeServeur;
 public class DemandeUpload implements CommandeServeur {
 
 	@Override
-	public void execute(Message message, TraitementClient tc) {
-		
+	public void execute(TraitementClient tc) {
+		Message message = tc.getMessage();
 		try {
 			String fileName = message.receptionMessage();
 			message.envoiMessage("@oksendfile");

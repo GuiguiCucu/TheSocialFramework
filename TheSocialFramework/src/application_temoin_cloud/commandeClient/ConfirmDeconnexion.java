@@ -7,7 +7,8 @@ import core.models.core_modele.commandes.commandesClient.CommandeClient;
 public class ConfirmDeconnexion implements CommandeClient {
 
 	@Override
-	public void execute(Message message, SuperControleur controleur) {
+	public void execute(SuperControleur controleur) {
+		
 		((Controller)controleur).runVueConnexion();
 		((Controller)controleur).getVueCloud().dispose();
 		((Controller)controleur).getClient().deconnexionServeur();

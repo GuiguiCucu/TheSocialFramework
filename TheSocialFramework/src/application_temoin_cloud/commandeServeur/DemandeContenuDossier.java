@@ -10,8 +10,8 @@ import core.models.core_modele.commandes.commandesServeur.CommandeServeur;
 public class DemandeContenuDossier implements CommandeServeur {
 
 	@Override
-	public void execute(Message message, TraitementClient tc) {
-		System.out.println("in " + this.getClass().getCanonicalName());
+	public void execute(TraitementClient tc) {
+		Message message = tc.getMessage();
 		message.envoiMessage("@okafficherrepertoire");
 
 		File[] listeDocuments;

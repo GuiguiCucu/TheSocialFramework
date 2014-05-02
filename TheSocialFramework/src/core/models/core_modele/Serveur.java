@@ -120,7 +120,7 @@ public class Serveur {
 	 *            thread à supprimer
 	 */
 	synchronized public void delClient(TraitementClient tC) {
-
+		this.getTraiteClients().remove(tC);
 	}
 
 	/**

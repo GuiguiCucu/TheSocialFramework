@@ -10,8 +10,9 @@ import core.models.core_modele.commandes.commandesServeur.CommandeServeur;
 public class DemandeInscription implements CommandeServeur {
 
 	@Override
-	public void execute(Message message, TraitementClient tc) {
+	public void execute(TraitementClient tc) {
 		try {
+			Message message = tc.getMessage();
 			message.envoiMessage("@confirm_inscription");
 			String nicknameWait = message.receptionMessage();
 			String password = message.receptionMessage();

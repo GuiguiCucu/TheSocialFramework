@@ -1,9 +1,12 @@
 package application_temoin_chat;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import application_temoin_chat.commandeClient.ConfirmConnexion;
+import application_temoin_chat.commandeClient.ConfirmListUsers;
 import application_temoin_chat.commandeClient.ConfirmSendMessage;
+import application_temoin_cloud.commandeClient.ConfirmDeconnexion;
 import core.controleur.SuperControleur;
 import core.models.core_modele.Client;
 
@@ -74,14 +77,22 @@ public class Controller extends SuperControleur{
 		System.out.println("in connexion");
 		this.getClient().getListeCommandes()
 				.put("@confirmconnexion", new ConfirmConnexion());
+		this.getClient().getListeCommandes().put("@confirmsendmessage", new ConfirmSendMessage());
+		this.getClient().getListeCommandes().put("@confirmlisteusers", new ConfirmListUsers());
 		this.getClient().getMessage().envoiMessage("@demandeconnexion");
 		this.getClient().getMessage().envoiMessage(pseudo);
 	}
 	
+	public void deconnexion() {
+		this.getClient().getListeCommandes()
+				.put("@confirm_demande_deconnexion", new application_temoin_chat.commandeClient.ConfirmDeconnexion());
+		this.getClient().getMessage().envoiMessage("@demande_deconnexion");
+	}
+	
 	public void send(String msg){
-		this.getClient().getListeCommandes().put("@confirmsendmessage", new ConfirmSendMessage());
 		this.getClient().getMessage().envoiMessage("@sendmessage");
-		this.getClient().getMessage().envoiMessage(getPseudo()+"> "+msg);
+		this.getClient().getMessage().envoiMessage(getPseudo());
+		this.getClient().getMessage().envoiMessage(msg);
 	}
 
 	public Client getClient() {
@@ -116,9 +127,13 @@ public class Controller extends SuperControleur{
 		this.pseudo = pseudo;
 	}
 
-	public void alimenteDiscussion(String reponse) {
-		this.getVueDiscussion().alimenteFilDiscussion(reponse);
+	public void alimenteDiscussion(String origine, String msg) {
+		this.getVueDiscussion().alimenteFilDiscussion(origine, msg);
 		
 	}
 
+	public void alimenteListeUtilisateurs(ArrayList<String> utilisateurs) {
+		this.getVueDiscussion().alimenteUtilisateurs(utilisateurs);
+		
+	}
 }

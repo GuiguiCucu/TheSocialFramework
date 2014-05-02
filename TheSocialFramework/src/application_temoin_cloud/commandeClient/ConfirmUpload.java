@@ -10,8 +10,9 @@ import core.models.core_modele.commandes.commandesClient.CommandeClient;
 public class ConfirmUpload implements CommandeClient {
 
 	@Override
-	public void execute(Message message, SuperControleur controleur) {
+	public void execute( SuperControleur controleur) {
 		try {
+			Message message = ((Controller)controleur).getClient().getMessage();
 			String pathFile = message.receptionMessage();
 			message.envoiFichier(pathFile);
 		} catch (IOException e) {

@@ -62,7 +62,7 @@ public class TraitementClient implements Runnable {
 				CommandeServeur cmd = 	this.getServ().getListeCommandes().get(envoi);
 				if(cmd!=null){
 					System.out.println("NOTNULL");
-					cmd.execute(this.getMessage(), this);
+					cmd.execute(/*this.getMessage(),*/ this);
 				}else{
 					System.out.println("recu : "+envoi);
 					this.getMessage().envoiMessage(envoi.toUpperCase());

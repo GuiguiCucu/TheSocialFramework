@@ -4,13 +4,17 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
 
 
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.JPasswordField;
 
@@ -58,6 +62,18 @@ public class VueInscription extends JFrame {
 				String pwd = pwdPassword.getText();
 				String pwdBis = pwdPasswordBis.getText();
 				getC().inscription(login, pwd, pwdBis);
+			}
+		});
+		addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent e) {
+				int answer = JOptionPane
+						.showConfirmDialog(new JFrame(),
+								"Voulez-vous quitter?", "Quit",
+								JOptionPane.YES_NO_OPTION,
+								JOptionPane.QUESTION_MESSAGE);
+				if (answer == JOptionPane.YES_OPTION) {
+					getC().deconnexion();
+				}
 			}
 		});
 		btnInscription.setBounds(237, 228, 127, 23);

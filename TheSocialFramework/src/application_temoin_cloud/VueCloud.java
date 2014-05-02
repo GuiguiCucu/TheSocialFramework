@@ -21,6 +21,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -114,6 +116,19 @@ public class VueCloud extends JFrame {
 		 * listeDocuments.getSelectedValue()); } } });
 		 */
 
+		addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent e) {
+				int answer = JOptionPane
+						.showConfirmDialog(new JFrame(),
+								"Voulez-vous quitter?", "Quit",
+								JOptionPane.YES_NO_OPTION,
+								JOptionPane.QUESTION_MESSAGE);
+				if (answer == JOptionPane.YES_OPTION) {
+					getC().deconnexion();
+				}
+			}
+		});
+
 		getC().initialiserContenuRepertoire();
 
 	}
@@ -129,7 +144,7 @@ public class VueCloud extends JFrame {
 	public void majUpload(String newElement) {
 		if (newElement != null) {
 			String[] output = newElement.split(Pattern.quote(File.separator));
-			String result = output[output.length-1];
+			String result = output[output.length - 1];
 			this.modelListeDocuments.addElement(result);
 		}
 	}
