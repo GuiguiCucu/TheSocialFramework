@@ -1,17 +1,11 @@
 package core.models.core_modele;
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Vector;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -19,6 +13,7 @@ import javax.swing.JOptionPane;
 import application_temoin_cloud.User;
 import core.models.core_modele.commandes.commandesServeur.CommandeServeur;
 import core.models.modules.module_contacts.Contacts;
+
 /**
  * Objet simulant le serveur
  * 
@@ -32,12 +27,11 @@ public class Serveur {
 	private ServerSocket socketEcoute;
 	private Socket socketTransfert;
 	private HashMap<String, CommandeServeur> listeCommandes;
-	
+
 	private File[] liste;
 	private File currentDir;
-	
-	private Contacts<User> users;
 
+	private Contacts<User> users;
 
 	/**
 	 * Constructeur
@@ -51,54 +45,15 @@ public class Serveur {
 			this.setPort(p);
 			this.setSocketEcoute(new ServerSocket(this.getPort()));
 			this.setListeCommandes(new HashMap<String, CommandeServeur>());
-			
+
 			users = new Contacts<User>();
 			users.ajouterPersonne(new User("Adele", "pwd"));
 			users.ajouterPersonne(new User("Guillaume", "pwd"));
-			
-			
+
 		} catch (IOException ex) {
 			JOptionPane.showMessageDialog(new JFrame(),
 					"Ce port à cette adresse est occupé");
 			System.exit(0);
-		}
-	}
-
-	/**
-	 * Fermeture de la connexion synchronized car partagé par plusieurs threads
-	 * TraitementClient
-	 */
-	synchronized public void fermerConnexion() {
-		try {
-			this.sendAll(null, "Le serveur a fermé la connexion");
-			this.getSocketTransfert().close();
-
-		} catch (IOException ex) {
-			Logger.getLogger(Serveur.class.getName()).log(Level.SEVERE, null,
-					ex);
-		}
-	}
-
-	/**
-	 * Diffusion d'un message à l'ensemble des connectés au serveur synchronized
-	 * car partagée par plusieurs threads TraitementClient
-	 * 
-	 * @param origine
-	 *            Thread émetteur
-	 * @param message
-	 *            Message
-	 */
-	synchronized public void sendAll(TraitementClient origine, String message) {
-		DataOutput tmpFlux;
-		for (int i = 0; i < this.getTraiteClients().size(); i++) {
-			try {
-				tmpFlux = this.getTraiteClients().get(i).getMessage()
-						.getSortie();
-				tmpFlux.writeUTF(message);
-			} catch (IOException ex) {
-				Logger.getLogger(Serveur.class.getName()).log(Level.SEVERE,
-						null, ex);
-			}
 		}
 	}
 
@@ -156,6 +111,7 @@ public class Serveur {
 	public void setPort(int port) {
 		this.port = port;
 	}
+
 	/**
 	 * Accesseur de socketEcoute
 	 * 
@@ -173,6 +129,7 @@ public class Serveur {
 	public void setSocketEcoute(ServerSocket socketEcoute) {
 		this.socketEcoute = socketEcoute;
 	}
+
 	/**
 	 * Accesseur de socketTransfert
 	 * 
@@ -229,24 +186,22 @@ public class Serveur {
 			HashMap<String, CommandeServeur> listeCommandes) {
 		this.listeCommandes = listeCommandes;
 	}
-	
-	
 
 	/**
 	 * liste tous les fichiers dans le répertoire courant
 	 */
-	public void list(){
+	public void list() {
 
 		setListe(getCurrentDir().listFiles());
 		for (int i = 0; i < getListe().length; i++) {
-//			if (listefichiers[i].isDirectory()) {
-//				System.out.println("Dossier : " + listefichiers[i].getName());
-//			} else if (listefichiers[i].isFile()) {	
-				System.out.println("Fichier : " + getListe()[i].getName());
-			//}
+			// if (listefichiers[i].isDirectory()) {
+			// System.out.println("Dossier : " + listefichiers[i].getName());
+			// } else if (listefichiers[i].isFile()) {
+			System.out.println("Fichier : " + getListe()[i].getName());
+			// }
 		}
 	}
-	
+
 	public File[] getListe() {
 		return liste;
 	}
@@ -278,7 +233,5 @@ public class Serveur {
 	public void setUsers(Contacts<User> users) {
 		this.users = users;
 	}
-	
-	
 
 }

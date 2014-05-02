@@ -86,7 +86,7 @@ public class VueConnexion extends JFrame {
 				getC().runVueInscription();
 			}
 		});
-		addWindowListener(new WindowAdapter() {
+		/*addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
 				int answer = JOptionPane
 						.showConfirmDialog(new JFrame(),
@@ -97,7 +97,7 @@ public class VueConnexion extends JFrame {
 					getC().deconnexion();
 				}
 			}
-		});
+		});*/
 		btnSinscrire.setFont(new Font("Calibri", Font.PLAIN, 13));
 		btnSinscrire.setBounds(81, 228, 89, 23);
 		contentPane.add(btnSinscrire);

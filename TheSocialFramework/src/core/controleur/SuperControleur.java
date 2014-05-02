@@ -9,6 +9,7 @@ import java.io.Serializable;
 
 import core.vue.View;
 import core.vue.VueMenu;
+
 /**
  * Classe controleur et application (système)
  * 
@@ -23,9 +24,11 @@ public class SuperControleur implements Serializable {
 	 * l'appli
 	 */
 	private LinkedList<View> _vues;
+
 	public SuperControleur() {
 		this.setVue(new LinkedList<View>());
-	} 
+	}
+
 	/**
 	 * ajoute ou enlève la vue active courante de la liste des vues
 	 * 
@@ -43,6 +46,7 @@ public class SuperControleur implements Serializable {
 	private void removeVue() {
 		this._vues.removeLast();
 	}
+
 	private View getVue() {
 		return (View) _vues.getLast();
 	}
@@ -62,26 +66,12 @@ public class SuperControleur implements Serializable {
 		}
 	}
 
-	/**
-	 * Cas d'utilisation : consultation d'un ouvrage Création et affichage de la
-	 * fenêtre de consultation d'un ouvrage
-	 */
-	/*public void consulterOuvrage() {
-		try {
-			this.setVue(new VueConsultOuvrage(this));
-			initialiserVue();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}*/
-	
-	public void initialiserVue(){
+	public void initialiserVue() {
 		this.getVueMenu().setVisible(false);
 		this.getVue().setEtat(View.initiale);
 		this.getVue().setVisible(true);
 	}
-	
-	
+
 	/**
 	 * fermeture de la fenêtre vue lors de la fermeture de la fenêtre principale
 	 * de l'application sauvegarde des objets sérialisés
@@ -103,8 +93,7 @@ public class SuperControleur implements Serializable {
 	}
 
 	/**
-	 * restauration des objets de
-	 * l'application
+	 * restauration des objets de l'application
 	 */
 	public SuperControleur restaure() {
 		try {
@@ -112,7 +101,8 @@ public class SuperControleur implements Serializable {
 			ObjectInputStream in = new ObjectInputStream(fichier);
 			return ((SuperControleur) in.readObject());
 		} catch (Exception e) {
-		System.out.println("Pbs de Restauration ou fichier non encore créé");
+			System.out
+					.println("Pbs de Restauration ou fichier non encore créé");
 			return this;
 		}
 	}
@@ -129,12 +119,4 @@ public class SuperControleur implements Serializable {
 			System.out.println("Pb de Sauvegarde dans le fichier");
 		}
 	}
-
-	// ************************************************************************************************************
-	// Opérations liées à l'application en réponse à une action de l'utilisateur
-	// dans une vue
-	// ************************************************************************************************************
-
-
 }
-
