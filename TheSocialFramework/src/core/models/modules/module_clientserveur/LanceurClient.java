@@ -20,18 +20,17 @@ public class LanceurClient {
 	 * @param nameServer l'ip du serveur
 	 * @param numPort le port d'écoute du serveur
 	 * @return le serveur actif crée
+	 * @throws ClientException 
 	 */
-	public static void run(String nameServer, int numPort){
+	public static Client run(String nameServer, int numPort, SuperControleur sp) throws ClientException{
+		Client client = null;
 		if(validate(nameServer) && numPort >0 && numPort <= 65535){
-			Client client = new Client(nameServer, numPort, new SuperControleur());
+			client = new Client(nameServer, numPort, /*new SuperControleur()*/sp);
 		}
 		else{
-			try {
 				throw new ClientException("Les paramètres passés sont incorrects");
-			} catch (ClientException e) {
-				e.printStackTrace();
-			}
 		}
+		return client;
 	}
 	
 	/**

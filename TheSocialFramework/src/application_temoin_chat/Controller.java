@@ -9,6 +9,8 @@ import application_temoin_chat.commandeClient.ConfirmSendMessage;
 import application_temoin_cloud.commandeClient.ConfirmDeconnexion;
 import core.controleur.SuperControleur;
 import core.models.core_modele.Client;
+import core.models.core_modele.exceptions.ClientException;
+import core.models.modules.module_clientserveur.LanceurClient;
 
 /**
  * Controller de l'application de chat
@@ -65,7 +67,13 @@ public class Controller extends SuperControleur{
 	 * Initialisation du client
 	 */
 	public void initialisationClient(String ip, int port) {
-			setClient(new Client(ip, port, this));
+			//setClient(new Client(ip, port, this));
+		try {
+			setClient(LanceurClient.run(ip, port, this));
+		} catch (ClientException e) {
+			e.printStackTrace();
+			System.exit(0);
+		}
 	}
 	
 	/**
