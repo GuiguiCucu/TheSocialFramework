@@ -53,7 +53,8 @@ public class MessageUDP {
 
 		byte[] receiveData = new byte[1024];
 		DatagramPacket receivePacket = new DatagramPacket(receiveData,
-				receiveData.length);
+				receiveData.length,this.getSocketTransfert().getInetAddress(), this
+				.getSocketTransfert().getPort());
 		this.getSocketTransfert().receive(receivePacket);
 		String reponse = new String(receivePacket.getData());
 		return reponse;
