@@ -10,7 +10,7 @@ import javax.sound.sampled.DataLine;
 import javax.sound.sampled.SourceDataLine;
 
 public class ServeurVoipUDP extends Thread {
-	private static final String IP_TO_STREAM_TO = "localhost";
+	private static final String IP_TO_STREAM_TO = "152.77.116.163";
 	private static final int PORT_TO_STREAM_TO = 8888;
 
 	public static void main(String[] args) {
