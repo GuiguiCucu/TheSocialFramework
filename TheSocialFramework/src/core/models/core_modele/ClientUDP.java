@@ -3,7 +3,7 @@ package core.models.core_modele;
 import java.io.IOException;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
-
+import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.HashMap;
 import java.util.logging.Level;
@@ -26,6 +26,7 @@ public class ClientUDP implements Runnable {
 	private String pseudoClient;
 	private SuperControleur controleur;
 	private boolean connect;
+	private InetAddress ipAdresse;
 
 	/**
 	 * Constructeur
@@ -40,6 +41,7 @@ public class ClientUDP implements Runnable {
 			throws IOException {
 		this.setNomServeur(serverName);
 		this.setPort(numPort);
+		this.setIpAdresse(InetAddress.getByName(this.getNomServeur()));
 		this.setControleur(controleur);
 		this.setConnect(true);
 		this.connexionServeur();
@@ -52,20 +54,18 @@ public class ClientUDP implements Runnable {
 	 * port et IP
 	 */
 	public void connexionServeur() {
+			//this.setSocket(new DatagramSocket(this.getPort(), this.getServ().getByName(this.getNomServeur())));
 		try {
-			this.setSocket(new DatagramSocket(this.getPort(), this.getServ()
-					.getByName(this.getNomServeur())));
-			this.setMessage(new MessageUDP(this.getSocket()));
-			this.setServeur(new Thread(this));
-		} catch (UnknownHostException ex) {
-			Logger.getLogger(Client.class.getName())
-					.log(Level.SEVERE, null, ex);
-		} catch (IOException ex) {
-			JOptionPane
-					.showMessageDialog(new JFrame(),
-							"Le serveur est inactif - Merci de réessayer ultérieurement");
-			System.exit(0);
+			this.setSocket(new DatagramSocket());
+			this.getSocket().connect(getIpAdresse(), getPort());
+			
+		} catch (SocketException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		System.out.println("APRES");
+		this.setMessage(new MessageUDP(this.getSocket()));
+		this.setServeur(new Thread(this));
 	}
 
 	/**
@@ -83,6 +83,7 @@ public class ClientUDP implements Runnable {
 	public void run() {
 
 		System.out.println("Connecté à " + this.getNomServeur());
+		this.getMessage().envoiMessage("Hi!");
 		while (isConnect()) {
 			String recu = "";
 			try {
@@ -263,5 +264,15 @@ public class ClientUDP implements Runnable {
 	public void setConnect(boolean connect) {
 		this.connect = connect;
 	}
+
+	public InetAddress getIpAdresse() {
+		return ipAdresse;
+	}
+
+	public void setIpAdresse(InetAddress ipAdresse) {
+		this.ipAdresse = ipAdresse;
+	}
+	
+	
 
 }

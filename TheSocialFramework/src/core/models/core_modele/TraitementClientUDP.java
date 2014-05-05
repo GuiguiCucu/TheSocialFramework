@@ -15,7 +15,7 @@ public class TraitementClientUDP implements Runnable {
 	private Thread client = null;
 	private ServeurUDP serv = null;
 	private MessageUDP message;
-	private InetAddress adresseClient;
+	private String adresseClient;
 	private String nomClient;
 	private File currentDir;
 	private boolean connect ;
@@ -27,12 +27,13 @@ public class TraitementClientUDP implements Runnable {
 	 * @param serv
 	 *            Serveur sur lequel est rattaché le thread
 	 */
-	public TraitementClientUDP(DatagramSocket socketTransfert, ServeurUDP serv) {
-		this.setSocketDeTransfert(socketTransfert);
+	public TraitementClientUDP(String ipClient, ServeurUDP serv) {
 		this.setServ(serv);
+		this.getServ().getListeClients().add(ipClient);
+		this.setSocketDeTransfert(serv.getSocket());
 		this.getServ().addClient(this);
 		this.setMessage(new MessageUDP(this.getSocketDeTransfert()));
-		this.setAdresseClient(this.getSocketDeTransfert().getInetAddress());
+		this.setAdresseClient(ipClient);
 		this.setNomClient("");
 		this.setConnect(true);
 		this.setClient(new Thread(this));
@@ -54,10 +55,8 @@ public class TraitementClientUDP implements Runnable {
 				if(cmd!=null){
 					cmd.execute(this);
 				}else{
-					System.out.println("recu : "+envoi);
 					this.getMessage().envoiMessage(envoi.toUpperCase());
 				}
-				
 			} catch (IOException ex) {
 				Logger.getLogger(TraitementClient.class.getName()).log(
 						Level.SEVERE, null, ex);
@@ -145,7 +144,7 @@ public class TraitementClientUDP implements Runnable {
 	 * Accesseur d'adresse client
 	 * @return adresseClient
 	 */
-	public InetAddress getAdresseClient() {
+	public String getAdresseClient() {
 		return adresseClient;
 	}
 
@@ -153,7 +152,7 @@ public class TraitementClientUDP implements Runnable {
 	 * Mutateur d'adresse client
 	 * @param adresseClient
 	 */
-	public void setAdresseClient(InetAddress adresseClient) {
+	public void setAdresseClient(String adresseClient) {
 		this.adresseClient = adresseClient;
 	}
 

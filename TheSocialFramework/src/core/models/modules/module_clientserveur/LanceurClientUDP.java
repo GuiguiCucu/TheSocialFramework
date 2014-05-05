@@ -12,11 +12,12 @@ public class LanceurClientUDP {
 
 	public static void run(String nameServer, int numPort) throws IOException {
 		if(validate(nameServer) && numPort >0 && numPort <= 65535){
+			System.out.println("PORT");
 			ClientUDP client = new ClientUDP(nameServer, numPort, new SuperControleur());
-	       client.getMessage().envoiMessage("@sendfile");
+			
 		}
 		else{
-			
+			System.out.println("BAD IP / BAD port");
 			//TODO : throw nos propres exceptions
 		}
 	}

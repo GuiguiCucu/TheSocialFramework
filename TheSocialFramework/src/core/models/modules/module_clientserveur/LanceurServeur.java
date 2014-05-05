@@ -18,7 +18,6 @@ public class LanceurServeur {
 			try {
 				serv = new Serveur(numPort);
 				serv.getListeCommandes().putAll(listeCommandes);
-				System.out.println("command eexisqtante : "+serv.getListeCommandes().get("@afficherrepertoire"));
 				System.out.println("Serveur lancé!");
 				while (true) {
 					new TraitementClient(serv.getSocketEcoute().accept(), serv);

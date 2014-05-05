@@ -12,7 +12,6 @@ public class LanceurClient {
 	public static void run(String nameServer, int numPort) throws IOException {
 		if(validate(nameServer) && numPort >0 && numPort <= 65535){
 			Client client = new Client(nameServer, numPort, new SuperControleur());
-	       client.getMessage().envoiMessage("@sendfile");
 		}
 		else{
 			

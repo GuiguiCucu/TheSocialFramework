@@ -3,24 +3,20 @@ package core.models.core_modele;
 import java.io.File;
 import java.io.IOException;
 import java.net.DatagramSocket;
-import java.net.ServerSocket;
-import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Vector;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import application_temoin_cloud.User;
-import core.models.core_modele.commandes.commandesServeur.CommandeServeur;
 import core.models.core_modele.commandes.commandesServeur.CommandeServeurUDP;
 import core.models.modules.module_contacts.Contacts;
 
 public class ServeurUDP {
 	
 	private ArrayList<TraitementClientUDP> traiteClients;
-	private Vector<String> listeClients;
+	private ArrayList<String> listeClients;
 	private int port = 5010;
 	private DatagramSocket socket;
 	private HashMap<String, CommandeServeurUDP> listeCommandes;
@@ -38,6 +34,9 @@ public class ServeurUDP {
 		try {
 			this.setPort(p);
 			this.setSocket(new DatagramSocket(this.getPort()));
+			this.setListeClients(new ArrayList<String>());
+			System.out.println("IN");
+			System.out.println(this.getListeClients().size());
 			this.setTraiteClients(new ArrayList<TraitementClientUDP>());
 			this.setListeCommandes(new HashMap<String, CommandeServeurUDP>());
 			users = new Contacts<User>();
@@ -192,11 +191,11 @@ public class ServeurUDP {
 		this.currentDir = currentDir;
 	}
 
-	public Vector<String> getListeClients() {
+	public ArrayList<String> getListeClients() {
 		return listeClients;
 	}
 
-	public void setListeClients(Vector<String> listeClients) {
+	public void setListeClients(ArrayList<String> listeClients) {
 		this.listeClients = listeClients;
 	}
 
