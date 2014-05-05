@@ -101,15 +101,12 @@ public class CaptureAudio implements Runnable {
 			playstatus = false;
 			return;
 		}
-		// reset to the beginnning of the stream
 		try {
 			ais.reset();
 		} catch (Exception e) {
 			System.out.println("Unable to reset the stream\n" + e);
 			return;
 		}
-
-		// get an AudioInputStream of the desired audioformat for playback
 		AudioFormat audioformat = new AudioFormat(
 				AudioFormat.Encoding.PCM_UNSIGNED, samplerate, 8, 1, 1,
 				framerate, false);
@@ -121,17 +118,12 @@ public class CaptureAudio implements Runnable {
 					+ " to audioformat " + audioformat);
 			return;
 		}
-
-		// define the required attributes for our line,
-		// and make sure a compatible line is supported.
-
 		DataLine.Info info = new DataLine.Info(SourceDataLine.class,
 				audioformat);
 		if (!AudioSystem.isLineSupported(info)) {
 			System.out.println("Line matching " + info + " not supported.");
 			return;
 		}
-		// get and open the source data line for playback.
 		try {
 			line = (SourceDataLine) AudioSystem.getLine(info);
 			line.open(audioformat, buffersize);
@@ -141,13 +133,11 @@ public class CaptureAudio implements Runnable {
 			System.out.println("LineUnavailableException: " + lue.getMessage());
 			return;
 		}
-		// play back the captured audio data
 		int frameSizeInBytes = audioformat.getFrameSize();
 		int bufferLengthInFrames = line.getBufferSize() / 8;
 		int bufferLengthInBytes = bufferLengthInFrames * frameSizeInBytes;
 		byte[] data = new byte[bufferLengthInBytes];
 		int bytenumber = 0;
-		// start the source data line
 		line.start();
 		while (thread != null) {
 			try {
@@ -178,8 +168,6 @@ public class CaptureAudio implements Runnable {
 	 */
 	public void record() {
 		TargetDataLine line = null;
-		// define the required attributes for our line,
-		// and make sure a compatible line is supported.
 		AudioFormat audioformat = new AudioFormat(
 				AudioFormat.Encoding.PCM_UNSIGNED, samplerate, 8, 1, 1,
 				framerate, false);
@@ -189,7 +177,6 @@ public class CaptureAudio implements Runnable {
 			System.out.println("Line matching " + info + " not supported.");
 			System.exit(0);
 		}
-		// get and open the target data line for capture.
 		try {
 			line = (TargetDataLine) AudioSystem.getLine(info);
 			line.open(audioformat, line.getBufferSize());
@@ -218,18 +205,15 @@ public class CaptureAudio implements Runnable {
 			baos.write(data, 0, bytenumber);
 		}
 		System.out.println("Stopped Recording");
-		// stop and close the line
 		line.stop();
 		line.close();
 		line = null;
-		// stop and close the output stream
 		try {
 			baos.flush();
 			baos.close();
 		} catch (IOException ioe) {
 			System.err.println(ioe.getMessage());
 		}
-		// load bytes into the audio input stream for playback
 		byte audioBytes[] = baos.toByteArray();
 		ByteArrayInputStream bais = new ByteArrayInputStream(audioBytes);
 		ais = new AudioInputStream(bais, audioformat, audioBytes.length
@@ -285,8 +269,6 @@ public class CaptureAudio implements Runnable {
 		return file;
 	}
 
-	// CLASSE STATIQUES
-
 	/**
 	 * Obtention du périphérique d'entrée audio définie par le système
 	 * d'exploitation
@@ -319,6 +301,40 @@ public class CaptureAudio implements Runnable {
 	 * @return le format audio standard pour la voix
 	 */
 	public static AudioFormat getStandardAudioFormat() {
+		float sampleRate = 8000.0F;
+		// 8000,11025,16000,22050,44100
+		int sampleSizeInBits = 16;
+		// 8,16
+		int channels = 1;
+		// 1,2
+		boolean signed = true;
+		// true,false
+		boolean bigEndian = false;
+		// true,false
+		return new AudioFormat(sampleRate, sampleSizeInBits, channels, signed,
+				bigEndian);
+	}
+	
+	public static void toSpeaker(byte soundbytes[]) {
+
+		try {
+			DataLine.Info dataLineInfo = new DataLine.Info(
+					SourceDataLine.class, getAudioFormat());
+			SourceDataLine sourceDataLine = (SourceDataLine) AudioSystem
+					.getLine(dataLineInfo);
+			sourceDataLine.open(getAudioFormat());
+			sourceDataLine.start();
+			int cnt = 0;
+			sourceDataLine.write(soundbytes, 0, soundbytes.length);
+			sourceDataLine.drain();
+			sourceDataLine.close();
+		} catch (Exception e) {
+			//Exception e
+		}
+
+	}
+
+	public static AudioFormat getAudioFormat() {
 		float sampleRate = 8000.0F;
 		// 8000,11025,16000,22050,44100
 		int sampleSizeInBits = 16;

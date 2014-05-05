@@ -10,14 +10,15 @@ import core.models.core_modele.ClientUDP;
 
 public class LanceurClientUDP {
 
-	public static void run(String nameServer, int numPort) throws IOException {
+	public static ClientUDP run(String nameServer, int numPort) throws IOException {
 		if(validate(nameServer) && numPort >0 && numPort <= 65535){
 			System.out.println("PORT");
 			ClientUDP client = new ClientUDP(nameServer, numPort, new SuperControleur());
-			
+			return client;
 		}
 		else{
 			System.out.println("BAD IP / BAD port");
+			return null;
 			//TODO : throw nos propres exceptions
 		}
 	}
