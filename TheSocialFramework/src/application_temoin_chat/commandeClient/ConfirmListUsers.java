@@ -8,6 +8,11 @@ import core.controleur.SuperControleur;
 import core.models.core_modele.Message;
 import core.models.core_modele.commandes.commandesClient.CommandeClient;
 
+/**
+ * Recpetion de la liste d'utilisateurs connectés au chat
+ * @author cutroneg
+ *
+ */
 public class ConfirmListUsers implements CommandeClient {
 
 	@Override
@@ -17,7 +22,6 @@ public class ConfirmListUsers implements CommandeClient {
 			reponse = message.receptionMessage();
 			ArrayList<String> utilisateurs = new ArrayList<String>();
 			while (!(reponse.equals("@finliste"))) {
-				System.out.println("OUAT : "+reponse);
 				utilisateurs.add(reponse);
 				reponse = message.receptionMessage();
 			}

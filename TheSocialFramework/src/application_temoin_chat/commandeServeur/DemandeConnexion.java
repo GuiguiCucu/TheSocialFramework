@@ -7,6 +7,13 @@ import core.models.core_modele.Message;
 import core.models.core_modele.TraitementClient;
 import core.models.core_modele.commandes.commandesServeur.CommandeServeur;
 
+/**
+ * Permet au serveur de prendre en compte la demande de connexion d'un nouveau client
+ * Reception du pseudo du client pour l'ajouter à la liste de clients connectés
+ * Envoi de la confirmation de connextion au client
+ * @author cutroneg
+ *
+ */
 public class DemandeConnexion implements CommandeServeur {
 
 	@Override

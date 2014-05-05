@@ -7,8 +7,15 @@ import core.models.core_modele.Message;
 import core.models.core_modele.TraitementClient;
 import core.models.core_modele.commandes.commandesServeur.CommandeServeur;
 
+/**
+ * Prend en compte la demande de déconnexion d'un client
+ * Fermeture des sockets
+ * Suppression du client
+ * @author cutroneg
+ *
+ */
 public class DemandeDeconnexion implements CommandeServeur {
-	public void execute(/*Message message, */TraitementClient tc) {
+	public void execute(TraitementClient tc) {
 		try {
 			Message message = tc.getMessage();
 			message.envoiMessage("@confirm_demande_deconnexion");
@@ -17,9 +24,8 @@ public class DemandeDeconnexion implements CommandeServeur {
             tc.getSocketDeTransfert().close();
 			tc.getServ().delClient(tc);
 			for (TraitementClient tcMaj : tc.getServ().getTraiteClients()) {
-				System.out.println("MAJ");
 				tcMaj.getServ().getListeCommandes().get("@demandeliste")
-						.execute(/*tcMaj.getMessage(),*/ tcMaj);
+						.execute(tcMaj);
 			}
 			tc.setConnect(false);
 		} catch (IOException e) {

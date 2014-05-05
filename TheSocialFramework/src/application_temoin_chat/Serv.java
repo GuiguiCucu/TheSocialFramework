@@ -9,8 +9,18 @@ import core.models.core_modele.Serveur;
 import core.models.core_modele.commandes.commandesServeur.CommandeServeur;
 import core.models.modules.module_clientserveur.LanceurServeur;
 
+/**
+ * Serveur de l'application chat
+ * Noter l'IP et le port de la machine pour la connexion des clients
+ * @author cutroneg
+ *
+ */
 public class Serv {
 
+	/**
+	 * main - lancement du serveur
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		HashMap<String, CommandeServeur> listeCommandes = new HashMap<String, CommandeServeur>();
 		listeCommandes.put("@demandeconnexion", new DemandeConnexion());

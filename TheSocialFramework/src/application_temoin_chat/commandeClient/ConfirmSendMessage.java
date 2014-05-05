@@ -7,6 +7,12 @@ import core.controleur.SuperControleur;
 import core.models.core_modele.Message;
 import core.models.core_modele.commandes.commandesClient.CommandeClient;
 
+/**
+ * Permet la reception de message envoyé depuis un autre client
+ * Alimente la fenetre de discussion avec les nouveaux messages
+ * @author cutroneg
+ *
+ */
 public class ConfirmSendMessage implements CommandeClient {
 
 	@Override

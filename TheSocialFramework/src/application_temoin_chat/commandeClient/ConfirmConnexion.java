@@ -8,6 +8,12 @@ import core.controleur.SuperControleur;
 import core.models.core_modele.Message;
 import core.models.core_modele.commandes.commandesClient.CommandeClient;
 
+/**
+ * Permet la récupération du message de confirmation de connexion
+ * Ferme la vue de choix du pseudo et lance la fenêtre de discussion 
+ * @author cutroneg
+ *
+ */
 public class ConfirmConnexion implements CommandeClient {
 
 	@Override

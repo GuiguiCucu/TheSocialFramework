@@ -10,6 +10,11 @@ import application_temoin_cloud.commandeClient.ConfirmDeconnexion;
 import core.controleur.SuperControleur;
 import core.models.core_modele.Client;
 
+/**
+ * Controller de l'application de chat
+ * @author cutroneg
+ *
+ */
 public class Controller extends SuperControleur{
 	
 	private Client client;
@@ -24,7 +29,7 @@ public class Controller extends SuperControleur{
 	}
 
 	/**
-	 * main
+	 * main - lancement d'un client
 	 * @param args
 	 */
 	public static void main(String[] args) {
@@ -79,55 +84,104 @@ public class Controller extends SuperControleur{
 		this.getClient().getMessage().envoiMessage(pseudo);
 	}
 	
+	/**
+	 * Déconnexion du client
+	 */
 	public void deconnexion() {
 		this.getClient().getListeCommandes()
 				.put("@confirm_demande_deconnexion", new application_temoin_chat.commandeClient.ConfirmDeconnexion());
 		this.getClient().getMessage().envoiMessage("@demande_deconnexion");
 	}
 	
+	/**
+	 * Envoi d'un message texte depuis le client
+	 * @param msg
+	 */
 	public void send(String msg){
 		this.getClient().getMessage().envoiMessage("@sendmessage");
 		this.getClient().getMessage().envoiMessage(getPseudo());
 		this.getClient().getMessage().envoiMessage(msg);
 	}
 
+	/**
+	 * Accesseur du client
+	 * @return
+	 */
 	public Client getClient() {
 		return client;
 	}
 
+	/**
+	 * Mutateur du client
+	 * @param client
+	 */
 	public void setClient(Client client) {
 		this.client = client;
 	}
 
+	/**
+	 * Accesseur de la vuePseudo
+	 * @return vuePseudo
+	 */
 	public VuePseudo getVuePseudo() {
 		return vuePseudo;
 	}
 
+	/**
+	 * Mutateur de la vuePseudo
+	 * @param vuePseudo
+	 */
 	public void setVuePseudo(VuePseudo vuePseudo) {
 		this.vuePseudo = vuePseudo;
 	}
 
+	/**
+	 * Accesseur de la vue de discussion
+	 * @return vueDiscussion
+	 */
 	public VueDiscussion getVueDiscussion() {
 		return vueDiscussion;
 	}
 
+	/**
+	 * Mutateur de la vue de discussion
+	 * @param vueDiscussion
+	 */
 	public void setVueDiscussion(VueDiscussion vueDiscussion) {
 		this.vueDiscussion = vueDiscussion;
 	}
 
+	/**
+	 * Accesseur du pseudo du client
+	 * @return
+	 */
 	public String getPseudo() {
 		return pseudo;
 	}
 
+	/**
+	 * Mutateur du pseudo du client
+	 * @param pseudo
+	 */
 	public void setPseudo(String pseudo) {
 		this.pseudo = pseudo;
 	}
 
+	/**
+	 * Alimente la fenetre de discussion avec le messages envoyé un client
+	 * Prend en paramètres le nom du client à l'origine du message et le corps du message
+	 * @param origine
+	 * @param msg
+	 */
 	public void alimenteDiscussion(String origine, String msg) {
 		this.getVueDiscussion().alimenteFilDiscussion(origine, msg);
 		
 	}
 
+	/**
+	 * Met à jour la liste des utilisateurs connectés au serveur
+	 * @param utilisateurs
+	 */
 	public void alimenteListeUtilisateurs(ArrayList<String> utilisateurs) {
 		this.getVueDiscussion().alimenteUtilisateurs(utilisateurs);
 		

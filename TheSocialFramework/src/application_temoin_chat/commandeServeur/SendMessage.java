@@ -7,6 +7,12 @@ import core.models.core_modele.Message;
 import core.models.core_modele.TraitementClient;
 import core.models.core_modele.commandes.commandesServeur.CommandeServeur;
 
+/**
+ * Permet la reception d'un message envoyé par un client
+ * Envoi du message à tous les autres clients avec message de confirmation
+ * @author cutroneg
+ *
+ */
 public class SendMessage implements CommandeServeur {
 
 	@Override
