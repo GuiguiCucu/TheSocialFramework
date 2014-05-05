@@ -20,14 +20,12 @@ import core.models.modules.module_contacts.Contacts;
  * @author forestip
  */
 public class Serveur {
-
 	private ArrayList<TraitementClient> traiteClients;
 	private Vector<String> listeClients;
 	private int port = 5010;
 	private ServerSocket socketEcoute;
 	private Socket socketTransfert;
 	private HashMap<String, CommandeServeur> listeCommandes;
-
 	private File[] liste;
 	private File currentDir;
 
@@ -65,7 +63,7 @@ public class Serveur {
 	 *            thread à qui souhaiter la bienvenue
 	 */
 	synchronized public void printWelcome(TraitementClient tC) {
-		System.out.println("Client connecté " + tC.getAdresseClient());
+		//System.out.println("Client connecté " + tC.getAdresseClient());
 	}
 
 	/**
@@ -197,7 +195,7 @@ public class Serveur {
 			// if (listefichiers[i].isDirectory()) {
 			// System.out.println("Dossier : " + listefichiers[i].getName());
 			// } else if (listefichiers[i].isFile()) {
-			System.out.println("Fichier : " + getListe()[i].getName());
+			//System.out.println("Fichier : " + getListe()[i].getName());
 			// }
 		}
 	}

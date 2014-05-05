@@ -11,18 +11,13 @@ import core.models.core_modele.commandes.commandesClient.CommandeClient;
 public class ConfirmConnexion implements CommandeClient {
 
 	@Override
-	public void execute(/*Message message,*/ SuperControleur controleur) {
-		try {
+	public void execute(SuperControleur controleur) {
 			Message message = ((Controller)controleur).getClient().getMessage();
 			String reponse = message.receptionMessage();
 			if (reponse.equals("@okconnexion")) {
 				((Controller) controleur).runVueDiscussion();
 				((Controller) controleur).getVuePseudo().dispose();
 			}
-			//message.envoiMessage("@demandeliste");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 
 	}
 

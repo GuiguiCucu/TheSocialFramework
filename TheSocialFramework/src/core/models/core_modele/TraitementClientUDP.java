@@ -1,11 +1,7 @@
 package core.models.core_modele;
 
 import java.io.File;
-import java.io.IOException;
 import java.net.DatagramSocket;
-import java.net.InetAddress;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import core.models.core_modele.commandes.commandesServeur.CommandeServeurUDP;
 
@@ -49,7 +45,6 @@ public class TraitementClientUDP implements Runnable {
 		this.getServ().printWelcome((this));
 		while (isConnect()) {
 			String envoi = "";
-			try {
 				envoi = this.getMessage().receptionMessage();
 				CommandeServeurUDP cmd = 	this.getServ().getListeCommandes().get(envoi);
 				if(cmd!=null){
@@ -57,10 +52,6 @@ public class TraitementClientUDP implements Runnable {
 				}else{
 					this.getMessage().envoiMessage(envoi.toUpperCase());
 				}
-			} catch (IOException ex) {
-				Logger.getLogger(TraitementClient.class.getName()).log(
-						Level.SEVERE, null, ex);
-			}
 		}
 	}
 	

@@ -3,8 +3,6 @@ package core.models.core_modele;
 import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import core.models.core_modele.commandes.commandesServeur.CommandeServeur;
 
@@ -14,7 +12,7 @@ import core.models.core_modele.commandes.commandesServeur.CommandeServeur;
  * @author forestip
  */
 public class TraitementClient implements Runnable {
-	
+
 	private Socket socketDeTransfert = null;
 	private Thread client = null;
 	private Serveur serv = null;
@@ -22,7 +20,7 @@ public class TraitementClient implements Runnable {
 	private InetAddress adresseClient;
 	private String nomClient;
 	private File currentDir;
-	private boolean connect ;
+	private boolean connect;
 
 	/**
 	 * 
@@ -41,50 +39,43 @@ public class TraitementClient implements Runnable {
 		this.setConnect(true);
 		this.setClient(new Thread(this));
 		this.getClient().start();
-		
+
 	}
 
 	/**
-	 * Redéfinition de la méthode run : 
-	 * description des instructions du thread (écoute en boucle)
+	 * Redéfinition de la méthode run : description des instructions du thread
+	 * (écoute en boucle)
 	 */
 	public void run() {
 		this.getServ().printWelcome((this));
 
 		while (isConnect()) {
 			String envoi = "";
-			try {
-				envoi = this.getMessage().receptionMessage();
-
-				CommandeServeur cmd = 	this.getServ().getListeCommandes().get(envoi);
-				if(cmd!=null){
-					cmd.execute(this);
-				}else{
-					System.out.println("recu : "+envoi);
-					this.getMessage().envoiMessage(envoi.toUpperCase());
-				}
-				
-			} catch (IOException ex) {
-				Logger.getLogger(TraitementClient.class.getName()).log(
-						Level.SEVERE, null, ex);
+			envoi = this.getMessage().receptionMessage();
+			CommandeServeur cmd = this.getServ().getListeCommandes().get(envoi);
+			if (cmd != null) {
+				cmd.execute(this);
+			} else {
+				this.getMessage().envoiMessage(envoi.toUpperCase());
 			}
+
 		}
 	}
-	
+
 	/**
 	 * crée un dossier pour l'utilisateur courant si il n'exite pas
 	 */
 	public void folder() {
 		String repertoireCourant = System.getProperty("user.dir");
-		setCurrentDir(new File(repertoireCourant+"/"+getNomClient()));
-		if(!getCurrentDir().exists()){
+		setCurrentDir(new File(repertoireCourant + "/" + getNomClient()));
+		if (!getCurrentDir().exists()) {
 			getCurrentDir().mkdir();
 		}
 	}
-	
 
 	/**
 	 * Accesseur de socketDeTransfert
+	 * 
 	 * @return socketDeTransfert
 	 */
 	public Socket getSocketDeTransfert() {
@@ -93,6 +84,7 @@ public class TraitementClient implements Runnable {
 
 	/**
 	 * Mutateur de socketDeTransfert
+	 * 
 	 * @param socketDeTransfert
 	 */
 	public void setSocketDeTransfert(Socket socketDeTransfert) {
@@ -101,6 +93,7 @@ public class TraitementClient implements Runnable {
 
 	/**
 	 * Accesseur de thread client
+	 * 
 	 * @return client
 	 */
 	public Thread getClient() {
@@ -109,6 +102,7 @@ public class TraitementClient implements Runnable {
 
 	/**
 	 * Mutateur de thread client
+	 * 
 	 * @param client
 	 */
 	public void setClient(Thread client) {
@@ -117,6 +111,7 @@ public class TraitementClient implements Runnable {
 
 	/**
 	 * Accesseur de serveur
+	 * 
 	 * @return serv
 	 */
 	public Serveur getServ() {
@@ -125,6 +120,7 @@ public class TraitementClient implements Runnable {
 
 	/**
 	 * Mutateur de serveur
+	 * 
 	 * @param serv
 	 */
 	public void setServ(Serveur serv) {
@@ -133,6 +129,7 @@ public class TraitementClient implements Runnable {
 
 	/**
 	 * Accesseur de Message
+	 * 
 	 * @return message
 	 */
 	public Message getMessage() {
@@ -141,6 +138,7 @@ public class TraitementClient implements Runnable {
 
 	/**
 	 * Mutateur de Message
+	 * 
 	 * @param message
 	 */
 	public void setMessage(Message message) {
@@ -149,6 +147,7 @@ public class TraitementClient implements Runnable {
 
 	/**
 	 * Accesseur d'adresse client
+	 * 
 	 * @return adresseClient
 	 */
 	public InetAddress getAdresseClient() {
@@ -157,6 +156,7 @@ public class TraitementClient implements Runnable {
 
 	/**
 	 * Mutateur d'adresse client
+	 * 
 	 * @param adresseClient
 	 */
 	public void setAdresseClient(InetAddress adresseClient) {
@@ -165,6 +165,7 @@ public class TraitementClient implements Runnable {
 
 	/**
 	 * Accesseur de nom client
+	 * 
 	 * @return nomClient
 	 */
 	public String getNomClient() {
@@ -173,6 +174,7 @@ public class TraitementClient implements Runnable {
 
 	/**
 	 * Mutateur de nom client
+	 * 
 	 * @param nomClient
 	 */
 	public void setNomClient(String nomClient) {
@@ -194,5 +196,5 @@ public class TraitementClient implements Runnable {
 	public void setConnect(boolean connect) {
 		this.connect = connect;
 	}
-	
+
 }

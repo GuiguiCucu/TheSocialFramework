@@ -17,7 +17,6 @@ public class ConfirmReceptionContenuDossier implements CommandeClient {
 		HashMap<String, Long> listeFichier = new HashMap<String,Long>();	
 		ArrayList<String> listeDossiers = new ArrayList<String>();
 		Message message = ((application_temoin_cloud.Controller)controleur).getClient().getMessage();
-		try {
 			envoi = message.receptionMessage();
 			while (!(envoi.equals("@fin_envoi_contenu"))) {
 				while (!(envoi.equals("@fin_envoi_fichier"))) {
@@ -33,8 +32,5 @@ public class ConfirmReceptionContenuDossier implements CommandeClient {
 				envoi = message.receptionMessage();
 			}
 			((Controller)controleur).alimenteVueCloud(listeDossiers, listeFichier);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 	}
 }

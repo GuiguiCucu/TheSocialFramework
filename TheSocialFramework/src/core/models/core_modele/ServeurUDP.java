@@ -35,8 +35,6 @@ public class ServeurUDP {
 			this.setPort(p);
 			this.setSocket(new DatagramSocket(this.getPort()));
 			this.setListeClients(new ArrayList<String>());
-			System.out.println("IN");
-			System.out.println(this.getListeClients().size());
 			this.setTraiteClients(new ArrayList<TraitementClientUDP>());
 			this.setListeCommandes(new HashMap<String, CommandeServeurUDP>());
 			users = new Contacts<User>();
@@ -58,7 +56,7 @@ public class ServeurUDP {
 	 *            thread à qui souhaiter la bienvenue
 	 */
 	synchronized public void printWelcome(TraitementClientUDP tC) {
-		System.out.println("Client connecté " + tC.getAdresseClient());
+		//System.out.println("Client connecté " + tC.getAdresseClient());
 	}
 
 	/**
@@ -170,7 +168,7 @@ public class ServeurUDP {
 			// if (listefichiers[i].isDirectory()) {
 			// System.out.println("Dossier : " + listefichiers[i].getName());
 			// } else if (listefichiers[i].isFile()) {
-			System.out.println("Fichier : " + getListe()[i].getName());
+			//System.out.println("Fichier : " + getListe()[i].getName());
 			// }
 		}
 	}

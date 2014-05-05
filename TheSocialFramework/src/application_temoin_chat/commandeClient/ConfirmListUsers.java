@@ -11,10 +11,9 @@ import core.models.core_modele.commandes.commandesClient.CommandeClient;
 public class ConfirmListUsers implements CommandeClient {
 
 	@Override
-	public void execute(/*Message message, */SuperControleur controleur) {
+	public void execute(SuperControleur controleur) {
 		Message message = ((Controller)controleur).getClient().getMessage();
 		String reponse;
-		try {
 			reponse = message.receptionMessage();
 			ArrayList<String> utilisateurs = new ArrayList<String>();
 			while (!(reponse.equals("@finliste"))) {
@@ -24,10 +23,6 @@ public class ConfirmListUsers implements CommandeClient {
 			}
 			
 			((Controller)controleur).alimenteListeUtilisateurs(utilisateurs);
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 	}
 
 }

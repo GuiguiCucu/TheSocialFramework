@@ -60,11 +60,7 @@ public class Controller extends SuperControleur{
 	 * Initialisation du client
 	 */
 	public void initialisationClient(String ip, int port) {
-		try {
 			setClient(new Client(ip, port, this));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 	}
 	
 	/**

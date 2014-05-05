@@ -11,14 +11,10 @@ public class DemandeUpload implements CommandeServeur {
 	@Override
 	public void execute(TraitementClient tc) {
 		Message message = tc.getMessage();
-		try {
 			String fileName = message.receptionMessage();
 			message.envoiMessage("@oksendfile");
 			message.envoiMessage(fileName);
 			message.receptionFichier(tc.getCurrentDir().getPath());
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
 	}
 
 }

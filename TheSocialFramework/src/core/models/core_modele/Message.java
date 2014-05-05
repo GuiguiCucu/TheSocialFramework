@@ -19,7 +19,6 @@ import javax.swing.JOptionPane;
  */
 public class Message {
 
-
 	private OutputStream out = null;
 	private InputStream in = null;
 	private DataOutputStream sortie;
@@ -65,22 +64,26 @@ public class Message {
 	 * 
 	 * @throws IOException
 	 */
-	public void envoiFichier(String path) throws IOException {
+	public void envoiFichier(String path) {
 		File fileToSend = new File(path);
-		System.out.println("Enovi du nom de fichier");
 		this.envoiMessage("@nameFile:" + fileToSend.getName());
-		System.out.println("Enovi de la taille de fichier");
 		this.envoiMessage("@sizeFile:" + fileToSend.length());
 		int count;
 		byte[] buffer = new byte[1024];
-		BufferedInputStream inBuf = new BufferedInputStream(
-				new FileInputStream(fileToSend));
-		while ((count = inBuf.read(buffer)) >= 0) {
-			out.write(buffer, 0, count);
-			out.flush();
+		BufferedInputStream inBuf;
+		try {
+			inBuf = new BufferedInputStream(new FileInputStream(fileToSend));
+			while ((count = inBuf.read(buffer)) >= 0) {
+				out.write(buffer, 0, count);
+				out.flush();
+			}
+			inBuf.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
-		inBuf.close();
-		System.out.println("Fin envoi");
+
 	}
 
 	/**
@@ -88,40 +91,45 @@ public class Message {
 	 * 
 	 * @throws IOException
 	 */
-	public void receptionFichier(String path) throws IOException {
-		System.out.println("path de reception : "+path);
-		System.out.println("Réception fichier....");
+	public void receptionFichier(String path) {
 		String fileName = this.receptionMessage();
-		System.out.println(fileName);
 		String cmd = "@nameFile:";
 		fileName = fileName.replace(cmd, "");
-
 		String fileSize = this.receptionMessage();
-		System.out.println(fileSize);
 		String cmd2 = "@sizeFile:";
 		fileSize = fileSize.replace(cmd2, "");
-		System.out.println("Taille de " + fileName + " : " + fileSize);
-
 		FileOutputStream fos = null;
-		fos = new FileOutputStream(
-				path +"/"+ fileName);
-		System.out.println("fos : "+fos.toString());
-
+		try {
+			fos = new FileOutputStream(path + "/" + fileName);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 		BufferedOutputStream outBuf = new BufferedOutputStream(fos);
 		byte[] buffer = new byte[1024];
 		int count;
-		InputStream in = this.getSocket().getInputStream();
-		while ((count = in.read(buffer)) >= 0) {
-			fos.write(buffer, 0, count);
-			fos.flush();
-			if (count < buffer.length) {
-				fos.close();
-				break;
-			}
+		InputStream in = null;
+		try {
+			in = this.getSocket().getInputStream();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
-		System.out.println("Fin reception");
-
-		outBuf.close();
+		try {
+			while ((count = in.read(buffer)) >= 0) {
+				fos.write(buffer, 0, count);
+				fos.flush();
+				if (count < buffer.length) {
+					fos.close();
+					break;
+				}
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		try {
+			outBuf.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -131,15 +139,19 @@ public class Message {
 	 * @throws IOException
 	 *             exception relative aux objets de communication
 	 */
-	public String receptionMessage() throws IOException {
+	public String receptionMessage() {
 		String res = "initialisation";
-		System.out.println("attente de message....");
 		try {
 			res = entree.readUTF();
 		} catch (IOException ex) {
-			this.getSocket().close();
-			this.getEntree().close();
-			this.getSortie().close();
+			try {
+				this.getSocket().close();
+				this.getEntree().close();
+				this.getSortie().close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
 			JOptionPane
 					.showMessageDialog(new JFrame(),
 							"Crash du serveur - Merci de vous reconnecter ultérieurement");
@@ -148,12 +160,17 @@ public class Message {
 		return res;
 	}
 
-	public void fermeture() throws IOException {
-		this.getEntree().close();
-		this.getSortie().close();
-		this.getIn().close();
-		this.getOut().close();
-		this.getSocket().close();
+	public void fermeture() {
+		try {
+			this.getEntree().close();
+			this.getSortie().close();
+			this.getIn().close();
+			this.getOut().close();
+			this.getSocket().close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
 	}
 
 	/**

@@ -14,7 +14,6 @@ public class ConfirmInscription implements CommandeClient {
 	@Override
 	public void execute(SuperControleur controleur) {
 		String response;
-		try {
 			Message message = ((Controller)controleur).getClient().getMessage();
 			response = message.receptionMessage();
 			if (response.equals("@alreadyexisting")) {
@@ -27,10 +26,6 @@ public class ConfirmInscription implements CommandeClient {
 						"Succes", JOptionPane.INFORMATION_MESSAGE);
 
 			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
 	}
 
 }

@@ -41,14 +41,14 @@ public class Client implements Runnable {
 	 *            port du serveur
 	 * @throws IOException
 	 */
-	public Client(String serverName, int numPort, SuperControleur controleur) throws IOException {
+	public Client(String serverName, int numPort, SuperControleur controleur) {
 		this.setNomServeur(serverName);
 		this.setPort(numPort);
 		this.setControleur(controleur);
 		this.setConnect(true);
 		this.connexionServeur();
 		this.getServeur().start();
-		this.setListeCommandes(new HashMap<String, CommandeClient>());		
+		this.setListeCommandes(new HashMap<String, CommandeClient>());
 	}
 
 	/**
@@ -74,15 +74,15 @@ public class Client implements Runnable {
 	/**
 	 * Fermeture de la connexion avec le serveur
 	 */
-	 public void deconnexionServeur() {
-	        try {
-	            this.getMessage().getEntree().close();
-	            this.getMessage().getSortie().close();
-	            this.getSocket().close();
-	        } catch (IOException ex) {
-	            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
-	        }
-	    }
+	public void deconnexionServeur() {
+		try {
+			this.getMessage().getEntree().close();
+			this.getMessage().getSortie().close();
+			this.getSocket().close();
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		}
+	}
 
 	/**
 	 * Redéfinition de la méthode run : Description des instructions du thread
@@ -91,21 +91,16 @@ public class Client implements Runnable {
 	@Override
 	public void run() {
 
-		System.out.println("Connecté à " + this.getNomServeur());
+		//System.out.println("Connecté à " + this.getNomServeur());
 		while (isConnect()) {
 			String recu = "";
-			try {
 				recu = this.getMessage().receptionMessage();
-				CommandeClient cmd = 	this.getListeCommandes().get(recu);
-				if(cmd!=null){
-					cmd.execute(/*this.getMessage(), */this.getControleur());
-				}else{
-					System.out.println("RECU : " +recu);
+				CommandeClient cmd = this.getListeCommandes().get(recu);
+				if (cmd != null) {
+					cmd.execute(this.getControleur());
+				} else {
+					//System.out.println("RECU : " + recu);
 				}
-				
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
 		}
 
 	}
@@ -240,6 +235,7 @@ public class Client implements Runnable {
 
 	/**
 	 * Accesseur de la liste des commandes
+	 * 
 	 * @return la liste des commandes
 	 */
 	public HashMap<String, CommandeClient> getListeCommandes() {
@@ -248,7 +244,9 @@ public class Client implements Runnable {
 
 	/**
 	 * Mutateur de la liste de commande
-	 * @param listeCommandes la liste de commande
+	 * 
+	 * @param listeCommandes
+	 *            la liste de commande
 	 */
 	public void setListeCommandes(HashMap<String, CommandeClient> listeCommandes) {
 		this.listeCommandes = listeCommandes;
@@ -269,8 +267,5 @@ public class Client implements Runnable {
 	public void setConnect(boolean connect) {
 		this.connect = connect;
 	}
-	
-	
-	
 
 }

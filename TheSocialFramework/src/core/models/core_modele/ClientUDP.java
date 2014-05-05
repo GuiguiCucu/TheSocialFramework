@@ -6,11 +6,6 @@ import java.net.InetAddress;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 
 import core.controleur.SuperControleur;
 import core.models.core_modele.commandes.commandesClient.CommandeClient;
@@ -37,11 +32,14 @@ public class ClientUDP implements Runnable {
 	 *            port du serveur
 	 * @throws IOException
 	 */
-	public ClientUDP(String serverName, int numPort, SuperControleur controleur)
-			throws IOException {
+	public ClientUDP(String serverName, int numPort, SuperControleur controleur) {
 		this.setNomServeur(serverName);
 		this.setPort(numPort);
-		this.setIpAdresse(InetAddress.getByName(this.getNomServeur()));
+		try {
+			this.setIpAdresse(InetAddress.getByName(this.getNomServeur()));
+		} catch (UnknownHostException e) {
+			e.printStackTrace();
+		}
 		this.setControleur(controleur);
 		this.setConnect(true);
 		this.connexionServeur();
@@ -63,7 +61,6 @@ public class ClientUDP implements Runnable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println("APRES");
 		this.setMessage(new MessageUDP(this.getSocket()));
 		this.setServeur(new Thread(this));
 	}
@@ -82,22 +79,17 @@ public class ClientUDP implements Runnable {
 	@Override
 	public void run() {
 
-		System.out.println("Connecté à " + this.getNomServeur());
+		//System.out.println("Connecté à " + this.getNomServeur());
 		this.getMessage().envoiMessage("Hi!");
 		while (isConnect()) {
 			String recu = "";
-			try {
 				recu = this.getMessage().receptionMessage();
 				CommandeClient cmd = this.getListeCommandes().get(recu);
 				if (cmd != null) {
 					cmd.execute(this.getControleur());
 				} else {
-					System.out.println("RECU : " + recu);
+					//System.out.println("RECU : " + recu);
 				}
-
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
 		}
 
 	}

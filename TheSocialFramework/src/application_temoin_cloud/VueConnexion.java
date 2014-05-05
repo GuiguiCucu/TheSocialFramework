@@ -100,7 +100,7 @@ public class VueConnexion extends JFrame {
 		});*/
 		btnSinscrire.setFont(new Font("Calibri", Font.PLAIN, 13));
 		btnSinscrire.setBounds(81, 228, 89, 23);
-		contentPane.add(btnSinscrire);
+		//contentPane.add(btnSinscrire);
 
 	}
 

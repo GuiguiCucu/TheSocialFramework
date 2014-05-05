@@ -11,7 +11,6 @@ public class DemandeInscription implements CommandeServeur {
 
 	@Override
 	public void execute(TraitementClient tc) {
-		try {
 			Message message = tc.getMessage();
 			message.envoiMessage("@confirm_inscription");
 			String nicknameWait = message.receptionMessage();
@@ -22,11 +21,6 @@ public class DemandeInscription implements CommandeServeur {
 				message.envoiMessage("@okinscription");
 				tc.getServ().getUsers().ajouterPersonne(new User(nicknameWait, password));
 			}
-		} catch (IOException e) {
-
-			e.printStackTrace();
-		}
-
 	}
 
 }

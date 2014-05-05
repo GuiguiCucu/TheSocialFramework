@@ -15,15 +15,11 @@ public class DemandeTelechargement implements CommandeServeur {
 	@Override
 	public void execute(TraitementClient tc) {
 		Message message = tc.getMessage();
-		try {
 			message.envoiMessage("@oktelechargement");
 			String userName = message.receptionMessage();
 			String nomFichier = message.receptionMessage();
 			message.envoiFichier(tc.getCurrentDir().getPath() + "/"
 					+ nomFichier);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 	}
 
 }

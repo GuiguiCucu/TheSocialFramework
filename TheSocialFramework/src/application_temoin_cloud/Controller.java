@@ -84,11 +84,8 @@ public class Controller extends SuperControleur {
 	}
 
 	public void initialisationClient() {
-		try {
-			setClient(new Client("0.0.0.0", 2048, this));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		setClient(new Client("0.0.0.0", 2048, this));
+
 	}
 
 	/**

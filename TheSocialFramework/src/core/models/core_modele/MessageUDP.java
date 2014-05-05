@@ -49,13 +49,16 @@ public class MessageUDP {
 	 * @throws IOException
 	 *             exception relative aux objets de communication
 	 */
-	public String receptionMessage() throws IOException {
-
+	public String receptionMessage(){
 		byte[] receiveData = new byte[1024];
 		DatagramPacket receivePacket = new DatagramPacket(receiveData,
 				receiveData.length,this.getSocketTransfert().getInetAddress(), this
 				.getSocketTransfert().getPort());
-		this.getSocketTransfert().receive(receivePacket);
+		try {
+			this.getSocketTransfert().receive(receivePacket);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		String reponse = new String(receivePacket.getData());
 		return reponse;
 	}
@@ -101,7 +104,7 @@ public class MessageUDP {
 
 	}
 
-	public void fermeture() throws IOException {
+	public void fermeture(){
 		this.getSocket().close();
 	}
 

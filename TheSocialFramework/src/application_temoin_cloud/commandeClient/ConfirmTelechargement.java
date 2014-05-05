@@ -13,13 +13,9 @@ public class ConfirmTelechargement implements CommandeClient{
 
 	@Override
 	public void execute(SuperControleur controleur) {		
-		try {
 			Message message = ((application_temoin_cloud.Controller)controleur).getClient().getMessage();
 			String path = System.getProperty("user.home")+"\\Downloads";
 			message.receptionFichier(path);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 	}
 
 

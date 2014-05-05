@@ -13,7 +13,6 @@ public class ConfirmConnexion implements CommandeClient {
 
 	@Override
 	public void execute(SuperControleur controleur) {
-		try {
 			Message message = ((Controller)controleur).getClient().getMessage();
 			String reponse = message.receptionMessage();
 			if (reponse.equals("@okconnexion")) {
@@ -25,10 +24,5 @@ public class ConfirmConnexion implements CommandeClient {
 						"Login ou mot de passe incorrect", "Erreur",
 						JOptionPane.ERROR_MESSAGE);
 			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
 	}
-
 }

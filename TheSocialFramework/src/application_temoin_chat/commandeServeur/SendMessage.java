@@ -10,8 +10,7 @@ import core.models.core_modele.commandes.commandesServeur.CommandeServeur;
 public class SendMessage implements CommandeServeur {
 
 	@Override
-	public void execute(/*Message message,*/ TraitementClient tc) {
-		try {
+	public void execute(TraitementClient tc) {
 			Message message = tc.getMessage();
 			String provider = message.receptionMessage();
 			String msg = message.receptionMessage();
@@ -22,10 +21,6 @@ public class SendMessage implements CommandeServeur {
 					client.getMessage().envoiMessage(msg);
 				}
 			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
 	}
 
 }
