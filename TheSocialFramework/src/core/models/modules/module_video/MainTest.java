@@ -1,4 +1,4 @@
-package core.models.modules.video;
+package core.models.modules.module_video;
 
 import java.io.FileNotFoundException;
 
