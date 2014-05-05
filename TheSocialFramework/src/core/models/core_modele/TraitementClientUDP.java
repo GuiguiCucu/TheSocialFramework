@@ -1,24 +1,20 @@
 package core.models.core_modele;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
+import java.net.DatagramSocket;
 import java.net.InetAddress;
-import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import core.models.core_modele.commandes.commandesServeur.CommandeServeur;
+import core.models.core_modele.commandes.commandesServeur.CommandeServeurUDP;
 
-/**
- * Thread représentant la connexion d'un client au serveur
- * 
- * @author forestip
- */
-public class TraitementClient implements Runnable {
-	
-	private Socket socketDeTransfert = null;
+public class TraitementClientUDP implements Runnable {
+
+	private DatagramSocket socketDeTransfert = null;
 	private Thread client = null;
-	private Serveur serv = null;
-	private Message message;
+	private ServeurUDP serv = null;
+	private MessageUDP message;
 	private InetAddress adresseClient;
 	private String nomClient;
 	private File currentDir;
@@ -31,11 +27,11 @@ public class TraitementClient implements Runnable {
 	 * @param serv
 	 *            Serveur sur lequel est rattaché le thread
 	 */
-	public TraitementClient(Socket socketTransfert, Serveur serv) {
+	public TraitementClientUDP(DatagramSocket socketTransfert, ServeurUDP serv) {
 		this.setSocketDeTransfert(socketTransfert);
 		this.setServ(serv);
 		this.getServ().addClient(this);
-		this.setMessage(new Message(this.getSocketDeTransfert()));
+		this.setMessage(new MessageUDP(this.getSocketDeTransfert()));
 		this.setAdresseClient(this.getSocketDeTransfert().getInetAddress());
 		this.setNomClient("");
 		this.setConnect(true);
@@ -50,13 +46,11 @@ public class TraitementClient implements Runnable {
 	 */
 	public void run() {
 		this.getServ().printWelcome((this));
-
 		while (isConnect()) {
 			String envoi = "";
 			try {
 				envoi = this.getMessage().receptionMessage();
-
-				CommandeServeur cmd = 	this.getServ().getListeCommandes().get(envoi);
+				CommandeServeurUDP cmd = 	this.getServ().getListeCommandes().get(envoi);
 				if(cmd!=null){
 					cmd.execute(this);
 				}else{
@@ -87,7 +81,7 @@ public class TraitementClient implements Runnable {
 	 * Accesseur de socketDeTransfert
 	 * @return socketDeTransfert
 	 */
-	public Socket getSocketDeTransfert() {
+	public DatagramSocket getSocketDeTransfert() {
 		return socketDeTransfert;
 	}
 
@@ -95,7 +89,7 @@ public class TraitementClient implements Runnable {
 	 * Mutateur de socketDeTransfert
 	 * @param socketDeTransfert
 	 */
-	public void setSocketDeTransfert(Socket socketDeTransfert) {
+	public void setSocketDeTransfert(DatagramSocket socketDeTransfert) {
 		this.socketDeTransfert = socketDeTransfert;
 	}
 
@@ -119,7 +113,7 @@ public class TraitementClient implements Runnable {
 	 * Accesseur de serveur
 	 * @return serv
 	 */
-	public Serveur getServ() {
+	public ServeurUDP getServ() {
 		return serv;
 	}
 
@@ -127,7 +121,7 @@ public class TraitementClient implements Runnable {
 	 * Mutateur de serveur
 	 * @param serv
 	 */
-	public void setServ(Serveur serv) {
+	public void setServ(ServeurUDP serv) {
 		this.serv = serv;
 	}
 
@@ -135,7 +129,7 @@ public class TraitementClient implements Runnable {
 	 * Accesseur de Message
 	 * @return message
 	 */
-	public Message getMessage() {
+	public MessageUDP getMessage() {
 		return message;
 	}
 
@@ -143,7 +137,7 @@ public class TraitementClient implements Runnable {
 	 * Mutateur de Message
 	 * @param message
 	 */
-	public void setMessage(Message message) {
+	public void setMessage(MessageUDP message) {
 		this.message = message;
 	}
 

@@ -6,12 +6,13 @@ import java.util.regex.Pattern;
 
 import core.controleur.SuperControleur;
 import core.models.core_modele.Client;
+import core.models.core_modele.ClientUDP;
 
-public class LanceurClient {
-	
+public class LanceurClientUDP {
+
 	public static void run(String nameServer, int numPort) throws IOException {
 		if(validate(nameServer) && numPort >0 && numPort <= 65535){
-			Client client = new Client(nameServer, numPort, new SuperControleur());
+			ClientUDP client = new ClientUDP(nameServer, numPort, new SuperControleur());
 	       client.getMessage().envoiMessage("@sendfile");
 		}
 		else{
@@ -31,4 +32,5 @@ public class LanceurClient {
 	      Matcher matcher = pattern.matcher(ip);
 	      return matcher.matches();             
 	}
+
 }
