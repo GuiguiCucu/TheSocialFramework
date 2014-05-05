@@ -54,7 +54,8 @@ public class InstallationFramework extends JPanel implements ActionListener {
 		File lib = new File(projectDestination.getPath() + "/Lib");
 		lib.mkdirs();
 		try {
-			copieRecursive(new java.io.File("./src/core"), lib);
+			System.out.println(System.getProperty("user.dir" ));
+			copieRecursive(new java.io.File("../src/core"), lib);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -66,7 +67,9 @@ public class InstallationFramework extends JPanel implements ActionListener {
 
 	public static void copieRecursive(File src, File dest) throws IOException {
 		if (src.isDirectory()) {
+			System.out.println("test1");
 			if (!dest.exists()) {
+				System.out.println("test2");
 				dest.mkdir();
 			}
 			String files[] = src.list();
@@ -76,6 +79,7 @@ public class InstallationFramework extends JPanel implements ActionListener {
 				copieRecursive(srcFile, destFile);
 			}
 		} else {
+			System.out.println("test3");
 			InputStream in = new FileInputStream(src);
 			OutputStream out = new FileOutputStream(dest);
 			byte[] buffer = new byte[1024];
