@@ -55,7 +55,7 @@ public class InstallationFramework extends JPanel implements ActionListener {
 		lib.mkdirs();
 		try {
 			System.out.println(System.getProperty("user.dir" ));
-			copieRecursive(new java.io.File("../src/core"), lib);
+			copieRecursive(new java.io.File("../TheSocialFramework/src/core"), lib);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
