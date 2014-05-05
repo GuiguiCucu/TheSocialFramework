@@ -16,6 +16,10 @@ import com.googlecode.javacv.FrameRecorder;
 import com.googlecode.javacv.OpenCVFrameGrabber;
 import com.googlecode.javacv.cpp.opencv_core;
 
+/**
+ * Classe mettant en oeuvre plusieurs fonctionnalités liées au streaming video
+ * @author Gwenael
+ */
 public class Video {
 
 
