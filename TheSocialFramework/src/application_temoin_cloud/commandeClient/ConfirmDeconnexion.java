@@ -4,6 +4,12 @@ import core.controleur.SuperControleur;
 import core.models.core_modele.Message;
 import core.models.core_modele.commandes.commandesClient.CommandeClient;
 
+/**
+ * Confiramtion de déconnexion d'un client
+ * Fermeture des vues correspondantes
+ * @author cutroneg
+ *
+ */
 public class ConfirmDeconnexion implements CommandeClient {
 
 	@Override
@@ -13,7 +19,6 @@ public class ConfirmDeconnexion implements CommandeClient {
 		((Controller)controleur).getVueCloud().dispose();
 		((Controller)controleur).getClient().deconnexionServeur();
 		((Controller)controleur).getClient().setConnect(false);
-		System.out.println("END Confirm Deconnexion");
 	}
 
 }

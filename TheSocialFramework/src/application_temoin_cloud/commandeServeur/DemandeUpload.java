@@ -6,6 +6,11 @@ import core.models.core_modele.Message;
 import core.models.core_modele.TraitementClient;
 import core.models.core_modele.commandes.commandesServeur.CommandeServeur;
 
+/**
+ * Demande d'upload d'un fichier par un client
+ * @author cutroneg
+ *
+ */
 public class DemandeUpload implements CommandeServeur {
 
 	@Override

@@ -9,6 +9,11 @@ import core.controleur.SuperControleur;
 import core.models.core_modele.Message;
 import core.models.core_modele.commandes.commandesClient.CommandeClient;
 
+/**
+ * Confirmation d'une inscription
+ * @author cutroneg
+ *
+ */
 public class ConfirmInscription implements CommandeClient {
 
 	@Override

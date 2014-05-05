@@ -9,6 +9,11 @@ import core.controleur.SuperControleur;
 import core.models.core_modele.Message;
 import core.models.core_modele.commandes.commandesClient.CommandeClient;
 
+/**
+ * Confirmation de connexion
+ * @author cutroneg
+ *
+ */
 public class ConfirmConnexion implements CommandeClient {
 
 	@Override

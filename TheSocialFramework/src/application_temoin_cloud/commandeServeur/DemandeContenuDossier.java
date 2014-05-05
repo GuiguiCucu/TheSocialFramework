@@ -7,6 +7,11 @@ import core.models.core_modele.Message;
 import core.models.core_modele.TraitementClient;
 import core.models.core_modele.commandes.commandesServeur.CommandeServeur;
 
+/**
+ * demande d'envoi du contenu d'un dossier a un client
+ * @author cutroneg
+ *
+ */
 public class DemandeContenuDossier implements CommandeServeur {
 
 	@Override

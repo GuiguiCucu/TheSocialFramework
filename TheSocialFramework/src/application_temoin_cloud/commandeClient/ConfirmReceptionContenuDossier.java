@@ -9,6 +9,11 @@ import core.controleur.SuperControleur;
 import core.models.core_modele.Message;
 import core.models.core_modele.commandes.commandesClient.CommandeClient;
 
+/**
+ * Reception du contenu d'un dossier sur le serveur
+ * @author cutroneg
+ *
+ */
 public class ConfirmReceptionContenuDossier implements CommandeClient {
 
 	@Override

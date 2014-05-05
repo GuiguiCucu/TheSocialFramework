@@ -6,6 +6,11 @@ import core.models.core_modele.Message;
 import core.models.core_modele.TraitementClient;
 import core.models.core_modele.commandes.commandesServeur.CommandeServeur;
 
+/**
+ * demande de déconnexion d'un client
+ * @author cutroneg
+ *
+ */
 public class DemandeDeconnexion implements CommandeServeur {
 	public void execute(TraitementClient tc) {
 		try {
@@ -16,7 +21,6 @@ public class DemandeDeconnexion implements CommandeServeur {
             tc.getSocketDeTransfert().close();
 			tc.getServ().delClient(tc);
 			tc.setConnect(false);
-			System.out.println("AND");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

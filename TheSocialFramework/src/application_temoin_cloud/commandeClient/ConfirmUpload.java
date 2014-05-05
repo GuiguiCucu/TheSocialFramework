@@ -7,6 +7,11 @@ import core.controleur.SuperControleur;
 import core.models.core_modele.Message;
 import core.models.core_modele.commandes.commandesClient.CommandeClient;
 
+/**
+ * Confirmation d'un upload de fichier depuis le client vers le serveur
+ * @author cutroneg
+ *
+ */
 public class ConfirmUpload implements CommandeClient {
 
 	@Override

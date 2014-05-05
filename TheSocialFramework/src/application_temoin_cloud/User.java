@@ -4,11 +4,16 @@ import core.models.modules.module_contacts.Contacts;
 import core.models.modules.module_sessions.Utilisateur;
 
 /**
- * 
+ * Utilisateur - hérite de la classe Utilisateur du framework
  * @author cutroneg
  */
 public class User extends Utilisateur {
 
+	/**
+	 * Constructeur
+	 * @param login
+	 * @param password
+	 */
 	public User(String login, String password) {
 		super(login, password);
 	}

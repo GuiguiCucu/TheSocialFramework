@@ -7,6 +7,11 @@ import core.models.core_modele.Message;
 import core.models.core_modele.TraitementClient;
 import core.models.core_modele.commandes.commandesServeur.CommandeServeur;
 
+/**
+ * Demande d'inscription d'un client, reception des infos du client (nickname, password)
+ * @author cutroneg
+ *
+ */
 public class DemandeInscription implements CommandeServeur {
 
 	@Override

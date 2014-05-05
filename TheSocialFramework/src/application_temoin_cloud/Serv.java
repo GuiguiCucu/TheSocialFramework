@@ -12,8 +12,17 @@ import core.models.core_modele.Serveur;
 import core.models.modules.module_clientserveur.LanceurServeur;
 import core.models.core_modele.commandes.commandesServeur.*;
 
+/**
+ * Serveur de l'application Cloud
+ * @author cutroneg
+ *
+ */
 public class Serv {
 	
+	/**
+	 * main - lancement du serveur
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		HashMap<String, CommandeServeur> listeCommandes = new HashMap<String, CommandeServeur>();
 		listeCommandes.put("@inscription", new DemandeInscription());

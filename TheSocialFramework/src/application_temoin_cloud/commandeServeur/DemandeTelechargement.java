@@ -10,6 +10,11 @@ import core.models.core_modele.TraitementClient;
 import core.models.core_modele.commandes.commandesClient.CommandeClient;
 import core.models.core_modele.commandes.commandesServeur.CommandeServeur;
 
+/**
+ * Demande de telechargement d'un fichier par un client
+ * @author cutroneg
+ *
+ */
 public class DemandeTelechargement implements CommandeServeur {
 
 	@Override

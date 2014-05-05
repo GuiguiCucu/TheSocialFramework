@@ -7,6 +7,12 @@ import core.models.core_modele.Message;
 import core.models.core_modele.TraitementClient;
 import core.models.core_modele.commandes.commandesServeur.CommandeServeur;
 
+/**
+ * Demande de connexion d'un client
+ * Reception des infos du client et envoi de la confirmation de connexion
+ * @author cutroneg
+ *
+ */
 public class DemandeConnexion implements CommandeServeur {
 
 	@Override
