@@ -13,7 +13,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
- * Abstraction des objets et méthodes de communication sur le réseau
+ * Abstraction des objets et méthodes de communication sur le réseau pour le protocole TCP
  * 
  * @author forestip
  */

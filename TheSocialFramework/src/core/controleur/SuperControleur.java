@@ -19,12 +19,15 @@ public class SuperControleur implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	/**
-	 * La classe Controleur est unique pour tous les cas d'utilisation Elle est
+	 * La classe Controleur est unique pour tous les cas d'utilisation.Elle est
 	 * également la classe "application" qui gère l'ensemble des objets de
-	 * l'appli
+	 * l'application. Elle fournit au développeur une structure MVC.
 	 */
 	private LinkedList<View> _vues;
 
+	/**
+	 * Constructeur
+	 */
 	public SuperControleur() {
 		this.setVue(new LinkedList<View>());
 	}
@@ -39,24 +42,42 @@ public class SuperControleur implements Serializable {
 		this._vues = vues;
 	}
 
+	/**
+	 *  Ajoute une vue dans la liste des interfaces (en dernière position)
+	 * @param vue
+	 */
 	private void setVue(View vue) {
 		this._vues.addLast(vue);
 	}
 
+	/**
+	 * Supprime la dernière vue de la collection d'interfaces
+	 */
 	private void removeVue() {
 		this._vues.removeLast();
 	}
 
+	/**
+	 * Retourne la dernière vue de la collection d'interface
+	 * @return la derniere vue
+	 */
 	private View getVue() {
 		return (View) _vues.getLast();
 	}
 
+	/**
+	 * Retourne la vue de menu de l'application
+	 * @return la vue de menu
+	 */
 	private VueMenu getVueMenu() {
 		return (VueMenu) _vues.getFirst();
 	}
 
 	// ************************************************************************************************************
 
+	/**
+	 * Lance l'interface de menu définie par l'utilisateur
+	 */
 	public void menu() {
 		try {
 			this.setVue(new VueMenu(this));
@@ -66,6 +87,9 @@ public class SuperControleur implements Serializable {
 		}
 	}
 
+	/**
+	 * Méthode générique appelée sur la vue à afficher
+	 */
 	public void initialiserVue() {
 		this.getVueMenu().setVisible(false);
 		this.getVue().setEtat(View.initiale);

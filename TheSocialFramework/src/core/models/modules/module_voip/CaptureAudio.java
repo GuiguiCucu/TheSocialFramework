@@ -315,6 +315,10 @@ public class CaptureAudio implements Runnable {
 				bigEndian);
 	}
 	
+	/**
+	 * Ecoute audio d'un tableau de byte
+	 * @param soundbytes les données à convertir en format audible
+	 */
 	public static void toSpeaker(byte soundbytes[]) {
 
 		try {
@@ -334,6 +338,10 @@ public class CaptureAudio implements Runnable {
 
 	}
 
+	/**
+	 * Retourne un format audio standard
+	 * @return un format audio standard
+	 */
 	public static AudioFormat getAudioFormat() {
 		float sampleRate = 8000.0F;
 		// 8000,11025,16000,22050,44100

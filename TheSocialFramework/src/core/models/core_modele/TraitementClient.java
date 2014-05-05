@@ -7,7 +7,7 @@ import java.net.Socket;
 import core.models.core_modele.commandes.commandesServeur.CommandeServeur;
 
 /**
- * Thread représentant la connexion d'un client au serveur
+ * Thread représentant la connexion d'un client au serveur TCP
  * 
  * @author forestip
  */
@@ -181,18 +181,44 @@ public class TraitementClient implements Runnable {
 		this.nomClient = nomClient;
 	}
 
+	
+	/**
+	 * Accesseur du répertoire courant du client identifié par le processus
+	 * courant
+	 * 
+	 * @return Le répertoire courant du client identifié par le processus
+	 *         courant
+	 */
 	public File getCurrentDir() {
 		return currentDir;
 	}
 
+	
+	/**
+	 * Mutateur du répertoire courant du client identifié par le processus
+	 * courant
+	 * 
+	 * @param currentDir
+	 *            Le répertoire courant du client identifié par le processus
+	 *            courant
+	 */
 	public void setCurrentDir(File currentDir) {
 		this.currentDir = currentDir;
 	}
 
+	
+	/**
+	 * Booleen utilisé dans la boucle d'écoute du processus client sur le serveur UDP
+	 * @return l'état de la boucle d'écoute
+	 */
 	public boolean isConnect() {
 		return connect;
 	}
 
+	/**
+	 * Mutateur du boolean de la boucle d'écoute du processus sur le serveur TCP
+	 * @param connect
+	 */
 	public void setConnect(boolean connect) {
 		this.connect = connect;
 	}

@@ -7,6 +7,11 @@ import java.net.SocketException;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+/**
+ *  Abstraction des objets et méthodes de communication sur le réseau pour le protocole UDP
+ * @author forestip
+ *
+ */
 public class MessageUDP {
 	
 	private DatagramSocket socketTransfert;

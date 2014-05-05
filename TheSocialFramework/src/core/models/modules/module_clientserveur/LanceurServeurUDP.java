@@ -10,8 +10,19 @@ import javax.swing.JOptionPane;
 import core.models.core_modele.ServeurUDP;
 import core.models.core_modele.TraitementClientUDP;
 import core.models.core_modele.commandes.commandesServeur.CommandeServeurUDP;
-
+/**
+ *  Classe permettant à l'utilisateur de lancer un serveur UDP de manière statique
+ * @author forestip
+ *
+ */
 public class LanceurServeurUDP {
+	
+	/**
+	 * Crée un serveur UDP écoutant en boucle les connexions et créant un processus client lors de la connexion
+	 * @param numPort le port d'écoute
+	 * @param listeCommandes l'ensembles des commandes du seveur( ne peut être modifié après l'appel à run)
+	 * @return le serveur UDP actif crée
+	 */
 	public static ServeurUDP run(int numPort,
 			HashMap<String, CommandeServeurUDP> listeCommandes) {
 		ServeurUDP serv = null;

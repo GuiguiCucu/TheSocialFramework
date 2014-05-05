@@ -1,4 +1,4 @@
-package core.models.modules.module_voip;
+package core.models.modules.module_voip.test;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -169,8 +169,7 @@ public class RecordAndPlay implements ActionListener, Runnable {
 
 	public void record() {
 		TargetDataLine line = null;
-		// define the required attributes for our line,
-		// and make sure a compatible line is supported.
+
 		AudioFormat audioformat = new AudioFormat(
 				AudioFormat.Encoding.PCM_UNSIGNED, samplerate, 8, 1, 1,
 				framerate, false);
@@ -180,7 +179,6 @@ public class RecordAndPlay implements ActionListener, Runnable {
 			System.out.println("Line matching " + info + " not supported.");
 			System.exit(0);
 		}
-		// get and open the target data line for capture.
 		try {
 			line = (TargetDataLine) AudioSystem.getLine(info);
 			line.open(audioformat, line.getBufferSize());
@@ -209,18 +207,15 @@ public class RecordAndPlay implements ActionListener, Runnable {
 			baos.write(data, 0, bytenumber);
 		}
 		System.out.println("Stopped Recording");
-		// stop and close the line
 		line.stop();
 		line.close();
 		line = null;
-		// stop and close the output stream
 		try {
 			baos.flush();
 			baos.close();
 		} catch (IOException ioe) {
 			System.err.println(ioe.getMessage());
 		}
-		// load bytes into the audio input stream for playback
 		byte audioBytes[] = baos.toByteArray();
 		ByteArrayInputStream bais = new ByteArrayInputStream(audioBytes);
 		ais = new AudioInputStream(bais, audioformat, audioBytes.length
@@ -260,10 +255,7 @@ public class RecordAndPlay implements ActionListener, Runnable {
 		}
 	}
 
-	/**
-	 * Uses the showSaveDialog method of JFileChooser to request the user to
-	 * select the file to save to
-	 */
+
 	public File getFileToSave() {
 		File file = null;
 		JFrame jframe = new JFrame();

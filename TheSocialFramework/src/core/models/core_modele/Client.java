@@ -15,7 +15,8 @@ import core.controleur.SuperControleur;
 import core.models.core_modele.commandes.commandesClient.CommandeClient;
 
 /**
- * Classe matérialisant le client sous forme de thread
+ * Classe matérialisant le client sous forme de processus à part entière
+ * (thread)
  * 
  * @author forestip
  * 
@@ -91,16 +92,16 @@ public class Client implements Runnable {
 	@Override
 	public void run() {
 
-		//System.out.println("Connecté à " + this.getNomServeur());
+		// System.out.println("Connecté à " + this.getNomServeur());
 		while (isConnect()) {
 			String recu = "";
-				recu = this.getMessage().receptionMessage();
-				CommandeClient cmd = this.getListeCommandes().get(recu);
-				if (cmd != null) {
-					cmd.execute(this.getControleur());
-				} else {
-					//System.out.println("RECU : " + recu);
-				}
+			recu = this.getMessage().receptionMessage();
+			CommandeClient cmd = this.getListeCommandes().get(recu);
+			if (cmd != null) {
+				cmd.execute(this.getControleur());
+			} else {
+				// System.out.println("RECU : " + recu);
+			}
 		}
 
 	}
@@ -252,18 +253,38 @@ public class Client implements Runnable {
 		this.listeCommandes = listeCommandes;
 	}
 
+	/**
+	 * Accesseur du controleur
+	 * 
+	 * @return le controleur
+	 */
 	public SuperControleur getControleur() {
 		return controleur;
 	}
 
+	/**
+	 * Mutateur du controleur
+	 * 
+	 * @param controleur
+	 */
 	public void setControleur(SuperControleur controleur) {
 		this.controleur = controleur;
 	}
 
+	/**
+	 * Booleen utilisé dans la boucle d'écoute du processus client
+	 * 
+	 * @return l'état de la boucle d'écoute
+	 */
 	public boolean isConnect() {
 		return connect;
 	}
 
+	/**
+	 * Mutateur du booleen de connexion
+	 * 
+	 * @param connect
+	 */
 	public void setConnect(boolean connect) {
 		this.connect = connect;
 	}

@@ -12,7 +12,10 @@ public class TestExceptions {
 			ex.printStackTrace();
 		}
 	}
-	
+	/**
+	 * Exemple de levée d'excpetion
+	 * @throws ServeurException
+	 */
 	public static void serveur() throws ServeurException{
 		throw new ServeurException("bonjour");
 	}

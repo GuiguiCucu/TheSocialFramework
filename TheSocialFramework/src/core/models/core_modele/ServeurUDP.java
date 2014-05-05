@@ -13,8 +13,14 @@ import application_temoin_cloud.User;
 import core.models.core_modele.commandes.commandesServeur.CommandeServeurUDP;
 import core.models.modules.module_contacts.Contacts;
 
+/**
+ * Objet représentant le serveur UDP
+ * 
+ * @author forestip
+ * 
+ */
 public class ServeurUDP {
-	
+
 	private ArrayList<TraitementClientUDP> traiteClients;
 	private ArrayList<String> listeClients;
 	private int port = 5010;
@@ -56,7 +62,7 @@ public class ServeurUDP {
 	 *            thread à qui souhaiter la bienvenue
 	 */
 	synchronized public void printWelcome(TraitementClientUDP tC) {
-		//System.out.println("Client connecté " + tC.getAdresseClient());
+		// System.out.println("Client connecté " + tC.getAdresseClient());
 	}
 
 	/**
@@ -105,6 +111,7 @@ public class ServeurUDP {
 
 	/**
 	 * Accesseur du socket de communication
+	 * 
 	 * @return le socket
 	 */
 	public DatagramSocket getSocket() {
@@ -113,6 +120,7 @@ public class ServeurUDP {
 
 	/**
 	 * Mutateur du socket de communication
+	 * 
 	 * @param socket
 	 */
 	public void setSocket(DatagramSocket socket) {
@@ -168,39 +176,80 @@ public class ServeurUDP {
 			// if (listefichiers[i].isDirectory()) {
 			// System.out.println("Dossier : " + listefichiers[i].getName());
 			// } else if (listefichiers[i].isFile()) {
-			//System.out.println("Fichier : " + getListe()[i].getName());
+			// System.out.println("Fichier : " + getListe()[i].getName());
 			// }
 		}
 	}
 
+	/**
+	 * Accesseur de la liste des fichiers présents sur le serveur
+	 * 
+	 * @return
+	 */
 	public File[] getListe() {
 		return liste;
 	}
 
+	/**
+	 * Mutateur de la liste des fichiers présents sur le serveur
+	 * 
+	 * @param liste
+	 */
 	public void setListe(File[] liste) {
 		this.liste = liste;
 	}
 
+	/**
+	 * Accesseur du répertoire courant du serveur
+	 * 
+	 * @return e répertoire courent
+	 */
 	public File getCurrentDir() {
 		return currentDir;
 	}
 
+	/**
+	 * Mutateur du répertoire courant du serveur
+	 * 
+	 * @param currentDir
+	 *            le répertoire courent
+	 */
 	public void setCurrentDir(File currentDir) {
 		this.currentDir = currentDir;
 	}
 
+	/**
+	 * Accesseur de la liste des noms des clients
+	 * 
+	 * @return iste des noms des clients
+	 */
 	public ArrayList<String> getListeClients() {
 		return listeClients;
 	}
 
+	/**
+	 * Mutateur de la liste des noms des clients
+	 * 
+	 * @param listeClients
+	 */
 	public void setListeClients(ArrayList<String> listeClients) {
 		this.listeClients = listeClients;
 	}
 
+	/**
+	 * Accesseur de la liste des utilisateurs enregistrés
+	 * 
+	 * @return les utilisateurs enregistrés
+	 */
 	public Contacts<User> getUsers() {
 		return users;
 	}
 
+	/**
+	 * Mutateur de la liste des utilisateurs enregistrés
+	 * 
+	 * @param users
+	 */
 	public void setUsers(Contacts<User> users) {
 		this.users = users;
 	}

@@ -1,9 +1,6 @@
 package core.models.init_modele;
 
 import javax.swing.*;
-
-import application_temoin_cloud.Controller;
-
 import java.awt.event.*;
 import java.awt.*;
 import java.io.File;
@@ -12,23 +9,32 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.*;
 
+/**
+ * Classe permettant la production d'un .jar permettant l'installation du framework dans un projet Java
+ * @author forestip
+ *
+ */
 public class InstallationFramework extends JPanel implements ActionListener {
 	JButton go;
 
 	JFileChooser chooser;
 	String choosertitle;
 
+	/**
+	 * Méthode d'initialisation graphique
+	 */
 	public InstallationFramework() {
 		go = new JButton("Choisissez le projet");
 		go.addActionListener(this);
 		add(go);
 	}
 
+	/**
+	 * Action lors de la séléction du répertoire
+	 */
 	public void actionPerformed(ActionEvent e) {
 		int result;
-
 		chooser = new JFileChooser();
 		String currentPath = System.getProperty("user.home");
 		// chooser.setCurrentDirectory(new java.io.File("."));
@@ -43,6 +49,10 @@ public class InstallationFramework extends JPanel implements ActionListener {
 		}
 	}
 
+	/**
+	 * Initialisation de la copie
+	 * @param projectDestination la destination de la copie
+	 */
 	private void copieFramework(File projectDestination) {
 		File controleur = new File(projectDestination.getPath()
 				+ "/Controleurs");
@@ -65,6 +75,12 @@ public class InstallationFramework extends JPanel implements ActionListener {
 		System.exit(0);
 	}
 
+	/**
+	 * Copie récursive
+	 * @param src le fichier source
+	 * @param dest le fichier destination
+	 * @throws IOException Erreur lors de l'ouverture d'un fichier
+	 */
 	public static void copieRecursive(File src, File dest) throws IOException {
 		if (src.isDirectory()) {
 			System.out.println("test1");
@@ -92,10 +108,17 @@ public class InstallationFramework extends JPanel implements ActionListener {
 		}
 	}
 
+	/**
+	 * Dimension de la fenêtre
+	 */
 	public Dimension getPreferredSize() {
 		return new Dimension(200, 200);
 	}
 
+	/**
+	 * Exceution
+	 * @param s liste d'arguments
+	 */
 	public static void main(String s[]) {
 		JFrame frame = new JFrame("");
 		InstallationFramework panel = new InstallationFramework();

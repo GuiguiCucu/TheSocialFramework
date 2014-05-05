@@ -10,6 +10,11 @@ import java.util.HashMap;
 import core.controleur.SuperControleur;
 import core.models.core_modele.commandes.commandesClient.CommandeClient;
 
+/**
+ * Classe matérialisant le Client d'un serveur UDP sous forme de processus à part entière (Thread)
+ * @author forestip
+ *
+ */
 public class ClientUDP implements Runnable {
 	private DatagramSocket socket;
 	private InetAddress serv;
@@ -52,13 +57,11 @@ public class ClientUDP implements Runnable {
 	 * port et IP
 	 */
 	public void connexionServeur() {
-			//this.setSocket(new DatagramSocket(this.getPort(), this.getServ().getByName(this.getNomServeur())));
 		try {
 			this.setSocket(new DatagramSocket());
 			this.getSocket().connect(getIpAdresse(), getPort());
 			
 		} catch (SocketException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		this.setMessage(new MessageUDP(this.getSocket()));
@@ -78,7 +81,6 @@ public class ClientUDP implements Runnable {
 	 */
 	@Override
 	public void run() {
-
 		//System.out.println("Connecté à " + this.getNomServeur());
 		this.getMessage().envoiMessage("Hi!");
 		while (isConnect()) {
@@ -241,26 +243,50 @@ public class ClientUDP implements Runnable {
 		this.listeCommandes = listeCommandes;
 	}
 
+	/**
+	 * Accesseur du controleur
+	 * @return le controleur
+	 */
 	public SuperControleur getControleur() {
 		return controleur;
 	}
 
+	/**
+	 * Mutateur du controleur
+	 * @param controleur
+	 */
 	public void setControleur(SuperControleur controleur) {
 		this.controleur = controleur;
 	}
 
+	/**
+	 * Booleen utilisé dans la boucle d'écoute du processus client
+	 * @return l'état de la boucle d'écoute
+	 */
 	public boolean isConnect() {
 		return connect;
 	}
 
+	/**
+	 * Mutateur du booleen de connexion
+	 * @param connect
+	 */
 	public void setConnect(boolean connect) {
 		this.connect = connect;
 	}
 
+	/**
+	 * Accesseur du booleen de connexion
+	 * @return
+	 */
 	public InetAddress getIpAdresse() {
 		return ipAdresse;
 	}
 
+	/**
+	 * Accesseur de l'inetAdress du serveur auquel le client est connecté
+	 * @param ipAdresse
+	 */
 	public void setIpAdresse(InetAddress ipAdresse) {
 		this.ipAdresse = ipAdresse;
 	}

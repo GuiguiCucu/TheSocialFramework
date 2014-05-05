@@ -15,7 +15,7 @@ import core.models.core_modele.commandes.commandesServeur.CommandeServeur;
 import core.models.modules.module_contacts.Contacts;
 
 /**
- * Objet simulant le serveur
+ * Objet représentant le serveur TCP
  * 
  * @author forestip
  */
@@ -63,7 +63,7 @@ public class Serveur {
 	 *            thread à qui souhaiter la bienvenue
 	 */
 	synchronized public void printWelcome(TraitementClient tC) {
-		//System.out.println("Client connecté " + tC.getAdresseClient());
+		// System.out.println("Client connecté " + tC.getAdresseClient());
 	}
 
 	/**
@@ -195,39 +195,80 @@ public class Serveur {
 			// if (listefichiers[i].isDirectory()) {
 			// System.out.println("Dossier : " + listefichiers[i].getName());
 			// } else if (listefichiers[i].isFile()) {
-			//System.out.println("Fichier : " + getListe()[i].getName());
+			// System.out.println("Fichier : " + getListe()[i].getName());
 			// }
 		}
 	}
 
+	/**
+	 * Accesseur de la liste des fichiers présents sur le serveur
+	 * 
+	 * @return
+	 */
 	public File[] getListe() {
 		return liste;
 	}
 
+	/**
+	 * Mutateur de la liste des fichiers présents sur le serveur
+	 * 
+	 * @param liste
+	 */
 	public void setListe(File[] liste) {
 		this.liste = liste;
 	}
 
+	/**
+	 * Accesseur du répertoire courant du serveur
+	 * 
+	 * @return e répertoire courent
+	 */
 	public File getCurrentDir() {
 		return currentDir;
 	}
 
+	/**
+	 * Mutateur du répertoire courant du serveur
+	 * 
+	 * @param currentDir
+	 *            le répertoire courent
+	 */
 	public void setCurrentDir(File currentDir) {
 		this.currentDir = currentDir;
 	}
 
+	/**
+	 * Accesseur de la liste des noms des clients
+	 * 
+	 * @return iste des noms des clients
+	 */
 	public Vector<String> getListeClients() {
 		return listeClients;
 	}
 
+	/**
+	 * Mutateur de la liste des noms des clients
+	 * 
+	 * @param listeClients
+	 */
 	public void setListeClients(Vector<String> listeClients) {
 		this.listeClients = listeClients;
 	}
 
+	/**
+	 * Accesseur de la liste des utilisateurs enregistrés
+	 * 
+	 * @return les utilisateurs enregistrés
+	 */
 	public Contacts<User> getUsers() {
 		return users;
 	}
 
+	/**
+	 * Mutateur de la liste des utilisateurs enregistrés
+	 * 
+	 * @param users
+	 */
 	public void setUsers(Contacts<User> users) {
 		this.users = users;
 	}

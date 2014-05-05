@@ -5,6 +5,11 @@ import java.net.DatagramSocket;
 
 import core.models.core_modele.commandes.commandesServeur.CommandeServeurUDP;
 
+/**
+ * Thread représentant la connexion d'un client au serveur UDP
+ * 
+ * @author forestip
+ */
 public class TraitementClientUDP implements Runnable {
 
 	private DatagramSocket socketDeTransfert = null;
@@ -14,7 +19,7 @@ public class TraitementClientUDP implements Runnable {
 	private String adresseClient;
 	private String nomClient;
 	private File currentDir;
-	private boolean connect ;
+	private boolean connect;
 
 	/**
 	 * 
@@ -34,41 +39,42 @@ public class TraitementClientUDP implements Runnable {
 		this.setConnect(true);
 		this.setClient(new Thread(this));
 		this.getClient().start();
-		
+
 	}
 
 	/**
-	 * Redéfinition de la méthode run : 
-	 * description des instructions du thread (écoute en boucle)
+	 * Redéfinition de la méthode run : description des instructions du thread
+	 * (écoute en boucle)
 	 */
 	public void run() {
 		this.getServ().printWelcome((this));
 		while (isConnect()) {
 			String envoi = "";
-				envoi = this.getMessage().receptionMessage();
-				CommandeServeurUDP cmd = 	this.getServ().getListeCommandes().get(envoi);
-				if(cmd!=null){
-					cmd.execute(this);
-				}else{
-					this.getMessage().envoiMessage(envoi.toUpperCase());
-				}
+			envoi = this.getMessage().receptionMessage();
+			CommandeServeurUDP cmd = this.getServ().getListeCommandes()
+					.get(envoi);
+			if (cmd != null) {
+				cmd.execute(this);
+			} else {
+				this.getMessage().envoiMessage(envoi.toUpperCase());
+			}
 		}
 	}
-	
+
 	/**
 	 * crée un dossier pour l'utilisateur courant si il n'exite pas
 	 */
 	public void folder() {
 		String repertoireCourant = System.getProperty("user.dir");
-		setCurrentDir(new File(repertoireCourant+"/"+getNomClient()));
-		if(!getCurrentDir().exists()){
+		setCurrentDir(new File(repertoireCourant + "/" + getNomClient()));
+		if (!getCurrentDir().exists()) {
 			getCurrentDir().mkdir();
 		}
 	}
-	
 
 	/**
 	 * Accesseur de socketDeTransfert
+	 * 
 	 * @return socketDeTransfert
 	 */
 	public DatagramSocket getSocketDeTransfert() {
@@ -77,6 +83,7 @@ public class TraitementClientUDP implements Runnable {
 
 	/**
 	 * Mutateur de socketDeTransfert
+	 * 
 	 * @param socketDeTransfert
 	 */
 	public void setSocketDeTransfert(DatagramSocket socketDeTransfert) {
@@ -85,6 +92,7 @@ public class TraitementClientUDP implements Runnable {
 
 	/**
 	 * Accesseur de thread client
+	 * 
 	 * @return client
 	 */
 	public Thread getClient() {
@@ -93,6 +101,7 @@ public class TraitementClientUDP implements Runnable {
 
 	/**
 	 * Mutateur de thread client
+	 * 
 	 * @param client
 	 */
 	public void setClient(Thread client) {
@@ -101,6 +110,7 @@ public class TraitementClientUDP implements Runnable {
 
 	/**
 	 * Accesseur de serveur
+	 * 
 	 * @return serv
 	 */
 	public ServeurUDP getServ() {
@@ -109,6 +119,7 @@ public class TraitementClientUDP implements Runnable {
 
 	/**
 	 * Mutateur de serveur
+	 * 
 	 * @param serv
 	 */
 	public void setServ(ServeurUDP serv) {
@@ -117,6 +128,7 @@ public class TraitementClientUDP implements Runnable {
 
 	/**
 	 * Accesseur de Message
+	 * 
 	 * @return message
 	 */
 	public MessageUDP getMessage() {
@@ -125,6 +137,7 @@ public class TraitementClientUDP implements Runnable {
 
 	/**
 	 * Mutateur de Message
+	 * 
 	 * @param message
 	 */
 	public void setMessage(MessageUDP message) {
@@ -133,6 +146,7 @@ public class TraitementClientUDP implements Runnable {
 
 	/**
 	 * Accesseur d'adresse client
+	 * 
 	 * @return adresseClient
 	 */
 	public String getAdresseClient() {
@@ -141,6 +155,7 @@ public class TraitementClientUDP implements Runnable {
 
 	/**
 	 * Mutateur d'adresse client
+	 * 
 	 * @param adresseClient
 	 */
 	public void setAdresseClient(String adresseClient) {
@@ -149,6 +164,7 @@ public class TraitementClientUDP implements Runnable {
 
 	/**
 	 * Accesseur de nom client
+	 * 
 	 * @return nomClient
 	 */
 	public String getNomClient() {
@@ -157,26 +173,50 @@ public class TraitementClientUDP implements Runnable {
 
 	/**
 	 * Mutateur de nom client
+	 * 
 	 * @param nomClient
 	 */
 	public void setNomClient(String nomClient) {
 		this.nomClient = nomClient;
 	}
 
+	/**
+	 * Accesseur du répertoire courant du client identifié par le processus
+	 * courant
+	 * 
+	 * @return Le répertoire courant du client identifié par le processus
+	 *         courant
+	 */
 	public File getCurrentDir() {
 		return currentDir;
 	}
 
+	/**
+	 * Mutateur du répertoire courant du client identifié par le processus
+	 * courant
+	 * 
+	 * @param currentDir
+	 *            Le répertoire courant du client identifié par le processus
+	 *            courant
+	 */
 	public void setCurrentDir(File currentDir) {
 		this.currentDir = currentDir;
 	}
 
+	/**
+	 * Booleen utilisé dans la boucle d'écoute du processus client sur le serveur UDP
+	 * @return l'état de la boucle d'écoute
+	 */
 	public boolean isConnect() {
 		return connect;
 	}
 
+	/**
+	 * Mutateur du boolean de la boucle d'écoute du processus sur le serveur UDP
+	 * @param connect
+	 */
 	public void setConnect(boolean connect) {
 		this.connect = connect;
 	}
-	
+
 }
