@@ -59,9 +59,9 @@ public class Controller extends SuperControleur{
 	/**
 	 * Initialisation du client
 	 */
-	public void initialisationClient() {
+	public void initialisationClient(String ip, int port) {
 		try {
-			setClient(new Client("0.0.0.0", 2048, this));
+			setClient(new Client(ip, port, this));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -71,8 +71,8 @@ public class Controller extends SuperControleur{
 	 * Connexion du client au serveur
 	 * @param pseudo
 	 */
-	public void connexion(String pseudo) {
-		initialisationClient();
+	public void connexion(String pseudo, String ip, String port) {
+		initialisationClient(ip, Integer.valueOf(port));
 		setPseudo(pseudo);
 		System.out.println("in connexion");
 		this.getClient().getListeCommandes()
